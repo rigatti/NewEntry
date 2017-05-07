@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<start-state idref="searchPlannedSuppliersAct"/>
+	<end-state id="terminateEntry" view="terminateEntry" />
+	<view-state id="fatalErrorView" view="error/fatalError">
+	</view-state>
+
+	<action-state id="searchPlannedSuppliersAct">
+		<bean-action bean="arrivalBusiness" method="getPlannedSuppliers">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+			<method-result name="arrival" scope="flow"/>
+		</bean-action>
+		<transition to="selectArrivalDateView"></transition>
+	</action-state>
+
+	<view-state id="selectArrivalDateView" view="productEntry/selectArrivalDate">
+		<transition on="searchPlannedSupplier" to="searchPlannedSuppliersAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="showSuppliers" to="checkPendingArrivalAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<action-state id="checkPendingArrivalAct">
+		<bean-action bean="arrivalBusiness" method="checkPending">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="showSuppliersView" />
+	</action-state>
+
+	<view-state id="showSuppliersView" view="productEntry/showSuppliers">
+		<transition on="searchEntry" to="fillPlannedSupplierAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<action-state id="fillPlannedSupplierAct">
+		<bean-action bean="arrivalBusiness" method="getPlannedSupplier">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+			<!--method-result name="arrival" scope="flow"/-->
+		</bean-action>
+		<transition on="isClosed" to="closedListView" />
+		<transition on="isNotClosed" to="getPendingArrivalAct" />
+	</action-state>
+
+	<action-state id="getPendingArrivalAct">
+		<bean-action bean="arrivalBusiness" method="getPending">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="true" to="warningPendingDetectedView" />
+		<transition on="false" to="supplierDocumentFormView" />
+	</action-state>
+
+	<view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm">
+		<transition on="next" to="entryFormView">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<view-state id="warningPendingDetectedView" view="productEntry/warningPendingDetected">
+		<transition on="continue" to="entryFormView" />
+		<transition on="delete" to="deletePendingArrivalAct" />
+	</view-state>
+
+	<action-state id="deletePendingArrivalAct">
+		<bean-action bean="arrivalBusiness" method="deletePending">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="entryFormView" />
+	</action-state>
+
+	<view-state id="entryFormView" view="productEntry/entryForm">
+		<transition on="entryStatus" to="entryStatusView" />
+		<transition on="productSelection" to="productSelectionAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="submit" to="completeProductsAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="listOfConfirmedEntry" to="listOfConfirmedEntryView" />
+		<transition on="saveEntry" to="saveEntryAct" />
+		<transition on="newProduct" to="newProductFormView" />
+	</view-state>
+
+	<view-state id="closedPackagingSelView" view="productEntry/closed/closedPackagingSel">
+		<transition on="productSelection" to="closedProductSelectionAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<action-state id="productSelectionAct">
+		<bean-action bean="arrivalBusiness" method="productSelection">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+				<argument expression="flowScope.products"/>
+			</method-arguments>
+			<method-result name="arrival" scope="flow"/>
+		</bean-action>
+		<transition to="selectBasketAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</action-state>
+
+	<action-state id="closedProductSelectionAct">
+		<bean-action bean="arrivalBusiness" method="productSelection">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+				<argument expression="flowScope.products"/>
+			</method-arguments>
+			<method-result name="arrival" scope="flow"/>
+		</bean-action>
+		<transition to="closedSelectBasketAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</action-state>
+	<action-state id="saveEntryAct">
+		<bean-action bean="arrivalBusiness" method="saveEntry">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="true" to="clearTempEntryAct" />
+		<transition on="false" to="fatalErrorView" />
+	</action-state>
+
+	<action-state id="clearTempEntryAct">
+		<bean-action bean="arrivalBusiness" method="deletePending">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="confirmSaveEntryView" />
+	</action-state>
+
+	<view-state id="confirmSaveEntryView" view="productEntry/confirmSaveEntry">
+		<transition on="submit" to="searchPlannedSuppliersAct"></transition>
+	</view-state>
+
+	<view-state id="newProductFormView" view="productEntry/productManagement/newProductForm">
+		<transition on="submit" to="newProductAct">
+			<action bean="productFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<action-state id="newProductAct">
+		<bean-action bean="productBusiness" method="newProduct">
+			<method-arguments>
+				<argument expression="flowScope.product"/>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="completeProductsAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</action-state>
+
+	<view-state id="entryStatusView" view="productEntry/entryStatus">
+		<transition on="selectProductDisplayed" to="completeProductsAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="entryForm" to="entryFormView" />	
+	</view-state>
+
+	<view-state id="closedListView" view="productEntry/closed/closedList">
+		<transition on="selectProductDisplayed" to="closedCompleteProductsAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="showSuppliers" to="showSuppliersView" />
+	</view-state>
+
+	<action-state id="closedCompleteProductsAct">
+		<bean-action bean="productBusiness" method="getProducts">
+			<method-arguments>
+				<argument expression="flowScope.arrival.searchValue"/>
+				<argument expression="flowScope.arrival.searchExactMatch"/>
+				<argument expression="flowScope.arrival.searchType"/>
+				<argument expression="flowScope.arrival.searchOnSupplier"/>
+			</method-arguments>
+			<method-result name="products" scope="flow"/>
+		</bean-action>
+		<action bean="arrivalFormAction" method="checkProductsFound" /> 
+		<transition on="single" to="closedSelectBasketAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="multiple" to="closedPackagingSelView" />
+		<transition on="none" to="closedListView" />
+	</action-state>
+
+	<action-state id="completeProductsAct">
+		<bean-action bean="productBusiness" method="getProducts">
+			<method-arguments>
+				<argument expression="flowScope.arrival.searchValue"/>
+				<argument expression="flowScope.arrival.searchExactMatch"/>
+				<argument expression="flowScope.arrival.searchType"/>
+				<argument expression="flowScope.arrival.searchOnSupplier"/>
+			</method-arguments>
+			<method-result name="products" scope="flow"/>
+		</bean-action>
+		<action bean="arrivalFormAction" method="checkProductsFound" /> 
+		<transition on="single" to="selectBasketAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="multiple" to="entryFormView" />
+		<transition on="none" to="entryFormView" />
+	</action-state>
+
+	<action-state id="closedSelectBasketAct">
+		<bean-action bean="arrivalBusiness" method="selectBasket">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="closedBasketDetailView" />
+	</action-state>
+
+	<action-state id="selectBasketAct">
+		<bean-action bean="arrivalBusiness" method="selectBasket">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="completeEntryFormView" />
+	</action-state>
+	
+	<action-state id="entryFormClearAct">
+		<action bean="arrivalFormAction" method="bindAndValidate"/>
+		<transition to="entryFormView" />
+	</action-state>
+
+	<view-state id="closedBasketDetailView" view="productEntry/closed/closedBasketDetail">
+		<transition on="back" to="closedListView" />
+	</view-state>
+	
+	<view-state id="completeEntryFormView" view="productEntry/completeEntryForm">
+		<transition on="submitDontSaveUnit" to="fillSelectedUnitAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="submit" to="confirmEntryAct" />
+		<transition on="back" to="entryFormClearAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+			<action bean="productFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="newSearch" to="completeProductsAct" >
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="updateProductUnitAndSubmit" to="updateProductUnitAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<action-state id="updateProductUnitAct">
+		<bean-action bean="productBusiness" method="updateProductUnit">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="confirmEntryAct"></transition>
+	</action-state>
+
+	<action-state id="fillSelectedUnitAct">
+		<bean-action bean="productBusiness" method="fillSelectedUnit">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="confirmEntryAct" />
+	</action-state>
+
+	<action-state id="confirmEntryAct">
+		<action bean="arrivalFormAction" method="bindAndValidate">
+			<attribute name="validatorMethod" value="validateCompleteEntry" />
+		</action>
+		<transition on="success" to="saveTempEntryAct" />
+		<transition on="error" to="completeEntryFormView" />
+	</action-state>
+
+	<action-state id="saveTempEntryAct">
+		<action bean="arrivalFormAction" method="saveTempEntry" />
+		<transition to="storeEntryAct" />
+	</action-state>
+	<action-state id="storeEntryAct">
+		<bean-action bean="arrivalBusiness" method="storeEntry">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+			<method-result name="result" scope="flow"/>
+		</bean-action>
+		<transition on="success" to="confirmEntryView" />
+		<transition on="warning" to="warningEntryView" />
+		<transition on="update" to="updateTempEntryAct" />
+		<transition on="error" to="fatalErrorView" />
+	</action-state>
+
+	<action-state id="updateTempEntryAct">
+		<action bean="arrivalFormAction" method="updateTempEntry" />
+		<transition to="confirmEntryView" />
+	</action-state>
+
+	<view-state id="warningEntryView" view="productEntry/warningEntry">
+		<transition on="confirm" to="forceStoreEntryAct" />	
+		<transition on="cancel" to="" />	
+	</view-state>
+
+	<action-state id="forceStoreEntryAct">
+		<bean-action bean="arrivalBusiness" method="forceStoreEntry">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+			</method-arguments>
+			<method-result name="result" scope="flow"/>
+		</bean-action>
+		<transition on="success" to="confirmEntryView" />
+		<transition on="warning" to="warningEntryView" />
+		<transition on="update" to="updateTempEntryAct" />
+		<transition on="error" to="fatalErrorView" />
+	</action-state>
+
+	<view-state id="confirmEntryView" view="productEntry/confirmEntry">
+		<transition on="submit" to="clearNewEntryAct" />	
+	</view-state>
+
+	<action-state id="clearNewEntryAct">
+		<action bean="arrivalFormAction" method="resetNewEntry" />
+		<transition to="entryFormView" />
+	</action-state>
+
+	<view-state id="listOfConfirmedEntryView" view="productEntry/confirmed/list">
+		<transition on="entryForm" to="entryFormView" />	
+		<transition on="removeEntry" to="removeEntryAct">
+			<action bean="arrivalFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="modifyEntry" to="modifyEntryView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>	
+	</view-state>
+
+	<view-state id="modifyEntryView" view="productEntry/confirmed/modifyForm">
+		<transition on="listOfConfirmedEntry" to="listOfConfirmedEntryView" />
+		<transition on="confirmModifyEntry" to="confirmModifyEntryAct">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<action-state id="confirmModifyEntryAct">
+		<bean-action bean="arrivalBusiness" method="modifyEntry">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="success" to="listOfConfirmedEntryView" />
+	</action-state>
+	
+	<action-state id="removeEntryAct">
+		<bean-action bean="arrivalBusiness" method="removeEntry">
+			<method-arguments>
+				<argument expression="flowScope.arrival"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="noMoreEntry" to="entryFormView" />
+		<transition on="existEntry" to="listOfConfirmedEntryView" />
+	</action-state>
+
+</flow>

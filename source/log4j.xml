@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="CONSOLE_APP"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="FILE_APP"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="C:/Program Files/Apache Software Foundation/Tomcat 6.0/logs/BelexLog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyyMMdd'.log'"/>
+		<param name="MaxFileSize" value="500KB" />
+		<param name="MaxBackupIndex" value="15" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd/MM/yyyy HH:mm:ss,SSS} %-5p [%t] %m%x%n "/>
+		</layout>
+	</appender>
+	
+	<category name="com.mchange">
+		<priority value="ERROR" />
+	</category>
+	<category name="org.hibernate">
+		<priority value="ERROR" />
+	</category>
+	<category name="org.springframework">
+		<priority value="ERROR" />
+	</category>
+	<category name="db">
+		<priority value="INFO" />
+	</category>
+	<category name="org.belex">
+		<priority value="INFO" />
+	</category>
+	<root>
+		<priority value="ERROR" />
+		<appender-ref ref="FILE_APP" />
+	</root>
+</log4j:configuration>

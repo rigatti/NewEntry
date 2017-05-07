@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.prepare.PackagingDetail" table="PréparationColisLignes" >
+    	<id name="id">
+  			<column name="PrepColisLignesID" />
+  			<generator class="native"/>
+		</id>
+    	<property name="orderNumber">
+    		<column name="NuméroCommande" />
+    	</property>
+    	<property name="orderLetter">
+    		<column name="LettreCommande" />
+    	</property>
+    	<property name="customerOrderCode">
+    		<column name="CodeClientCommande" />
+    	</property>
+    	<property name="customerOrderCodeNumber">
+    		<column name="NuméroCodeClientCommande" />
+    	</property>
+    	<property name="feesType">
+    		<column name="TypeFacture" />
+    	</property>
+    	<property name="fromPackageNumber">
+    		<column name="DeNoColis" />
+    	</property>
+    	<property name="toPackageNumber">
+    		<column name="ANoColis" />
+    	</property>
+    	<property name="fridge">
+    		<column name="Surgelé" />
+    	</property>
+    </class>
+</hibernate-mapping>

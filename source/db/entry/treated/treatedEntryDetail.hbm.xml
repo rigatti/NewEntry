@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.entry.treated.TreatedEntryDetail" table="TreatedEntryDetail" >
+    	<id name="treatedEntryDetailId">
+    		<column name="id"/>
+    		<generator class="native"/>    		
+    	</id>
+       	<property name="treatedEntryId"/>
+   		<property name="supplierOrderNumbers"/>
+   		<property name="supplierOrderLetters"/>
+		<property name="additionalData"/>
+   		<property name="description"/>
+   		<property name="unitConditionnement"/>
+   		<property name="numberOfUnit"/>
+   		<property name="numberOfProduct"/>
+		<property name="supplierDocumentDescription"/>
+		<property name="supplierDocumentType"/>
+		<property name="stockMovement"/>
+    </class>
+</hibernate-mapping>

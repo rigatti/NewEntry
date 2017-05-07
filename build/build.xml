@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="BELEX" default="deploy" basedir="..">
+	<property name="library.dir" value="${basedir}/webApplication/WEB-INF/lib"/>
+
+	<property file="${basedir}/build/global.properties"/>
+
+	<target name="init">
+		<tstamp/>
+		<echo>Build of ${ant.project.name} started at ${TSTAMP} on ${TODAY}</echo>
+	</target>
+
+	<path id="belex.classpath">
+		<pathelement location="${j2ee.dir}"/>
+		<pathelement location="${library.dir}/antlr-2.7.6.jar"/>		
+		<pathelement location="${library.dir}/cglib-nodep-2.1_3.jar"/>
+		<pathelement location="${library.dir}/commons-collections.jar"/>
+		<pathelement location="${library.dir}/commons-dbcp.jar"/>
+		<pathelement location="${library.dir}/commons-logging-1.0.4.jar"/>
+		<pathelement location="${library.dir}/commons-pool.jar"/>
+		<pathelement location="${library.dir}/dom4j-1.6.1.jar"/>
+		<pathelement location="${library.dir}/ehcache-1.2.4.jar"/>
+		<pathelement location="${library.dir}/hibernate3.jar"/>
+		<pathelement location="${library.dir}/itext-2.0.2.jar"/>
+		<pathelement location="${library.dir}/jstl-1.1.2.jar"/>
+		<pathelement location="${library.dir}/jta.jar"/>
+		<pathelement location="${library.dir}/log4j-1.2.14.jar"/>
+		<pathelement location="${library.dir}/ognl-2.6.9.jar"/>
+		<pathelement location="${library.dir}/spring-beans-2.0.2.jar"/>
+		<pathelement location="${library.dir}/spring-binding-1.0.1.jar"/>
+		<pathelement location="${library.dir}/spring-context-2.0.2.jar"/>
+		<pathelement location="${library.dir}/spring-core.jar"/>
+		<pathelement location="${library.dir}/spring-dao-2.0.2.jar"/>
+		<pathelement location="${library.dir}/spring-hibernate3.jar"/>
+		<pathelement location="${library.dir}/spring-jdbc-2.0.2.jar"/>
+		<pathelement location="${library.dir}/spring-web-2.0.2.jar"/>
+		<pathelement location="${library.dir}/spring-webflow-1.0.1.jar"/>
+		<pathelement location="${library.dir}/spring-webmvc-2.0.2.jar"/>
+		<pathelement location="${library.dir}/sqljdbc.jar"/>
+		<pathelement location="${library.dir}/standard-1.1.2.jar"/>
+		<pathelement location="${library.dir}/xml-apis.jar"/>
+	</path>
+
+	<target name="compile" depends="init">
+		<echo>Compiling ${ant.project.name}</echo>
+
+		<mkdir dir="webApplication/WEB-INF/classes"/>
+
+		<javac	srcdir="source"
+				destdir="webApplication/WEB-INF/classes"
+				classpathref="belex.classpath"
+				debug="${global.javac.debug}"
+				optimize="${global.javac.optimize}"
+				deprecation="${global.javac.deprecation}"
+		/>
+
+		<echo>Finished compiling ${ant.project.name}</echo>
+	</target>
+
+	<target name="package" depends="compile">
+		<echo>Packaging ${ant.project.name}</echo>
+
+	    <delete file="bin/BELEX.war"/>
+
+	    <!--delete dir="webApplication/jsptmp"/-->
+	    <!--mkdir dir="webApplication/jsptmp"/-->
+
+   	    <!--copy file="webApplication/WEB-INF/dummy.txt" toFile="webApplication/jsptmp/dummy.txt"/-->
+
+	    <war destfile="bin/BELEX.war" webxml="webApplication/WEB-INF/web.xml">
+	    	<fileset dir="webApplication">
+	    		<exclude name="WEB-INF/web.xml" />
+	    		<exclude name="WEB-INF/*.dev" />
+	    		<exclude name="WEB-INF/*.prod" />
+	    		<exclude name="WEB-INF/web.xml" />
+	    		<exclude name="WEB-INF/tmp/**" />
+	    		<exclude name="WEB-INF/work/**" />
+				<exclude name="pic/*.mic" />
+				<exclude name="WEB-INF/externalLib/**" />
+	    	</fileset>
+	    </war>
+
+		<echo>Finished packaging ${ant.project.name}</echo>
+	</target>
+
+	<target name="documentation" depends="init">
+		<echo>Creating javadocs for ${ant.project.name}</echo>
+
+		<delete dir="javadoc"/>
+		<mkdir dir="javadoc"/>
+
+		<javadoc destdir="javadoc"
+				 author="${global.javadoc.author}"
+				 version="${global.javadoc.version}"
+				 classpathref="belex.classpath"
+				 use="${global.javadoc.use}"
+				 windowtitle="BELEX API"
+		>
+			<!--fileset dir="source" defaultexcludes="yes"-->
+				<!--include name="com.ing.rcc.flb/**" /-->
+			<!--/fileset-->
+		</javadoc>
+
+		<echo>Finished javadocs creation for ${ant.project.name}</echo>
+	</target>
+
+	<target name="deploy" depends="package">
+		<echo>Deploying ${ant.project.name}</echo>
+
+	    <delete file="bin/BELEX.ear"/>
+	    <ear destfile="bin/BELEX.ear" appxml="META-INF/application.xml">
+			<fileset dir="bin" includes="BELEX.war"/>
+			<metainf dir="META-INF/" includes="**/*.xmi" excludes="application.xml" />
+	    </ear>
+
+	    <delete file="bin/BELEX.war"/>
+
+		<echo>Finished deploying ${ant.project.name}</echo>
+	</target>
+</project>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<start-state idref="mainView"/>
+
+	<view-state id="mainView" view="productAdmin/main">
+		<transition on="searchForm" to="getSuppliersAct"/>
+		<transition on="productList" to="productListView" />
+	</view-state>
+
+	<action-state id="getSuppliersAct">
+		<bean-action bean="supplierBusiness" method="getSuppliers">
+			<method-result name="suppliers" scope="flow"/>
+		</bean-action>
+		<transition to="searchFormView"></transition>
+	</action-state>
+	
+	<view-state id="searchFormView" view="productAdmin/searchForm">
+		<transition on="productSearch" to="productSearchAct">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<view-state id="productListView" view="productAdmin/productList">
+		<transition on="productDet" to="productDetView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<view-state id="productDetView" view="productAdmin/productDet">
+		<transition on="updateProductCode" to="updateProductCodeAct">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="deleteProductCode" to="deleteProductCodeAct">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<action-state id="updateProductCodeAct">
+		<bean-action bean="productBusiness" method="updateProductCode">
+			<method-arguments>
+				<argument expression="flowScope.requestParams.adminOldProductCode"/>
+				<argument expression="flowScope.requestParams.adminNewProductCode"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="productSearchAct"/>
+	</action-state>
+
+	<action-state id="deleteProductCodeAct">
+		<bean-action bean="productBusiness" method="deleteProductCode">
+			<method-arguments>
+				<argument expression="flowScope.requestParams.adminOldProductCode"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="productSearchAct"/>
+	</action-state>
+
+	<action-state id="productSearchAct">
+		<bean-action bean="productBusiness" method="getProducts">
+			<method-arguments>
+				<argument expression="flowScope.requestParams.searchValue"/>
+				<argument expression="flowScope.requestParams.searchExactMatch"/>
+				<argument expression="flowScope.requestParams.searchType"/>
+				<argument expression="flowScope.requestParams.searchOnSupplier"/>
+			</method-arguments>
+			<method-result name="products" scope="flow"/>
+		</bean-action>
+		<transition to="productListView"></transition>
+	</action-state>
+
+	<end-state id="terminateEntry" view="terminateEntry" />
+
+</flow>

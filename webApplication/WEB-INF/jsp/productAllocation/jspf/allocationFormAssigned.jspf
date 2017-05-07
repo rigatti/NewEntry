@@ -1,0 +1,94 @@
+<span id="spanFullAssigned" style="display: none;visibility: hidden;">
+	<br>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr valign="top">
+			<td class="tabs-on" width="1%" nowrap height="19" id="areaHideAssigned" onclick="switchDisplay('spanShortAssigned');switchDisplay('spanFullAssigned');">
+				Articles assignés pour substitution <span id="subTitleAssigned"></span>
+			</td>
+			<td class="blank-tab" width="99%" nowrap height="19">
+				<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
+			</td>
+		</tr>
+	</table>
+
+	<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
+		<tr>
+			<td class="layout-manager">
+					<%
+					first = true;
+					int numberOfAssigned = 0;
+					for (int i=0 ; i < entries.size() ; i++) { 
+	
+					if (entries.get(i).isSelected()) {
+	
+						for (ProductTraceable p : entries.get(i).getProducts()) {
+	
+							for (ProductTraceable.Destination dest : p.getDestinations()) {
+
+								if ( dest.isSubstitutionItem() && StringUtils.isNotEmpty(dest.getSubstitutionOfProduct()) ) {
+
+									if (first) { 
+										first = false; %>
+											<table id="substitutionProductsList" class="framing-table" width="20%" border="0" cellspacing="1" cellpadding="3">
+												<thead>
+													<tr>
+														<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('substitutionProductsList'), 0, 'String', null, null, null, null)" colspan="2">
+															Produit
+														</td>
+														<td class="column-head-name sortable" width="1%" colspan="2" onclick="sortTable(document.getElementById('substitutionProductsList'), 2, 'String', null, null, null, null)">
+															Substitution
+														</td>
+													</tr>
+												</thead>
+												<tbody>
+									<% } %>
+
+									<tr>
+										<td class="table-text-bold" nowrap>
+											<%= p.getProductCode().trim().endsWith("TBD")?"*** NEW *** ":"" %><%=p.getDescription()%>
+										</td>
+										<td class="table-text" align="right" nowrap align="right">
+											<%=Util.displayContitionnement(dest.getNumberOfUnit(), p.getUnitConditionnement())%>
+										</td>
+										<td class="table-text" align="right" nowrap>
+											<% if ( dest.getSubstitutionOfNumberOfProduct() > 1 ) { %>
+												<%=dest.getSubstitutionOfNumberOfProduct()%> X 
+											<% } %>
+											<%=Util.displayContitionnement(dest.getSubstitutionOfNumberOfUnit(), dest.getSubstitutionOfUnitConditionnement())%> 
+										</td>
+										<td class="table-text" nowrap>												
+											<%=dest.getSubstitutionOfProductDescr()%> <i>(<%=dest.getCustomerName()%>)</i><br>
+										</td>
+									</tr>
+									<% numberOfAssigned++;
+									}
+								}
+							}
+						}
+					} 
+
+					if ( first ) { %>
+						<table width="100%">
+							<tbody>
+								<tr>
+									<td class="table-text-bold" nowrap>
+										Aucun article de substitution n'a été encodé
+									</td>
+								</tr>
+					<% } %>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+</span>
+<script type="text/javascript">
+<!--
+	<% if (numberOfAssigned == 0) {%>
+		//switchDisplay('spanShortAssigned');
+		//switchDisplay('spanFullAssigned');
+		//window.document.getElementById("areaHideAssigned").onclick = "";
+	<% } %>
+	window.document.getElementById("subTitleAssigned").innerHTML = "<i>(<%= numberOfAssigned %>)</i>";
+//-->
+</script>

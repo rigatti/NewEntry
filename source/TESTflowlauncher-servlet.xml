@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/webflow-config
+           http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd">
+
+	<!-- Launches new flow executions and resumes existing executions. -->
+	<!-- repository-type="continuation"	-->
+	<flow:executor id="flowExecutor" registry-ref="flowRegistry"/>
+	
+	<!-- Creates the registry of flow definitions for this application -->
+	<flow:registry id="flowRegistry">
+		<flow:location path="/WEB-INF/productEntry.xml"/>
+		<flow:location path="/WEB-INF/productAdmin.xml"/>
+		<flow:location path="/WEB-INF/productTraceability.xml"/>
+		<flow:location path="/WEB-INF/productAllocation.xml"/>
+	</flow:registry>
+
+	<bean name="/flowController.htm" class="org.springframework.webflow.executor.mvc.FlowController">
+		<property name="flowExecutor" ref="flowExecutor"></property>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  		<property name="prefix" value="/WEB-INF/jsp/" /> 
+  		<property name="suffix" value=".jsp" /> 
+  	</bean>
+	
+	<bean id="arrivalFormAction" class="org.belex.arrival.ArrivalFormAction" />
+	<bean id="productFormAction" class="org.belex.product.ProductFormAction" />
+	<bean id="requestParamsFormAction" class="org.belex.requestparams.RequestParamsFormAction" />
+	<bean id="traceabilityFormAction" class="org.belex.traceability.TraceabilityFormAction" />
+	<bean id="allocationFormAction" class="org.belex.allocation.AllocationFormAction" />
+		
+	<!--bean id="prodDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+	<bean id="prodDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass">
+			<value>sun.jdbc.odbc.JdbcOdbcDriver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:odbc:OUISTITI</value>
+		</property>
+		<property name="user">
+			<value>ouistiti</value>
+		</property>
+		<property name="password">
+			<value>ouistiti</value>
+		</property>		
+	</bean>
+
+	<bean id="customerBusiness" class="org.belex.customer.CustomerBusiness">
+		<property name="customerDAO">
+			<ref local="customerDAO"/>
+		</property>
+	</bean>
+
+	<bean id="supplierBusiness" class="org.belex.supplier.SupplierBusiness">
+		<property name="supplierDAO">
+			<ref local="supplierDAO"/>
+		</property>
+	</bean>
+
+	<bean id="productBusiness" class="org.belex.product.ProductBusiness">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="conditioningDAO">
+			<ref local="conditioningDAO"/>
+		</property>
+		<property name="productDAO">
+			<ref local="productDAO"/>
+		</property>
+		<property name="descriptionDAO">
+			<ref local="descriptionDAO"/>
+		</property>
+		<property name="treatedEntryDAO">
+			<ref local="treatedEntryDAO"/>
+		</property>
+		<property name="treatedEntryTempDAO">
+			<ref local="treatedEntryTempDAO"/>
+		</property>
+		<property name="stockEntryDAO">
+			<ref local="stockEntryDAO"/>
+		</property>
+		<property name="supplierReturnsEntryDAO">
+			<ref local="supplierReturnsEntryDAO"/>
+		</property>
+	</bean>
+	
+	<bean id="arrivalBusiness" class="org.belex.arrival.ArrivalBusiness">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="supplierDAO">
+			<ref local="supplierDAO"/>
+		</property>
+		<property name="productDAO">
+			<ref local="productDAO"/>
+		</property>
+		<property name="conditioningDAO">
+			<ref local="conditioningDAO"/>
+		</property>
+		<property name="customerOrderDetailDAO">
+			<ref local="customerOrderDetailDAO"/>
+		</property>
+		<property name="supplierOrderDetailDAO">
+			<ref local="supplierOrderDetailDAO"/>
+		</property>
+		<property name="packagingDetailDAO">
+			<ref local="packagingDetailDAO"/>
+		</property>
+		<property name="packagingDAO">
+			<ref local="packagingDAO"/>
+		</property>
+		<property name="packageDetailDAO">
+			<ref local="packageDetailDAO"/>
+		</property>
+		<property name="customerDAO">
+			<ref local="customerDAO"/>
+		</property>
+		<property name="prepareOrderDAO">
+			<ref local="prepareOrderDAO"/>
+		</property>
+		<property name="prepareOrderDetailDAO">
+			<ref local="prepareOrderDetailDAO"/>
+		</property>
+		<property name="treatedEntryTempDAO">
+			<ref local="treatedEntryTempDAO"/>
+		</property>
+		<property name="treatedEntryCustomerTempDAO">
+			<ref local="treatedEntryCustomerTempDAO"/>
+		</property>
+		<property name="supplierEntryDAO">
+			<ref local="supplierEntryDAO"/>
+		</property>
+		<property name="supplierEntryDetailDAO">
+			<ref local="supplierEntryDetailDAO"/>
+		</property>
+		<property name="supplierEntryQuantityDAO">
+			<ref local="supplierEntryQuantityDAO"/>
+		</property>
+		<property name="planningDAO">
+			<ref local="planningDAO"/>
+		</property>
+		<property name="treatedEntryDAO">
+			<ref local="treatedEntryDAO"/>
+		</property>
+		<property name="treatedEntryDetailDAO">
+			<ref local="treatedEntryDetailDAO"/>
+		</property>
+		<property name="treatedEntryDetailDestinationDAO">
+			<ref local="treatedEntryDetailDestinationDAO"/>
+		</property>
+	</bean>
+	<bean id="traceabilityBusiness" class="org.belex.traceability.TraceabilityBusiness">
+		<property name="treatedEntryDAO">
+			<ref local="treatedEntryDAO"/>
+		</property>
+		<property name="treatedEntryDetailDAO">
+			<ref local="treatedEntryDetailDAO"/>
+		</property>
+		<property name="treatedEntryDetailDestinationDAO">
+			<ref local="treatedEntryDetailDestinationDAO"/>
+		</property>
+		<property name="supplierDAO">
+			<ref local="supplierDAO"/>
+		</property>
+	</bean>
+
+	<bean id="allocationBusiness" class="org.belex.allocation.AllocationBusiness">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+		<property name="productDAO">
+			<ref local="productDAO"/>
+		</property>
+		<property name="conditioningDAO">
+			<ref local="conditioningDAO"/>
+		</property>
+		<property name="customerDAO">
+			<ref local="customerDAO"/>
+		</property>
+		<property name="packagingDAO">
+			<ref local="packagingDAO"/>
+		</property>
+		<property name="packagingDetailDAO">
+			<ref local="packagingDetailDAO"/>
+		</property>
+		<property name="supplierEntryDAO">
+			<ref local="supplierEntryDAO"/>
+		</property>
+		<property name="supplierDAO">
+			<ref local="supplierDAO"/>
+		</property>
+		<property name="prepareOrderDAO">
+			<ref local="prepareOrderDAO"/>
+		</property>
+		<property name="prepareOrderDetailDAO">
+			<ref local="prepareOrderDetailDAO"/>
+		</property>
+		<property name="customerOrderDetailDAO">
+			<ref local="customerOrderDetailDAO"/>
+		</property>
+		<property name="supplierOrderDetailDAO">
+			<ref local="supplierOrderDetailDAO"/>
+		</property>
+		<property name="treatedEntryDAO">
+			<ref local="treatedEntryDAO"/>
+		</property>
+		<property name="treatedEntryDetailDAO">
+			<ref local="treatedEntryDetailDAO"/>
+		</property>
+		<property name="treatedEntryDetailDestinationDAO">
+			<ref local="treatedEntryDetailDestinationDAO"/>
+		</property>
+		<property name="stockEntryDAO">
+			<ref local="stockEntryDAO"/>
+		</property>
+		<property name="supplierReturnsEntryDAO">
+			<ref local="supplierReturnsEntryDAO"/>
+		</property>
+		<property name="planningDAO">
+			<ref local="planningDAO"/>
+		</property>
+	</bean>
+
+	<!-- HIBERNATE CONFIG -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation">
+			<value>classpath:/hibernate.cfg.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="prodDataSource" />
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- DAO DEFINITION CONFIG -->
+	
+	<bean id="customerDAO" class="db.customer.CustomerDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierDAO" class="db.supplier.SupplierDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="productDAO" class="db.product.ProductDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="descriptionDAO" class="db.product.DescriptionDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="conditioningDAO" class="db.product.ConditioningDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="customerOrderDetailDAO" class="db.customer.order.CustomerOrderDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierOrderDetailDAO" class="db.supplier.order.SupplierOrderDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierEntryDAO" class="db.entry.SupplierEntryDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierEntryDetailDAO" class="db.entry.SupplierEntryDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierEntryQuantityDAO" class="db.entry.SupplierEntryQuantityDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="packagingDetailDAO" class="db.prepare.PackagingDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="packagingDAO" class="db.prepare.PackagingDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="packageDetailDAO" class="db.prepare.PackageDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="prepareOrderDAO" class="db.prepare.PrepareOrderDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="prepareOrderDetailDAO" class="db.prepare.PrepareOrderDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="treatedEntryTempDAO" class="db.entry.treated.temp.TreatedEntryTempDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="treatedEntryCustomerTempDAO" class="db.entry.treated.temp.TreatedEntryCustomerTempDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="planningDAO" class="db.entry.PlanningDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="treatedEntryDAO" class="db.entry.treated.TreatedEntryDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="treatedEntryDetailDAO" class="db.entry.treated.TreatedEntryDetailDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="treatedEntryDetailDestinationDAO" class="db.entry.treated.TreatedEntryDetailDestinationDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="supplierReturnsEntryDAO" class="db.entry.treated.SupplierReturnsEntryDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="stockEntryDAO" class="db.entry.treated.StockEntryDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+</beans>

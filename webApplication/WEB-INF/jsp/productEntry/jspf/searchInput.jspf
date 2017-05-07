@@ -1,0 +1,50 @@
+<%@page import="org.belex.arrival.Arrival"%>
+<%
+	Arrival arrivalSearchInput = null;
+	if (request.getAttribute("arrival") != null) {
+		arrivalSearchInput = (Arrival) request.getAttribute("arrival");
+	}
+	
+	String codeInput = "";
+	String labelInput = "";
+	String strTmp1 = "";
+	String strTmp2 = "";
+	if (arrivalSearchInput.getSearchType().equals("1")){
+		codeInput = arrivalSearchInput.getSearchValue();
+		strTmp1 = "checked";
+	} else {
+		labelInput = arrivalSearchInput.getSearchValue();
+		if (labelInput.equals("")) {
+			strTmp1 = "checked";
+		} else {
+			strTmp2 = "checked";
+		}
+	}
+
+if (writeTableHeader) { %>
+<%@page import="org.belex.util.Constants"%>
+<table>
+	<tr>
+<% } %>
+		<td width="10%" align="right">
+			<input type="radio" name="searchTypeInput" <%= strTmp1 %> value="1">
+		</td>
+		<td width="35%" nowrap>
+			<a class="ctext" href="javascript:void(0)" onclick="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)">Code : </a>
+			<input type="text" name="searchCodeInput" value="<%= codeInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)"> 
+			<input class="checkbox" type="checkbox" name="searchExactMatchInput"> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchExactMatchInput')"> Exact </a> 
+		</td>
+		<td width="10%" align="right">
+			<input type="radio" name="searchTypeInput" <%= strTmp2 %> value="2"> 
+		</td>
+		<td width="35%" nowrap>
+			<a class="ctext" href="javascript:void(0)" onclick="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">Libellé : </a>
+			<input type="text" name="searchLabelInput" value="<%= labelInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">
+		</td>
+		<td width="10%" nowrap>
+			<input class="checkbox" type="checkbox" name="searchOnSupplierBox" <%= arrivalSearchInput.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK)? "" : "checked" %>> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchOnSupplierBox')"> Fournisseur défini</a> 
+		</td>
+<% if (writeTableHeader) { %>
+	</tr>
+</table>
+<% } %>

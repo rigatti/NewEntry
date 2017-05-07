@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.customer.Customer" table="Clients" >
+    	<id name="code">
+    		<column name="CodeClient" />
+    	</id>
+       	<property name="name">
+       		<column name="NomClient" />
+       	</property>
+       	<property name="nameAdditionalPart">
+       		<column name="ComplémentNomClient" />
+       	</property>
+       	<property name="groupment">
+       		<column name="Groupement" />
+       	</property>
+		<property name="airportCode">
+       		<column name="CodeAéroport" />
+       	</property>
+       	<property name="address">
+       		<column name="Adresse" />
+       	</property>
+       	<property name="addressFurniture">
+       		<column name="AdresseLivraison" />
+       	</property>
+       	<property name="addressFees">
+       		<column name="AdresseFacturation" />
+       	</property>
+       	<property name="buyRate">
+       		<column name="TauxSurPrixAchat" />
+       	</property>
+       	<property name="email">
+       		<column name="Email" />
+       	</property>
+       	<property name="codesTypesOfEditions">
+       		<column name="CodesTypesEditions" />
+       	</property>
+    </class>
+</hibernate-mapping>

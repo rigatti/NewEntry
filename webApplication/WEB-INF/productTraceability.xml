@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<start-state idref="mainView"/>
+
+	<view-state id="mainView" view="productTraceability/main">
+		<transition on="searchForm" to="searchFormView" />
+		<transition on="emptyProductList" to="emptyProductListView" />	
+	</view-state>
+
+	<view-state id="searchFormView" view="productTraceability/searchForm">
+		<transition on="submit" to="searchEntryAct">
+			<action bean="traceabilityFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<view-state id="emptyProductListView" view="productTraceability/searchEntryResult">
+	</view-state>
+
+	<action-state id="searchEntryAct">
+		<bean-action bean="traceabilityBusiness" method="searchEntry">
+			<method-arguments>
+				<argument expression="flowScope.traceability"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+			<method-result name="traceability" scope="flow"/>
+		</bean-action>
+		<transition to="completeCustomerAct"></transition>
+	</action-state>
+	
+	<action-state id="completeCustomerAct">
+		<bean-action bean="customerBusiness" method="completeCustomer">
+			<method-arguments>
+				<argument expression="flowScope.traceability"/>
+			</method-arguments>
+			<method-result name="traceability" scope="flow"/>
+		</bean-action>
+		<transition to="searchEntryResultView" />
+	</action-state>
+
+	<view-state id="searchEntryResultView" view="productTraceability/searchEntryResult">
+		<transition on="export" to="searchEntryExportView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="productDet" to="productDetView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="newSearch" to="searchEntryView" />	
+	</view-state>
+
+	<view-state id="productDetView" view="productTraceability/productDet">
+		<transition on="export" to="searchEntryExportView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<view-state id="searchEntryExportView" view="productTraceability/searchEntryExport">
+	</view-state>
+						
+	<!-- Display the success view. -->
+	<end-state id="terminateEntry" view="terminateEntry" />
+
+</flow>

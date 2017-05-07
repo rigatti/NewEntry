@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.entry.Planning" table="PlanningRéceptions">
+    	<composite-id>
+    		<key-property name="orderNumber">
+    			<column name="NuméroCommande"></column>
+    		</key-property>
+    		<key-property name="creationNumber">
+    			<column name="CreationNr"></column>
+    		</key-property>
+    		<key-property name="supplierCode">
+    			<column name="CodeFournisseur" length="2"></column>
+    		</key-property>
+    	</composite-id>
+    	<property name="plannedDate">
+    		<column name="DateRéception"></column>
+    	</property>
+    	<property name="plannedMode">
+    		<column name="ModeRéception"></column>
+    	</property>
+    </class>
+</hibernate-mapping>

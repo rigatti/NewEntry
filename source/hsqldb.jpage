@@ -1,0 +1,8 @@
+Class.forName("org.hsqldb.jdbcDriver").newInstance();
+java.sql.Connection connection = java.sql.DriverManager.getConnection("jdbc:hsqldb:mem:jforum", "sa", "");
+java.sql.Statement st = connection.createStatement();
+java.sql.ResultSet rs = st.executeQuery("select * from JFORUM_CATEGORIES");
+while (rs.next()) {
+	System.out.println(rs);
+}
+connection.close();

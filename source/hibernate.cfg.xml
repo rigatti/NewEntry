@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="dialect">
+			org.hibernate.dialect.SQLServerDialect
+		</property>
+		<!-- dialect.MSAccessDialect -->
+		<!-- org.hibernate.dialect.SQLServerDialect -->
+			
+		<property name="show_sql">false</property>
+		
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">100</property>
+		<!--property name="hibernate.c3p0.timeout">100</property-->
+		<!--property name="hibernate.c3p0.max_statements">100</property-->
+		<property name="hibernate.connection.release_mode">auto</property>
+		
+		<mapping resource="db/customer/customer.hbm.xml"/>
+		
+		<mapping resource="db/editiontype/editionType.hbm.xml"/>
+		
+		<mapping resource="db/family/familyLevel1.hbm.xml"/>
+		<mapping resource="db/family/familyLevel2.hbm.xml"/>
+		<mapping resource="db/family/familyLevel3.hbm.xml"/>
+
+		<mapping resource="db/entry/planning.hbm.xml"/>
+		<mapping resource="db/entry/supplierEntry.hbm.xml"/>
+		<mapping resource="db/entry/supplierEntryDetail.hbm.xml"/>
+		<mapping resource="db/entry/supplierEntryQuantity.hbm.xml"/>
+
+		<mapping resource="db/entry/treated/temp/treatedEntryTemp.hbm.xml"/>
+		<mapping resource="db/entry/treated/temp/treatedEntryCustomerTemp.hbm.xml"/>
+		
+		<mapping resource="db/entry/treated/treatedEntry.hbm.xml"/>
+		<mapping resource="db/entry/treated/treatedEntryDetail.hbm.xml"/>
+		<mapping resource="db/entry/treated/treatedEntryDetailDestination.hbm.xml"/>
+		<mapping resource="db/entry/treated/supplierReturnsEntry.hbm.xml"/>
+		<mapping resource="db/entry/treated/stockEntry.hbm.xml"/>
+
+		<mapping resource="db/customer/order/customerOrderDetail.hbm.xml" />		
+
+		<mapping resource="db/prepare/packageDetail.hbm.xml"/>
+		<mapping resource="db/prepare/packaging.hbm.xml"/>
+		<mapping resource="db/prepare/packagingDetail.hbm.xml"/>
+		<mapping resource="db/prepare/prepareOrder.hbm.xml"/>
+		<mapping resource="db/prepare/prepareOrderDetail.hbm.xml"/>
+
+		<mapping resource="db/product/product.hbm.xml" />
+		<mapping resource="db/product/conditioning.hbm.xml" />
+		<mapping resource="db/product/description.hbm.xml" />
+
+		<mapping resource="db/supplier/supplier.hbm.xml" />
+		<mapping resource="db/supplier/order/supplierOrderDetail.hbm.xml" />		
+
+	</session-factory>
+
+</hibernate-configuration>

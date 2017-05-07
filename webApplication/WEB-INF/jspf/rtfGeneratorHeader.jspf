@@ -1,0 +1,53 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.awt.Color"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.lowagie.text.Font"%>
+<%@page import="com.lowagie.text.FontFactory"%>
+<%@page import="com.lowagie.text.Paragraph"%>
+<%@page import="com.lowagie.text.Image"%>
+<%@page import="com.lowagie.text.rtf.RtfWriter2"%>
+<%@page import="com.lowagie.text.PageSize"%>
+<%@page import="com.lowagie.text.Document"%>
+<%@page import="com.lowagie.text.Table"%>
+<%@page import="com.lowagie.text.rtf.table.RtfCell"%>
+<%@page import="com.lowagie.text.rtf.table.RtfBorderGroup"%>
+<%@page import="com.lowagie.text.Rectangle"%>
+<%@page import="com.lowagie.text.rtf.table.RtfBorder"%>
+<%
+	Document document = new Document(PageSize.A4,
+		50.0f, 50.0f, 50.0f, 50.0f);
+
+	Font labelFont = FontFactory.getFont(FontFactory.TIMES_BOLD, 10,
+		Font.BOLD, new Color(0, 0, 0));
+
+	Font labelSmall = FontFactory.getFont(FontFactory.TIMES, 1,
+			Font.NORMAL, new Color(0, 0, 0));
+
+	RtfWriter2.getInstance(document, new FileOutputStream(
+	getServletContext().getRealPath("/jsptmp") + "/" + fileName));
+	
+	document.addAuthor("");
+	document.addCreator("Belex");
+	document.addSubject("Rapport de traçabilité");
+	document.addTitle("");
+	
+	document.open();
+	
+
+	Image image = Image.getInstance(getServletContext().getRealPath("/pic") + "\\bvcSmall.jpg");
+	image.setAlignment(Image.ALIGN_LEFT);
+
+	document.add(image);
+
+	Paragraph paragraph = new Paragraph(
+	"Chaussée de Haecht 1313\n1130 Belgique", FontFactory.getFont(FontFactory.TIMES, 10,
+	Font.NORMAL, new Color(0, 0, 0)));
+	document.add(paragraph);
+	
+	SimpleDateFormat rtfSdf = new SimpleDateFormat("dd/MM/yyyy");
+	paragraph = new Paragraph(
+	rtfSdf.format(new Date()));
+	paragraph.setAlignment(Paragraph.ALIGN_RIGHT);
+	document.add(paragraph);
+%>

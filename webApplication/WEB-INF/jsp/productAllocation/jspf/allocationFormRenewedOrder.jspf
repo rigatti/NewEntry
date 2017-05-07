@@ -1,0 +1,112 @@
+	<span id="spanFullRenewedOrder" style="display: none;visibility: hidden;">
+
+		<br>
+	
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr valign="top">
+				<td class="tabs-on" width="1%" nowrap height="19" id="areaHideRenewedOrder">
+					Commandes à reprendre chez le fournisseur
+				</td>
+				<td class="blank-tab" width="99%" nowrap height="19">
+					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
+				</td>
+			</tr>
+		</table>
+		
+		<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
+			<tr>
+				<td class="layout-manager">
+					<%
+					first = true;
+					int numberForRenewedOrder = 0;
+					for (int i=0 ; i < cotas.size() ; i++) {
+
+						CustomerOrder co = cotas.get(i);
+
+						if (co.isRenewedOrder()) {
+
+							numberForRenewedOrder++;
+
+							if (first) { 
+								first = false;
+								%>
+								<table id="renewCustOrdersList" class="framing-table" border="0" cellspacing="1" cellpadding="3" width="20%">
+									<thead>
+										<tr>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('renewCustOrdersList'), 0, 'String', null, null, null, null)" colspan="2">
+												Produit
+											</td>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('renewCustOrdersList'), 2, 'Number', null, null, null, null)">
+												Demandé
+											</td>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('renewCustOrdersList'), 3, 'Number', null, null, null, null)">
+												Reçu
+											</td>
+										</tr>
+									</thead>
+									<tbody>
+
+							<% } %>
+			
+							<tr>
+								<td class="table-text-bold-middle" nowrap>
+									<%=co.getProductDescription()%>
+									<br>
+									<span style="font-weight:normal;padding-left:5px"><i><%=co.getCustomer().getName()%></i></span>
+								</td>
+								<td class="table-text" align="right" nowrap>
+									<%
+									if ( co.getNumberOfProduct() > 1 ) {
+									%>
+										<%=co.getNumberOfProduct()%> X 
+									<%
+									}
+									%>
+									<%=Util.displayContitionnement(co.getNumberOfUnit(), co.getUnit())%>
+								</td>
+								<td class="table-text" align="right" nowrap>
+									<%=co.getTotalNumberOfUnit()%>
+								</td>
+								<td class="table-text" align="right" nowrap>
+									<% if (co.getNumberGets() > 0.0) { %>
+										<%=co.getNumberGets()%>
+									<% } %>
+								</td>
+							</tr>
+						<% }
+					}
+
+					if ( first ) { %>
+
+						<table>
+							<tbody>
+								<tr>
+									<td class="table-text-bold" nowrap>
+										Aucune commande à reprendre
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					<% } else { %>
+
+							</tbody>
+						</table>
+
+					<% } %>
+
+				</td>
+			</tr>
+		</table>
+	</span>
+	<script type="text/javascript">
+	<!--
+		<% if (numberForRenewedOrder == 0) {%>
+			//switchDisplay('spanShortSupplier');
+			//switchDisplay('spanFullSupplier');
+			//window.document.getElementById("areaHideSupplier").onclick = "";
+		<% } %>
+
+		window.document.getElementById("subTitleRenewedOrder").innerHTML = "<i>(<%= numberForRenewedOrder %>)</i>";
+//-->
+</script>

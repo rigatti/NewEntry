@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<start-state idref="mainView"/>
+
+	<view-state id="mainView" view="productAllocation/main">
+		<transition on="selectAllocationDateForm" to="selectAllocationDateFormView"/>
+		<transition on="selectSupplierForm" to="selectSupplierFormView" />
+		<!--transition on="allocationForm" to="allocationFormView" /-->
+	</view-state>
+
+	<view-state id="selectAllocationDateFormView" view="productAllocation/selectAllocationDateForm">
+		<transition on="search" to="searchSupplierEntriesAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	<action-state id="searchSupplierEntriesAct">
+		<bean-action bean="allocationBusiness" method="getSuppliersEntries">
+			<method-arguments>
+				<argument expression="flowScope.allocation"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="success" to="selectSupplierFormView" />
+	</action-state>
+
+	<view-state id="selectSupplierFormView" view="productAllocation/selectSupplierForm">
+		<transition on="search" to="searchSupplierEntriesAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="getEntryOrders" to="getEntriesToAllocateAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+
+	<view-state id="supplierEntriesView" view="productAllocation/ajaxJsp/supplierEntries">
+		<!-- this transition is to allow ajax update the flow exec key -->
+		<transition on="search" to="searchSupplierEntriesAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="getEntryOrders" to="getEntriesToAllocateAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<action-state id="getEntriesToAllocateAct">
+		<bean-action bean="allocationBusiness" method="getEntriesToAllocate">
+			<method-arguments>
+				<argument expression="flowScope.allocation"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="success" to="allocationFormView" />
+	</action-state>
+
+	<view-state id="allocationFormView" view="productAllocation/allocationForm">
+		<transition on="updateAllocation" to="updateAllocationAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="confirmAllocation" to="confirmAllocationAct">
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="generateReport" to="generateReportView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+			<action bean="allocationFormAction" method="bindAndValidate"/>
+		</transition>
+		<transition on="back" to="mainView">
+			<action bean="requestParamsFormAction" method="bindAndValidate"/>
+		</transition>
+	</view-state>
+	
+	<view-state id="generateReportView" view="productAllocation/generateReport">
+	</view-state>
+
+	<action-state id="updateAllocationAct">
+		<bean-action bean="allocationBusiness" method="updateAllocation">
+			<method-arguments>
+				<argument expression="flowScope.allocation"/>
+				<argument expression="flowScope.requestParams"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="success" to="allocationFormView" />
+	</action-state>
+
+	<action-state id="confirmAllocationAct">
+		<bean-action bean="allocationBusiness" method="confirmAllocation">
+			<method-arguments>
+				<argument expression="flowScope.allocation"/>
+			</method-arguments>
+		</bean-action>
+		<transition on="success" to="allocationFormView" />
+	</action-state>
+
+</flow>

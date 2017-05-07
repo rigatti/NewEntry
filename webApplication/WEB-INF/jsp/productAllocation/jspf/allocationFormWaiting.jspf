@@ -1,0 +1,335 @@
+		<%@page import="org.belex.util.Util"%>
+		<%@page import="org.apache.commons.lang.StringUtils"%>
+
+		<span id="spanFullWaiting">
+
+			<br>
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tr valign="top">
+					<td class="tabs-on" width="1%" nowrap height="19">
+						Articles en attente de traitement
+					</td>
+					<td class="blank-tab" width="99%" nowrap height="19">
+						<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
+					</td>
+				</tr>
+			</table>
+
+			<form name="frmData" action="javascript:void(0)">
+		
+				<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
+					<tr>
+						<td class="layout-manager">
+							<table class="framing-table" width="100%" border="0" cellspacing="0" cellpadding="3">
+								<tr>
+									<td class="column-head-prefs" width="1%" nowrap>
+										Articles livrés en trop
+									</td>
+									<td class="clean-gray-cell" width="1%">
+										 <br>
+									</td>
+									<td class="column-head-prefs" width="1%" nowrap>
+										Articles manquants
+									</td>
+								</tr>
+								<tr>
+									<td class="table-text" valign="top">
+											<%
+											boolean first = true;
+											boolean allowAssignement = false;
+											boolean allowAssignementToStock = false;
+											boolean allowSupplierReport = false;
+											boolean allowDeleteOrder = false;
+											boolean allowRenewOrder = false;
+
+											int productsIndex = 0;
+											int numberOfMissing = 0;
+											
+											for (int i=0 ; i < entries.size() ; i++) { 
+											
+												if (entries.get(i).isSelected()) {
+											
+													for (ProductTraceable p : entries.get(i).getProducts()) {
+
+														if (p.getTotalToAllocate() > 0) {
+
+															if (first) { 
+																first = false;
+																allowAssignementToStock = true; 
+																allowSupplierReport = true; %>
+																<table id="pendingProductsList" class="framing-table" border="0" cellspacing="1" cellpadding="3">
+																	<thead>
+																		<tr>
+																			<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingProductsList'), 0, 'String', null, null, null, null)" colspan="2">
+																				Produit
+																			</td>
+																			<td class="column-head-name" width="1%">
+																				Reste
+																			</td>
+																			<td class="column-head-name" width="1%">
+																			</td>
+																		</tr>
+																	</thead>
+																	<tbody>
+															<% } %>
+							
+															<tr>
+																<td class="table-text-bold-middle" nowrap onmouseover="ddrivetip('<%= StringUtils.replace(StringUtils.replace(p.getDescription(), "'", " "), "\"", " ") %>', 200)" onmouseout="hideddrivetip()">
+																	<% if (p.getProductCode().trim().endsWith("TBD")) { %>
+																		*** NEW *** <%= Util.getShortDisplayable(p.getDescription(), 30) %><br>
+																	<% } else { %>
+																		<%= Util.getShortDisplayable(p.getDescription(), 40) %>
+																	<% } %>
+																</td>
+																<td class="table-text" align="right" nowrap valign="middle">
+																	<% if ( p.getNumberOfProduct() > 1 ) { %>
+																		<%=p.getNumberOfProduct()%> X 
+																	<% } %>
+																	<%=Util.displayContitionnement(p.getNumberOfUnit(), p.getUnitConditionnement())%>
+																</td>
+																<td class="table-text" nowrap align="right" nowrap valign="middle">
+																	<select name="numberOfUnit_<%= productsIndex %>" onchange="setRadioState(window.document.frmData, 'entryProductItem', <%= productsIndex %>, true)">
+																		<% for (int remainIndex = 1 ; remainIndex <= p.getTotalToAllocate() ; remainIndex++ ) { %>
+																			<option value="<%= remainIndex %>" <%= remainIndex == p.getTotalToAllocate()?"selected":"" %>> <%=remainIndex%></option>
+																		<% } %>
+																	</select>
+																</td>
+																<td id="entryProductTd<%= productsIndex %>" class="table-text-bold" nowrap valign="middle" on lick="changeBgd('entryProductTd', <%= productsIndex %>); setRadioState(window.document.frmData, 'entryProductItem', <%= productsIndex %>, true)" width="1%">
+																	<input type="radio" name="entryProductItem" value="<%= productsIndex %>" onclick="changeBgd('entryProductTd', <%= productsIndex %>)">
+																	<script type="text/javascript">
+																		<!--
+																			entryProducts[<%= productsIndex %>] = new Array;
+																			entryProducts[<%= productsIndex %>][0] = "<%= p.getSupplierCode() %>";
+																			entryProducts[<%= productsIndex++ %>][1] = "<%= p.getProductCode() %>";
+																		//-->
+																	</script>
+																</td>
+															</tr>
+														<% }
+													}
+												}
+											}
+	
+											if ( first ) { %>
+												<table width="100%">
+													<tbody>
+														<tr>
+															<td class="table-text-bold" nowrap>
+																Aucun article n'est en attente d'attribution
+															</td>
+														</tr>
+											<% } %>
+											</tbody>
+										</table>
+									</td>
+	
+									<td class="clean-gray-cell" width="1%">
+										<br>
+									</td>
+									
+									<%
+									if (productsIndex > 0 && cotas.size() > 0) {
+										allowAssignement = true;
+									}
+									%>
+									
+									<td class="table-text" valign="top">
+										<%
+										first = true;
+										int nbrOfRadio = 0;
+										for (int i=0 ; i < cotas.size() ; i++) {
+											CustomerOrder co = cotas.get(i);
+											
+											if ( ! co.isDeletedOrder() && ! co.isRenewedOrder() ) {
+												
+												numberOfMissing++;
+
+												if (first) { 
+													first = false;
+													%>
+													<table id="pendingCustOrdersList" class="framing-table" border="0" cellspacing="1" cellpadding="3" width="100%">
+														<thead>
+															<tr>
+															
+																<td class="column-head-name" width="1%">
+
+																</td>
+																
+																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 1, 'String', null, null, null, null)" colspan="2">
+																	Produit
+																</td>
+																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 3, 'Number', null, null, null, null)">
+																	Demandé
+																</td>
+																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 4, 'Number', null, null, null, null)">
+																	Reçu
+																</td>
+																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 5, 'String', null, null, null, null)">
+																	Stock
+																</td>
+															</tr>
+														</thead>
+														<tbody>
+												<%
+												}
+												%>
+	
+												<tr>
+													<%
+													//if ( allowAssignement ) {
+														
+														//if ( co.getNumberGets() == 0 ) {
+														if (true) { 
+															allowDeleteOrder = true;
+															allowRenewOrder = true;
+															%>
+	
+															<td id="customerOrderTd<%= nbrOfRadio %>" class="table-text-bold-middle" nowrap valign="middle" on click="changeBgd('customerOrderTd', <%= nbrOfRadio %>); setRadioState(window.document.frmData, 'customerOrderItem', <%= nbrOfRadio %>, true)">
+																<input type="radio" name="customerOrderItem" value="<%= nbrOfRadio %>" onclick="changeBgd('customerOrderTd', <%= nbrOfRadio %>);">
+																<script type="text/javascript">
+																	<!--
+																		customerOrders[<%= nbrOfRadio %>] = new Array;
+																		customerOrders[<%= nbrOfRadio %>][0] = "<%= co.getSupplierCode() %>";
+																		customerOrders[<%= nbrOfRadio %>][1] = "<%= co.getSupplierOrderNumber() %>";
+																		customerOrders[<%= nbrOfRadio %>][2] = "<%= co.getSupplierOrderLetter() %>";
+																		customerOrders[<%= nbrOfRadio %>][3] = "<%= co.getOrderCode() %>";
+																		customerOrders[<%= nbrOfRadio %>][4] = "<%= co.getOrderNumber() %>";
+																		customerOrders[<%= nbrOfRadio %>][5] = "<%= co.getProductCode() %>";
+																		customerOrders[<%= nbrOfRadio %>][6] = "<%= co.getNumberOfProduct() %>";
+																		customerOrders[<%= nbrOfRadio %>][7] = "<%= co.getNumberOfUnit() %>";
+																		customerOrders[<%= nbrOfRadio %>][8] = "<%= co.getUnit() %>";
+																		customerOrders[<%= nbrOfRadio %>][9] = "<%= co.getCustomer().getCode() %>";
+																		customerOrders[<%= nbrOfRadio %>][10] = "<%= co.getCustomer().getName() %>";
+																		customerOrders[<%= nbrOfRadio %>][11] = "<%= co.getPackagingFromBasketNumber() %>";
+																		customerOrders[<%= nbrOfRadio %>][12] = "<%= co.getPackagingToBasketNumber() %>";
+																	//-->
+																</script>
+															</td>
+															<% nbrOfRadio++; %>
+														<% } else { %>
+															<td class="table-text-bold-middle">
+																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+															</td>
+														<% } 
+													//}
+													%>
+													<td class="table-text-bold-middle" nowrap onmouseover="ddrivetip('<%= StringUtils.replace(StringUtils.replace(co.getProductDescription(), "'", " "), "\"", " ") %>', 200)" onmouseout="hideddrivetip()">
+
+														<%= Util.getShortDisplayable(co.getProductDescription(), 40) %>
+														<br>
+														<span style="font-weight:normal;padding-left:5px"><i><%=co.getCustomer().getName()%></i></span>
+													</td>
+													<td class="table-text" align="right" nowrap>
+														<%
+														if ( co.getNumberOfProduct() > 1 ) {
+														%>
+															<%=co.getNumberOfProduct()%> X 
+														<%
+														}
+														%>
+														<%=Util.displayContitionnement(co.getNumberOfUnit(), co.getUnit())%>
+													</td>
+													<td class="table-text" align="right" nowrap>
+														<%=co.getTotalNumberOfUnit()%>
+													</td>
+													<td class="table-text" align="right" nowrap>
+														<% if (co.getNumberGets() > 0.0) { %>
+															<%=co.getNumberGets()%>
+														<% } %>
+													</td>
+													<td class="table-text" align="right" nowrap>
+														<% if (StringUtils.isNotEmpty(co.getStockOrderNumber())) { %>
+															<%= co.getStockOrderNumber() + " (" + co.getTotalNumberOfOrderStock() + ")" %>
+														<% } %>
+													</td>
+												</tr>
+
+											<% } // end if deleted & reordred order 
+										} // end for
+
+										if ( first ) { %>
+
+											<table>
+												<tbody>
+													<tr>
+														<td class="table-text-bold" nowrap>
+															Aucun article manquant
+														</td>
+													</tr>
+												</tbody>
+											</table>
+
+										<% } else { %>
+
+												</tbody>
+											</table>
+
+										<% } %>
+									</td>
+								</tr>
+							</table>
+
+							<table width="100%" border="0" class="clean-gray-cell">
+								<tr>
+									<td>
+										<% if ( allowAssignement && nbrOfRadio > 0 ) { %>
+											<input class="button" type="button" value=" Associer " onclick="assign('substitution')">&nbsp;&nbsp;&nbsp;&nbsp;
+										<% }
+										if ( allowAssignementToStock ) { %>
+											<input class="button" type="button" value=" Stock " onclick="assign('stock')">&nbsp;&nbsp;&nbsp;&nbsp;
+										<% }
+										if ( allowSupplierReport ) { %>
+											<input class="button" type="button" value=" Fournisseur " onclick="assign('supplier')">&nbsp;&nbsp;&nbsp;&nbsp;
+										<% } %>
+									</td>
+									<td align="right">
+										<% if ( allowDeleteOrder ) { %>
+											<input class="button" type="button" value=" Supprimer " onclick="assign('deleteOrder')">&nbsp;&nbsp;&nbsp;&nbsp;
+										<% }
+										if ( allowRenewOrder ) { %>
+										<input class="button" type="button" value=" Nouvelle commande " onclick="assign('renewOrder')">&nbsp;&nbsp;&nbsp;&nbsp;
+										<% } %>
+									</td>
+								</tr>
+								<% if ( allocation.isUpdated() ) { %>
+									<tr>
+										<td colspan="2" align="center"> 
+												<input type="button" class="button" value=" Confirmer " onclick="sendFrmConfirmAllocation()">
+										</td>
+									</tr>
+								<% } %>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<% if ( allocation.isUpdated() ) { %>
+				<form name="frmConfirmAllocation" action="flowController.htm" method="get">
+					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+					<input type="hidden" name="_eventId_confirmAllocation" value="">
+				</form>
+				<script type="text/javascript">
+					<!--
+						function sendFrmConfirmAllocation() {
+							if(confirm("Etes-vous certain de confirmer ces modifications?")) {
+								window.document.frmConfirmAllocation.submit();
+							}
+						}
+					//-->
+				</script>
+			<% } %>
+
+		</span>
+
+		<script type="text/javascript">
+		<!--
+			window.document.getElementById("subTitleWaiting").innerHTML = "<i>(<%= productsIndex %>/<%= numberOfMissing %>)</i>";
+			<% if (allowAssignementToStock) { %>
+				sortTable(document.getElementById('pendingProductsList'), 0, 'String', null, null, null, null);
+			<% } %>
+			<% if (allowDeleteOrder) { %>
+				sortTable(document.getElementById('pendingCustOrdersList'), 1, 'String', null, null, null, null);
+			<% } %>
+		//-->
+		</script>

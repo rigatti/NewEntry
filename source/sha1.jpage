@@ -1,0 +1,36 @@
+ 
+    String text = "admin";
+    
+	java.security.MessageDigest md;
+	md = java.security.MessageDigest.getInstance("SHA-1");
+	byte[] sha1hash = new byte[40];
+	md.update(text.getBytes("iso-8859-1"), 0, text.length());
+	sha1hash = md.digest();
+	
+	StringBuffer buf = new StringBuffer();
+    for (int i = 0; i < sha1hash.length; i++) {
+    	int halfbyte = (sha1hash[i] >>> 4) & 0x0F;
+    	int two_halfs = 0;
+    	do {
+            if ((0 <= halfbyte) && (halfbyte <= 9))
+                buf.append((char) ('0' + halfbyte));
+            else
+            	buf.append((char) ('a' + (halfbyte - 10)));
+            halfbyte = sha1hash[i] & 0x0F;
+    	} while(two_halfs++ < 1);
+    }
+    System.out.println(buf.toString());
+    
+java.util.Calendar cal = java.util.Calendar.getInstance();
+cal.add(java.util.Calendar.YEAR, -3);
+cal.add(java.util.Calendar.MONTH, 3);
+java.text.SimpleDateFormat sdtf = new java.text.SimpleDateFormat("yyyyMMdd");
+sdtf.format(cal.getTime());
+
+java.util.Date dt = cal.getTime();
+dt.parse("YYYYMMDD");
+
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+sdf.format(java.util.Calendar.getInstance().getTime());
+
+org.belex.util.Util.formatDate(org.belex.util.Util.formatDate(null, null, "kkmmss"), "HHmmss","HH:mm:ss")

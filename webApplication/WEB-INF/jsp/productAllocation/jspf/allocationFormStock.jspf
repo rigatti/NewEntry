@@ -1,0 +1,80 @@
+	<span id="spanFullStock" style="display: none;visibility: hidden;">
+
+		<br>
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr valign="top">
+				<td class="tabs-on" width="1%" nowrap id="areaHideStock" height="19" onclick="switchDisplay('spanShortStock');switchDisplay('spanFullStock');">
+					Articles assignés au stock <span id="subTitleStock"></span>
+				</td>
+				<td class="blank-tab" width="99%" nowrap height="19">
+					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
+				</td>
+			</tr>
+		</table>
+		
+		<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
+			<tr>
+				<td class="layout-manager">
+					<%
+					int numberForStock = 0;
+					first = true;
+					for (int i=0 ; i < entries.size() ; i++) { 
+	
+						if (entries.get(i).isSelected()) {
+	
+							for (ProductTraceable p :  entries.get(i).getProducts()) {
+	
+								for (ProductTraceable.Destination dest : p.getDestinations()) { 
+									if ( dest.isStockItem() ) {
+										if (first) { 
+											first = false; %>
+												<table id="productsStockList" class="framing-table" width="20%" border="0" cellspacing="1" cellpadding="3">
+													<thead>
+														<tr>
+															<td colspan="2" class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('productsStockList'), 0, 'String', null, null, null, null)">
+																Produit
+															</td>
+														</tr>
+													</thead>
+													<tbody>
+										<% } %>
+										<tr>
+											<td class="table-text-bold" nowrap>
+												<%= p.getProductCode().trim().endsWith("TBD")?"*** NEW *** ":"" %><%=p.getDescription()%>
+											</td>
+											<td class="table-text" align="right" nowrap align="right">
+												<%=Util.displayContitionnement(dest.getNumberOfUnit(), p.getUnitConditionnement())%>
+											</td>
+										</tr>
+										<% numberForStock++;
+										}
+									}
+								}
+							}
+						} 
+						if ( first ) { %>
+							<table width="100%">
+								<tbody>
+									<tr>
+										<td class="table-text-bold" nowrap>
+											Aucun article n'est mettre en stock
+										</td>
+									</tr>
+						<% } %>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</span>
+	<script type="text/javascript">
+	<!--
+		<% if (numberForStock == 0) {%>
+			//switchDisplay('spanShortStock');
+			//switchDisplay('spanFullStock');
+			//window.document.getElementById("areaHideStock").onclick = "";
+		<% } %>
+		window.document.getElementById("subTitleStock").innerHTML = "<i>(<%= numberForStock %>)</i>";
+	//-->
+	</script>

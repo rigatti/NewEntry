@@ -1,0 +1,75 @@
+	<span id="spanFullAutomatic" style="display: none;visibility: hidden;">
+		<br>
+		
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr valign="top">
+				<td class="tabs-on" width="1%" nowrap id="areaHideAutomatic" height="19" onclick="switchDisplay('spanShortAutomatic');switchDisplay('spanFullAutomatic');">
+					Articles correctement attribués <span id="subTitleAutomatic"></span>
+				</td>
+				<td class="blank-tab" width="99%" nowrap height="19">
+					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
+				</td>
+			</tr>
+		</table>
+		
+		<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
+			<tr>
+				<td class="layout-manager">
+						<%
+						first = true;
+						for (int i=0 ; i < coas.size() ; i++) { 
+							CustomerOrder co = coas.get(i);
+							if (first) { 
+								first = false; %>
+								<table id="assignedProductsList" class="framing-table" width="20%" border=0 cellspacing=1 cellpadding=3 width=100%>
+									<thead>
+										<tr>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 0, 'String', null, null, null, null)" colspan="2">
+												Produit
+											</td>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 2, 'String', null, null, null, null)">
+												Client
+											</td>
+										</tr>
+									</thead>
+									<tbody>
+							<% } %>
+							<tr>
+								<td class="table-text-bold" nowrap>
+									<%= co.getProductDescription() %>
+								</td>
+								<td class="table-text" align="right" nowrap>
+									<% if ( co.getNumberOfProduct() > 1 ) { %>
+										<%= co.getNumberOfProduct() %> X 
+									<% } %>
+									<%= Util.displayContitionnement(co.getNumberOfUnit(), co.getUnit())%>
+								</td>
+								<td class="table-text" nowrap>
+									<%= co.getCustomer().getName() %>
+								</td>
+							</tr>
+						<% }
+						if ( first ) { %>
+							<table width="100%">
+								<tbody>
+									<tr>
+										<td class="table-text-bold" nowrap>
+											Aucun article n'a su être automatiquement attribué
+										</td>
+									</tr>
+						<% } %>
+						</tbody>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</span>
+	<script type="text/javascript">
+	<!--
+		window.document.getElementById("subTitleAutomatic").innerHTML = "<i>(<%= coas.size() %>)</i>";
+		<% if (coas.size() > 0) {%>
+			sortTable(document.getElementById('assignedProductsList'), 0, 'String', null, null, null, null);
+		<% } %>
+	//-->
+	</script>

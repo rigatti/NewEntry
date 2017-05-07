@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.family.FamilyLevel3" table="Familles_Niveau3" >
+    	<id name="id">
+    		<column name="CodeFamille" />
+    	</id>
+       	<property name="description">
+       		<column name="DescriptionFamille3" length="50" />
+       	</property>
+       	<property name="descriptionShort">
+       		<column name="DescrShortFamille3" length="20" />
+       	</property>
+       	<property name="idFamilyLevel1">
+       		<column name="CodeFamille1" length="1" />
+       	</property>
+       	<property name="idFamilyLevel2">
+       		<column name="CodeFamille2" length="1" />
+       	</property>
+       	<property name="idFamilyLevel3">
+       		<column name="CodeFamille3" length="3" />
+       	</property>
+    </class>
+</hibernate-mapping>

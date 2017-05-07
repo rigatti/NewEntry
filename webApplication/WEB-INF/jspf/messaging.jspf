@@ -1,0 +1,26 @@
+	<script type="text/javascript" src="/BELEX/scripts/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript">
+		<!--
+			$(document).ready(function(){
+				$.ajax({
+					dataType: "json",
+					cache	: "false",
+					type 	: "POST",
+					url 	: "/jforum/forums/shortInfo/1.page",
+					success	: function(data) {
+						if (data) {
+							$("#messagingDate").text(data.date);
+							$("#messagingUsername").text(data.username.toUpperCase());
+							if ( data.isAdmin <%= isAdmin?"!=":"=="%> true) {
+								$("#messagingShortInfo").css('color', 'red');
+							}
+
+							$("#frmForum").get(0).setAttribute('action', data.url);
+							
+							$("#messagingShortInfo").show();
+						}
+					}
+				});
+			});
+		//-->
+	</script>

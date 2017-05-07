@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.family.FamilyLevel2" table="Familles_Niveau2" >
+    	<composite-id>
+    		<key-property name="idFamilyLevel1">
+    			<column name="CodeFamille1" length="1" />
+    		</key-property>
+    		<key-property name="idFamilyLevel2">
+    			<column name="CodeFamille2" length="1" />
+    		</key-property>
+    	</composite-id>
+       	<property name="description">
+       		<column name="DescriptionFamille2" length="50" />
+       	</property>
+       		<property name="descriptionShort">
+       		<column name="DescrShortFamille2" length="20" />
+       	</property>
+    </class>
+</hibernate-mapping>

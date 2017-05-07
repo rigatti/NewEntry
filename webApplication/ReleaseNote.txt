@@ -1,0 +1,18 @@
+Version 20071216
+
+Module encodage
+---------------
+Suppression des liens dans le statut de la commande sur les produits ayant un code EAN connu.
+Correction affichage calendrier (le calendrier s'ouvre à la date en cours de visionnage et non plus à la date du jour)
+
+Module allocation des produits
+------------------------------
+Ajout du calendrier dans la sélection du jour à traiter
+
+Impact dans tous les modules
+----------------------------
+Fix du numéro de colis sur les produits ayant multiples destinations/origines.
+
+DB
+--
+Pas de modification de la structure de la base de données

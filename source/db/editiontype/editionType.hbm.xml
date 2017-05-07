@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.editiontype.EditionType" table="TypesEditions" >
+    	<id name="id">
+    		<column name="CodeTypeEdition" />
+    	</id>
+       	<property name="description">
+       		<column name="DescriptionTypeEdition" length="50" />
+       	</property>
+       	<property name="followed">
+       		<column name="ArticleSuivi" />
+       	</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,64 @@
+body {
+	font-family : arial,helvetica,sans-serif; 
+	font-size : 24px; 
+}
+td {
+font-size: 24px;
+}
+#header	{ 
+	font-family : arial,helvetica,sans-serif; 
+	font-weight : normal; 
+	background : #000066; 
+	color : #FFFFFF; 
+	padding-top : 3px; 
+	padding-bottom : 3px; 
+}
+#item {
+	font-family : courier,arial,serif; 
+	background : #CBD2FF; 
+	color : #000066; 
+	padding-left : 3px; 
+	padding-right : 3px; 
+}
+div {
+	text-align: center;
+}
+div.lalign {
+	text-align: left;
+}
+div.ralign {
+	text-align: right;
+}
+
+a.ctext {
+	text-decoration: none;
+	color : #000000;
+}
+
+#pageTitle {
+	font-family : arial,helvetica,sans-serif; 
+	font-weight : bold;
+}
+#pageSubTitle {
+	font-family : arial,helvetica,sans-serif; 
+	font-weight : bold; 
+	font-style : italic; 
+}
+TEXTAREA {
+	font-size: 20px;
+}
+
+.button {
+	font-size: 22px;
+	font-weight: bold;
+}
+.inputText {
+	font-size:20px;
+	background-color:#FFFFFF;
+	color:#000066;
+}
+.inputTextFocused {
+	font-size:20px;
+	background-color:#000066;
+	color:#FFFFFF;
+}

@@ -1,0 +1,130 @@
+	<!-- The javascript function afterBarCodeEvent(String data) will be called after reader data -->
+	<!-- File containing barCode is located at : D:\barCodeSimulator.txt-->
+	<div id="activeXDiv"></div>
+
+	<script type="text/javascript">
+	<!--
+		function StatOut(outputText) {
+			var activeXDiv = window.document.getElementById("activeXDiv");
+			activeXDiv.innerHTML += outputText;
+		}
+		function StatClear() {
+			var activeXDiv = window.document.getElementById("activeXDiv");
+			activeXDiv.innerHTML = "";
+		}
+
+		// GLOBAL VARIABLES
+		
+		var bTCPresent = true;  //Is TConnector installed (refer to body onload event)
+
+		// GLOBAL FUNCTIONS
+
+		function readdata() {
+			TConnector1.Timeout_Infinite = 0;
+			try
+			{
+				//StatOut( '\nOpening device ' );
+				TConnector1.Open();  // open device, must be called before any operation
+				//StatOut( '\nStart listening... \n' );
+				TConnector1.StartListen();
+			}
+			catch (error)
+			{
+				StatOut( '\nCouldn\'t open device...' );
+				StatOut( '\nSysErr: ' + TConnector1.TranslateErrorNo(error.number) );
+				return;
+			}
+		}
+		
+		function stop_listen() {
+			StatClear();
+			try
+			{
+				//StatOut( '\nStop listening... ');
+				TConnector1.StopListen();
+				//StatOut( '\nClosing device ');
+				TConnector1.Close();  // Close device, must be called at the end, otherwise the port will be blocked
+			}
+			catch (error)
+			{
+				StatOut( '\nCouldn\'t close device...' );
+				StatOut( '\n' + TConnector1.TranslateErrorNo(error.number) );
+			}
+		
+		}
+		
+		//////////////////////////////////////
+		//
+		//////////////////////////////////////
+		function CheckTC() {
+			StatClear();
+			var TCInstance;
+			try
+			{
+			  // if the object creation isn't successfully an exception is generated
+				TCInstance = new ActiveXObject("TConnector2.TConnector2");
+			}
+			catch (exception)
+			{
+			    // TConnector2.ProgID was not created
+				 alert('Can\'t create TConnector2 ActiveX - make sure it is installed on this system!');
+				 
+				 document.FORM1.configure.disabled = true;
+				 bTCPresent = false;
+			}
+			TCInstance = null;
+		}
+
+		function TConnector1_OnData(sData) {
+			if (sData != "") {
+				afterBarCodeEvent(sData);
+			}
+		}
+		
+	//-->
+	</script>
+
+	<script type="text/javascript" for="TConnector1" event="OnData(sData)">
+		<!--
+		 TConnector1_OnData(sData)
+		//-->
+	</script>
+
+	<OBJECT id=TConnector1
+		classid=clsid:126C289A-607B-4251-BF31-1555A5951948 VIEWASTEXT>
+		<PARAM NAME="IOType" VALUE="3">
+		<!--PARAM NAME="Device" VALUE="D:\barCodeSimulator.txt"-->
+		<PARAM NAME="Device" VALUE="COM1">
+		<PARAM NAME="Baud" VALUE="9600">
+		<PARAM NAME="Data" VALUE="8">
+		<PARAM NAME="Stop" VALUE="1">
+		<PARAM NAME="Parity" VALUE="N">
+		<PARAM NAME="Host" VALUE="">
+		<PARAM NAME="Service" VALUE="">
+		<PARAM NAME="XOnXOff" VALUE="0">
+		<PARAM NAME="RTSCTS" VALUE="0">
+		<PARAM NAME="DTRDSR" VALUE="0">
+		<PARAM NAME="NoOfBytes" VALUE="100">
+		<PARAM NAME="Timeout" VALUE="1000">
+		<PARAM NAME="Timeout_Infinite" VALUE="-1">
+		<PARAM NAME="Delimiter" VALUE="\x0d\x0a">
+		<PARAM NAME="UseDelimiter" VALUE="0">
+		<PARAM NAME="IncludeDelimiter" VALUE="0">
+		<PARAM NAME="SendKeyStroke" VALUE="0">
+		<PARAM NAME="Prefix" VALUE="">
+		<PARAM NAME="Postfix" VALUE="">
+		<PARAM NAME="IsOpen" VALUE="0">
+	</OBJECT>
+	<center>
+		<form name="simulation" style="margin:0">
+			<!--input id="configure" onclick=TConnector1.PropertyDialog() type=button value="Configure Port"><br-->
+			<input class="button" id=read style="LEFT: 30px; TOP: 266px" onclick="readdata();stop_listen();" type=button value=" SCAN SIMULATOR ">
+			<!--input type="button" value="Stop listening and close port" name="B1" onclick="stop_listen()"-->
+		</form>
+	</center>
+	<script type="text/javascript">
+		<!--
+			CheckTC();
+			stop_listen();
+		-->
+	</script>

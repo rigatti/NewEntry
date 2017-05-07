@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.supplier.order.SupplierOrderDetail" table="CommandesFournisseursLignes">
+       	<id name="id">
+   			<column name="CfID" />
+   			<generator class="native"/>
+   		</id>
+   		<property name="orderNumber">
+   			<column name="NuméroCommande" />
+   		</property>
+   		<property name="supplierCode">
+       		<column name="CodeFournisseur" length="2" />
+       	</property>
+       	<property name="productCode">
+       		<column name="CodeArticle" length="10" />
+       	</property>
+       	<property name="unitLargeScale">
+       		<column name="Conditionnement" length="20" />
+       	</property>
+       	<property name="numberOfProductToOrder">
+       		<column name="QtéACommander" />
+       	</property>
+       	<property name="numberOfProductOrdered">
+       		<column name="NbConditionnements" />
+       	</property>
+       	<property name="numberGets">
+       		<column name="QtéReçue" />
+       	</property>
+    </class>
+</hibernate-mapping>

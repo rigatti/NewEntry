@@ -1,0 +1,9 @@
+	<div width="100%">
+		<form id="frmForum" name="frmForum" target="_blank" action="/jforum/forums/show/1.page"> </form>
+		<div onclick="window.document.location='<%= request.getContextPath() %>/iindex.jsp'" align="center">
+			<img alt="bVc" src="<%= request.getContextPath() %>/pic/bvc.gif" width="50px" height="40px">
+		</div>
+		<div id="messagingShortInfo" onclick="frmForum.submit();" style="cursor:pointer;display:none;font-size: 12px;vertical-align: middle;padding-left:50px;">
+			Dernier message du <i><span id="messagingDate"></span></i>&nbsp;-&nbsp;Posté par <b><i><span id="messagingUsername"></span></i></b>
+		</div>
+	</div>
