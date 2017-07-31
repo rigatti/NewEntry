@@ -61,9 +61,7 @@
 				<c:if test="${fn:length(arrival.suppliers) == 0}">
 					Aucun fournisseur n'est planifié pour la date sélectionnée 
 				</c:if>
-					<div style="display: none">
-						<input name="searchSupplierDate" type="text" onchange="searchPlannedSupplier();" value="<%= Util.formatDate(arrival.getSearchSupplierDate(), "yyyyMMdd", "dd/MM/yyyy") %>">
-					</div>
+					<input name="searchSupplierDate" id="searchSupplierDate" type="hidden" onchange="searchPlannedSupplier();" value="<%= Util.formatDate(arrival.getSearchSupplierDate(), "yyyyMMdd", "dd/MM/yyyy") %>">
 					<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 					<dlcalendar click_element_id="img_calendar" 
 						input_element_id="searchSupplierDate" 
