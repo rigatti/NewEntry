@@ -87,7 +87,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap align="center" style="padding-top:10px">
-								<input type="button" value=" < " onclick="computeAllocationDate(-1);submitForm()"> <input onchange="submitForm()" type="text" size="10" name="dateInput" value="<%= Util.getNowFormated("dd-MM-yyyy") %>"> <input type="button" value=" > " onclick="computeAllocationDate(1);submitForm()">
+								<input type="button" value=" < " onclick="computeAllocationDate(-1);submitForm()"> <input onchange="submitForm()" type="text" size="10" name="dateInput" id="dateInput" value="<%= Util.getNowFormated("dd-MM-yyyy") %>"> <input type="button" value=" > " onclick="computeAllocationDate(1);submitForm()">
 								<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 								<dlcalendar click_element_id="img_calendar"
 							            input_element_id="dateInput"
