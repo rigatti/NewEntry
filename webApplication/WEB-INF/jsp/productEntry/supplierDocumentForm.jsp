@@ -53,7 +53,7 @@
 						:<br>
 					</td>
 					<td>
-						<input maxlength="50" size="60" class="inputText" type="text" name="supplierDocumentDescription" value="" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+						<input maxlength="50" size="60" class="inputText" type="text" name="supplierDocumentDescription" id="supplierDocumentDescription" value="" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 					</td>
 				</tr>
 			</table>
