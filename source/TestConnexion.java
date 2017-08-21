@@ -20,14 +20,14 @@ public class TestConnexion {
 			
 			//JdbcOdbcDriver
 			//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
 			//String connectionUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=OUISTITI","ouistiti","ouistiti";
 			
 			//Connection conn = DriverManager.getConnection("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=OUISTITI","ouistiti","ouistiti");
 			
 			//Connection conn = DriverManager.getConnection("jdbc:odbc:OUISTITINT1","ouistiti","ouistiti");
-			Connection conn = DriverManager.getConnection("jdbc:odbc:OUISTITINT1;user=ouistiti;password=ouistiti");
+			Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;DatabaseName=OUISTITI;integratedSecurity=true;authenticationScheme=NativeAuthentication;");
 
 			Statement st = conn.createStatement();
 			String sql = "select * from Clients";

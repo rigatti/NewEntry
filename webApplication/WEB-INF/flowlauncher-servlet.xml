@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:flow="http://www.springframework.org/schema/webflow-config"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flow="http://www.springframework.org/schema/webflow-config"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
@@ -11,32 +9,34 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
 	<!-- Launches new flow executions and resumes existing executions. -->
-	<!-- repository-type="continuation"	-->
-	<flow:executor id="flowExecutor" registry-ref="flowRegistry"/>
-	
+	<!-- repository-type="continuation" -->
+	<flow:executor id="flowExecutor" registry-ref="flowRegistry" />
+
 	<!-- Creates the registry of flow definitions for this application -->
 	<flow:registry id="flowRegistry">
-		<flow:location path="/WEB-INF/productEntry.xml"/>
-		<flow:location path="/WEB-INF/productAdmin.xml"/>
-		<flow:location path="/WEB-INF/productTraceability.xml"/>
-		<flow:location path="/WEB-INF/productAllocation.xml"/>
-		<!-- flow:location path="/WEB-INF/messaging.xml"/-->
-		<flow:location path="/WEB-INF/productCleaning.xml"/>
-		<flow:location path="/WEB-INF/productsExport.xml"/>
-		<flow:location path="/WEB-INF/customersExport.xml"/>
-		<flow:location path="/WEB-INF/productExport.xml"/>
-		<flow:location path="/WEB-INF/customerExport.xml"/>
+		<flow:location path="/WEB-INF/productEntry.xml" />
+		<flow:location path="/WEB-INF/productAdmin.xml" />
+		<flow:location path="/WEB-INF/productTraceability.xml" />
+		<flow:location path="/WEB-INF/productAllocation.xml" />
+		<!-- flow:location path="/WEB-INF/messaging.xml"/ -->
+		<flow:location path="/WEB-INF/productCleaning.xml" />
+		<flow:location path="/WEB-INF/productsExport.xml" />
+		<flow:location path="/WEB-INF/customersExport.xml" />
+		<flow:location path="/WEB-INF/productExport.xml" />
+		<flow:location path="/WEB-INF/customerExport.xml" />
 	</flow:registry>
 
-	<bean name="/flowController.htm" class="org.springframework.webflow.executor.mvc.FlowController">
+	<bean name="/flowController.htm"
+		class="org.springframework.webflow.executor.mvc.FlowController">
 		<property name="flowExecutor" ref="flowExecutor"></property>
 	</bean>
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  		<property name="prefix" value="/WEB-INF/jsp/" /> 
-  		<property name="suffix" value=".jsp" /> 
-  	</bean>
-	
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
 	<bean id="arrivalFormAction" class="org.belex.arrival.ArrivalFormAction" />
 	<bean id="productFormAction" class="org.belex.product.ProductFormAction" />
 	<bean id="requestParamsFormAction" class="org.belex.requestparams.RequestParamsFormAction" />
@@ -44,32 +44,27 @@
 	<bean id="allocationFormAction" class="org.belex.allocation.AllocationFormAction" />
 	<bean id="cleaningFormAction" class="org.belex.cleaning.CleaningFormAction" />
 	<bean id="exportFormAction" class="org.belex.export.ExportFormAction" />
-		
-	<!--bean id="prodDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+
+	<!--bean id="prodDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" -->
 	<bean id="prodDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass">
-			<value>sun.jdbc.odbc.JdbcOdbcDriver</value>
+			<value>com.microsoft.sqlserver.jdbc.SQLServerDriver</value>
 		</property>
 		<property name="jdbcUrl">
-			<value>jdbc:odbc:OUISTITINT1</value>
+			<value>jdbc:sqlserver://127.0.0.1:1433;databaseName=OUISTITI;integratedSecurity=true;authenticationScheme=NativeAuthentication;</value>
 		</property>
-		<property name="user">
-			<value>ouistiti</value>
-		</property>
-		<property name="password">
-			<value>ouistiti</value>
-		</property>
+		
 	</bean>
 
 	<bean id="customerBusiness" class="org.belex.customer.CustomerBusiness">
 		<property name="customerDAO">
-			<ref local="customerDAO"/>
+			<ref local="customerDAO" />
 		</property>
 	</bean>
 
 	<bean id="supplierBusiness" class="org.belex.supplier.SupplierBusiness">
 		<property name="supplierDAO">
-			<ref local="supplierDAO"/>
+			<ref local="supplierDAO" />
 		</property>
 	</bean>
 
@@ -78,105 +73,105 @@
 			<ref local="sessionFactory" />
 		</property>
 		<property name="conditioningDAO">
-			<ref local="conditioningDAO"/>
+			<ref local="conditioningDAO" />
 		</property>
 		<property name="productDAO">
-			<ref local="productDAO"/>
+			<ref local="productDAO" />
 		</property>
 		<property name="descriptionDAO">
-			<ref local="descriptionDAO"/>
+			<ref local="descriptionDAO" />
 		</property>
 		<property name="treatedEntryDAO">
-			<ref local="treatedEntryDAO"/>
+			<ref local="treatedEntryDAO" />
 		</property>
 		<property name="treatedEntryTempDAO">
-			<ref local="treatedEntryTempDAO"/>
+			<ref local="treatedEntryTempDAO" />
 		</property>
 		<property name="stockEntryDAO">
-			<ref local="stockEntryDAO"/>
+			<ref local="stockEntryDAO" />
 		</property>
 		<property name="supplierReturnsEntryDAO">
-			<ref local="supplierReturnsEntryDAO"/>
+			<ref local="supplierReturnsEntryDAO" />
 		</property>
 	</bean>
-	
+
 	<bean id="arrivalBusiness" class="org.belex.arrival.ArrivalBusiness">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 		<property name="supplierDAO">
-			<ref local="supplierDAO"/>
+			<ref local="supplierDAO" />
 		</property>
 		<property name="productDAO">
-			<ref local="productDAO"/>
+			<ref local="productDAO" />
 		</property>
 		<property name="conditioningDAO">
-			<ref local="conditioningDAO"/>
+			<ref local="conditioningDAO" />
 		</property>
 		<property name="customerOrderDetailDAO">
-			<ref local="customerOrderDetailDAO"/>
+			<ref local="customerOrderDetailDAO" />
 		</property>
 		<property name="supplierOrderDetailDAO">
-			<ref local="supplierOrderDetailDAO"/>
+			<ref local="supplierOrderDetailDAO" />
 		</property>
 		<property name="packagingDetailDAO">
-			<ref local="packagingDetailDAO"/>
+			<ref local="packagingDetailDAO" />
 		</property>
 		<property name="packagingDAO">
-			<ref local="packagingDAO"/>
+			<ref local="packagingDAO" />
 		</property>
 		<property name="packageDetailDAO">
-			<ref local="packageDetailDAO"/>
+			<ref local="packageDetailDAO" />
 		</property>
 		<property name="customerDAO">
-			<ref local="customerDAO"/>
+			<ref local="customerDAO" />
 		</property>
 		<property name="prepareOrderDAO">
-			<ref local="prepareOrderDAO"/>
+			<ref local="prepareOrderDAO" />
 		</property>
 		<property name="prepareOrderDetailDAO">
-			<ref local="prepareOrderDetailDAO"/>
+			<ref local="prepareOrderDetailDAO" />
 		</property>
 		<property name="treatedEntryTempDAO">
-			<ref local="treatedEntryTempDAO"/>
+			<ref local="treatedEntryTempDAO" />
 		</property>
 		<property name="treatedEntryCustomerTempDAO">
-			<ref local="treatedEntryCustomerTempDAO"/>
+			<ref local="treatedEntryCustomerTempDAO" />
 		</property>
 		<property name="supplierEntryDAO">
-			<ref local="supplierEntryDAO"/>
+			<ref local="supplierEntryDAO" />
 		</property>
 		<property name="supplierEntryDetailDAO">
-			<ref local="supplierEntryDetailDAO"/>
+			<ref local="supplierEntryDetailDAO" />
 		</property>
 		<property name="supplierEntryQuantityDAO">
-			<ref local="supplierEntryQuantityDAO"/>
+			<ref local="supplierEntryQuantityDAO" />
 		</property>
 		<property name="planningDAO">
-			<ref local="planningDAO"/>
+			<ref local="planningDAO" />
 		</property>
 		<property name="treatedEntryDAO">
-			<ref local="treatedEntryDAO"/>
+			<ref local="treatedEntryDAO" />
 		</property>
 		<property name="treatedEntryDetailDAO">
-			<ref local="treatedEntryDetailDAO"/>
+			<ref local="treatedEntryDetailDAO" />
 		</property>
 		<property name="treatedEntryDetailDestinationDAO">
-			<ref local="treatedEntryDetailDestinationDAO"/>
+			<ref local="treatedEntryDetailDestinationDAO" />
 		</property>
 	</bean>
 	<bean id="traceabilityBusiness" class="org.belex.traceability.TraceabilityBusiness">
 		<property name="treatedEntryDAO">
-			<ref local="treatedEntryDAO"/>
+			<ref local="treatedEntryDAO" />
 		</property>
 		<property name="treatedEntryDetailDAO">
-			<ref local="treatedEntryDetailDAO"/>
+			<ref local="treatedEntryDetailDAO" />
 		</property>
 		<property name="treatedEntryDetailDestinationDAO">
-			<ref local="treatedEntryDetailDestinationDAO"/>
+			<ref local="treatedEntryDetailDestinationDAO" />
 		</property>
 		<property name="supplierDAO">
-			<ref local="supplierDAO"/>
+			<ref local="supplierDAO" />
 		</property>
 	</bean>
 
@@ -185,55 +180,55 @@
 			<ref local="sessionFactory" />
 		</property>
 		<property name="productDAO">
-			<ref local="productDAO"/>
+			<ref local="productDAO" />
 		</property>
 		<property name="conditioningDAO">
-			<ref local="conditioningDAO"/>
+			<ref local="conditioningDAO" />
 		</property>
 		<property name="customerDAO">
-			<ref local="customerDAO"/>
+			<ref local="customerDAO" />
 		</property>
 		<property name="packagingDAO">
-			<ref local="packagingDAO"/>
+			<ref local="packagingDAO" />
 		</property>
 		<property name="packagingDetailDAO">
-			<ref local="packagingDetailDAO"/>
+			<ref local="packagingDetailDAO" />
 		</property>
 		<property name="supplierEntryDAO">
-			<ref local="supplierEntryDAO"/>
+			<ref local="supplierEntryDAO" />
 		</property>
 		<property name="supplierDAO">
-			<ref local="supplierDAO"/>
+			<ref local="supplierDAO" />
 		</property>
 		<property name="prepareOrderDAO">
-			<ref local="prepareOrderDAO"/>
+			<ref local="prepareOrderDAO" />
 		</property>
 		<property name="prepareOrderDetailDAO">
-			<ref local="prepareOrderDetailDAO"/>
+			<ref local="prepareOrderDetailDAO" />
 		</property>
 		<property name="customerOrderDetailDAO">
-			<ref local="customerOrderDetailDAO"/>
+			<ref local="customerOrderDetailDAO" />
 		</property>
 		<property name="supplierOrderDetailDAO">
-			<ref local="supplierOrderDetailDAO"/>
+			<ref local="supplierOrderDetailDAO" />
 		</property>
 		<property name="treatedEntryDAO">
-			<ref local="treatedEntryDAO"/>
+			<ref local="treatedEntryDAO" />
 		</property>
 		<property name="treatedEntryDetailDAO">
-			<ref local="treatedEntryDetailDAO"/>
+			<ref local="treatedEntryDetailDAO" />
 		</property>
 		<property name="treatedEntryDetailDestinationDAO">
-			<ref local="treatedEntryDetailDestinationDAO"/>
+			<ref local="treatedEntryDetailDestinationDAO" />
 		</property>
 		<property name="stockEntryDAO">
-			<ref local="stockEntryDAO"/>
+			<ref local="stockEntryDAO" />
 		</property>
 		<property name="supplierReturnsEntryDAO">
-			<ref local="supplierReturnsEntryDAO"/>
+			<ref local="supplierReturnsEntryDAO" />
 		</property>
 		<property name="planningDAO">
-			<ref local="planningDAO"/>
+			<ref local="planningDAO" />
 		</property>
 	</bean>
 
@@ -242,37 +237,37 @@
 			<ref local="sessionFactory" />
 		</property>
 		<property name="treatedEntryDAO">
-			<ref local="treatedEntryDAO"/>
+			<ref local="treatedEntryDAO" />
 		</property>
 		<property name="treatedEntryDetailDAO">
-			<ref local="treatedEntryDetailDAO"/>
+			<ref local="treatedEntryDetailDAO" />
 		</property>
 		<property name="treatedEntryDetailDestinationDAO">
-			<ref local="treatedEntryDetailDestinationDAO"/>
+			<ref local="treatedEntryDetailDestinationDAO" />
 		</property>
 		<property name="treatedEntryTempDAO">
-			<ref local="treatedEntryTempDAO"/>
+			<ref local="treatedEntryTempDAO" />
 		</property>
 		<property name="treatedEntryCustomerTempDAO">
-			<ref local="treatedEntryCustomerTempDAO"/>
+			<ref local="treatedEntryCustomerTempDAO" />
 		</property>
 	</bean>
-	
+
 	<bean id="exportBusiness" class="org.belex.export.ExportBusiness">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 		<property name="productDAO">
-			<ref local="productDAO"/>
+			<ref local="productDAO" />
 		</property>
 		<property name="conditioningDAO">
-			<ref local="conditioningDAO"/>
+			<ref local="conditioningDAO" />
 		</property>
 		<property name="customerDAO">
-			<ref local="customerDAO"/>
+			<ref local="customerDAO" />
 		</property>
 		<property name="editionTypeDAO">
-			<ref local="editionTypeDAO"/>
+			<ref local="editionTypeDAO" />
 		</property>
 	</bean>
 	<!-- HIBERNATE CONFIG -->
@@ -286,16 +281,16 @@
 			<ref bean="prodDataSource" />
 		</property>
 	</bean>
-	
+
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
-	
+
 	<!-- DAO DEFINITION CONFIG -->
-	
+
 	<bean id="customerDAO" class="db.customer.CustomerDAO">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
@@ -416,6 +411,6 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
-	
-	
+
+
 </beans>
