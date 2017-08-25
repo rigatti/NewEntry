@@ -120,7 +120,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 
 						ArrayList<SupplierOrderDetail> sods = supplierOrderDetailDAO.get(supplier.getSupplierCode(), supplierOrderNumber);
 						for (SupplierOrderDetail sod : sods) {
-
+/*
 							if (StringUtils.equals(sod.getSupplierCode(), Constants.SUPPLIER_STOCK) ) {
 
 								ArrayList<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(sod.getProductCode(), new StringTokenizer(String.valueOf(supplierOrderNumber)));
@@ -142,7 +142,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 								}
 								
 							} else {
-
+*/
 								ArrayList<Conditioning> cs = conditioningDAO.get(sod.getProductCode(), sod.getSupplierCode());
 								for (Conditioning c : cs) {
 	
@@ -168,7 +168,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 										}
 									}
 								}
-							}
+							/*}*/
 						}
 
 					} catch (NumberFormatException nfe) {
@@ -349,10 +349,12 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 					
 					String searchConditioningOnSupplier = sod.getSupplierCode();
 					
+					/*
 					// for supplier == stock, search on all suppliers for the conditioning
 					if (StringUtils.equals(searchConditioningOnSupplier, Constants.SUPPLIER_STOCK)) {
 						searchConditioningOnSupplier = null;
 					}
+					*/
 					
 					ArrayList<Conditioning> cs = conditioningDAO.get(sod.getProductCode(), searchConditioningOnSupplier);
 					

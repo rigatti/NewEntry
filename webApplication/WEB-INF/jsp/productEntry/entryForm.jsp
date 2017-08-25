@@ -39,15 +39,15 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 					obj.searchType.value = 2;
 				}
 				
-				<% if ( arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { %>
-					obj.searchOnSupplier.value = "<%= Constants.SUPPLIER_STOCK %>";
-				<% } else { %>
+				<%/* if ( arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { */%>
+					//obj.searchOnSupplier.value = "<%= Constants.SUPPLIER_STOCK %>";
+				<%/* } else { */%>
 					if (obj.searchOnSupplierBox.checked){
 						obj.searchOnSupplier.value = "${arrival.supplier.supplierCode}";
 					} else {
 						obj.searchOnSupplier.value = "";
 					}
-				<% } %>
+				<%/* } */%>
 
 				if (strtrim(obj.searchValue.value).length < 2) {
 					alert("Selection trop large, veuillez introduire plus de critères de recherche.");

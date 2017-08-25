@@ -10,7 +10,7 @@
 
 	<appender name="FILE_APP"
 		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/Program Files/Apache Software Foundation/Tomcat 6.0/logs/BelexLog.log" />
+		<param name="File" value="C:/Program Files/Apache Software Foundation/Tomcat 6.0/logs/BelexStockLog.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyyMMdd'.log'"/>
 		<param name="MaxFileSize" value="500KB" />

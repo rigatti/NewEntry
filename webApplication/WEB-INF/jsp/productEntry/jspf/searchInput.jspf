@@ -42,7 +42,7 @@ if (writeTableHeader) { %>
 			<input type="text" name="searchLabelInput" value="<%= labelInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">
 		</td>
 		<td width="10%" nowrap>
-			<input class="checkbox" type="checkbox" name="searchOnSupplierBox" <%= arrivalSearchInput.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK)? "" : "checked" %>> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchOnSupplierBox')"> Fournisseur défini</a> 
+			<input class="checkbox" type="checkbox" name="searchOnSupplierBox" <%/*= arrivalSearchInput.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK)? "" : "checked" */%>checked> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchOnSupplierBox')"> Fournisseur défini</a> 
 		</td>
 <% if (writeTableHeader) { %>
 	</tr>

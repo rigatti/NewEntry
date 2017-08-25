@@ -65,15 +65,15 @@ for (int i=0; i < product.getUnits().size(); i++) {
 					obj.searchExactMatch.value = 0;
 					obj.searchType.value = 2;
 				}
-				<% if ( arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { %>
-					obj.searchOnSupplier.value = "<%= Constants.SUPPLIER_STOCK %>";
-				<% } else { %>
+				<%/* if ( arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { */%>
+					//obj.searchOnSupplier.value = "<%= Constants.SUPPLIER_STOCK %>";
+				<%/* } else { */%>
 					if (obj.searchOnSupplierBox.checked){
 						obj.searchOnSupplier.value = "${arrival.supplier.supplierCode}";
 					} else {
 						obj.searchOnSupplier.value = "";
 					}
-				<% } %>
+				<%/* } */%>
 				
 				
 				if (strtrim(obj.searchValue.value).length < 2) {
@@ -242,14 +242,14 @@ for (int i=0; i < product.getUnits().size(); i++) {
 
 						<% } %>
 
-						<% if (StringUtils.equals(arrival.getSupplier().getSupplierCode(), Constants.SUPPLIER_STOCK)) { %>
-							<span style="color:red;font-weight:bold;">
-						<% } %>
+						<%/* if (StringUtils.equals(arrival.getSupplier().getSupplierCode(), Constants.SUPPLIER_STOCK)) { */%>
+							<!--span style="color:red;font-weight:bold;"-->
+						<%/* } */%>
 						<%= condToDisplay %>
  					 	X 
-						<% if (StringUtils.equals(arrival.getSupplier().getSupplierCode(), Constants.SUPPLIER_STOCK)) { %>
-							</span>
-						<% } %>
+						<%/* if (StringUtils.equals(arrival.getSupplier().getSupplierCode(), Constants.SUPPLIER_STOCK)) { */%>
+							<!--/span-->
+						<%/* } */%>
 
 						<input type="text" value="" size="10" name="entry.numberOfProduct" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 
@@ -392,14 +392,14 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						<% } else { %>
 							<input class="button" type="button" value=" Valider SANS sauver le ean" onclick="sendNextFrm('submitDontSaveUnit');">
 						<% } %>
-						<% if ( ! arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { %>
+						<%/* if ( ! arrival.getSupplier().getSupplierCode().equals(Constants.SUPPLIER_STOCK) ) { */%>
 							&nbsp;&nbsp;&nbsp;
 							<% if ( unitNewConditionnement ) { %>
 								<input class="button" type="button" value=" Valider ET sauver le produit " onclick="sendNextFrm('updateProductUnitAndSubmit');">
 							<% } else { %>
 								<input class="button" type="button" value=" Valider ET sauver le ean " onclick="sendNextFrm('updateProductUnitAndSubmit');">
 							<% } %>
-						<% } %>
+						<%/* } */%>
 					</td>
 				</tr>
 			</table>
