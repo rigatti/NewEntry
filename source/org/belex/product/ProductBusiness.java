@@ -163,7 +163,8 @@ public class ProductBusiness extends HibernateDaoSupport implements IProductBusi
 
 		Vector<Product> result = new Vector<Product>();
 		
-		 String stockFilteredSupplierCode = (StringUtils.equals(searchOnSupplier, Constants.SUPPLIER_STOCK)?"": searchOnSupplier);
+		 String stockFilteredSupplierCode = searchOnSupplier;
+		 									//(StringUtils.equals(searchOnSupplier, Constants.SUPPLIER_STOCK)?"": searchOnSupplier);
 
 		if ( ! searchValue.equals("")) {
 
