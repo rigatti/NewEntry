@@ -181,7 +181,7 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 				</td>
 				<%-- c:if test="${fn:length(arrival.savedEntries) > 0}" --%>
 					<td>
-						<form action="flowController.htm" onsubmit="return confirmAction()">
+						<form action="flowController.htm" onsubmit="return confirm('Etes-vous certain de le clôturer?')">
 							<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 							<input class="button" type="submit" value=" Clôture de l'encodage " name="_eventId_saveEntry">
 						</form>
