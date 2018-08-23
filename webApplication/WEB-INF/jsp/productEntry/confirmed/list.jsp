@@ -13,6 +13,9 @@ Vector<Entry> entries = arrival.getSavedEntries();
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
 	<script type="text/javascript">
 		<!--
+			function sendBackFrm() {
+				window.document.backFrm.submit();
+			}
 			function sendRemoveEntryFrm(entryId) {
 				window.document.removeEntryFrm.entryId.value = entryId;
 				window.document.removeEntryFrm.submit();
@@ -57,13 +60,22 @@ Vector<Entry> entries = arrival.getSavedEntries();
 				<input type="hidden" value="" name="_eventId_removeEntry">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>
+
+			<form name="backFrm" action="flowController.htm">
+				<input type="hidden" value="" name="_eventId_entryForm">
+				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+			</form>
 	
+			<p>
+				<input class="button" type="button" value=" << Retour " onclick="sendBackFrm()">
+			</p>
+			
 			<table border="0" width="95%" cellspacing="0" cellpadding="2">
 				<%
-						for (int i=0; i < entries.size(); i++) {
-						Entry currentEntry = entries.get(i);
-						Product currentProduct = currentEntry.getProduct();
-						Product.Unit selectedUnit = utb.getSelectedUnit(currentProduct);
+				for (int i=0; i < entries.size(); i++) {
+					Entry currentEntry = entries.get(i);
+					Product currentProduct = currentEntry.getProduct();
+					Product.Unit selectedUnit = utb.getSelectedUnit(currentProduct);
 				%>
 					<tr> 
 						<td colspan="2" style="padding:10px">
@@ -118,10 +130,7 @@ Vector<Entry> entries = arrival.getSavedEntries();
 		<% } %>
 	
 		<p>
-			<form name="listOfConfirmedFrm" action="flowController.htm">
-				<input class="button" type="submit" value=" << Retour " name="_eventId_entryForm">
-				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-			</form>
+			<input class="button" type="button" value=" << Retour " onclick="sendBackFrm()">
 		</p>
 	</div>
 </body>
