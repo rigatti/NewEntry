@@ -164,8 +164,6 @@ for (int i=0; i < product.getUnits().size(); i++) {
 					window.document.getElementById("eventId").name = "_eventId_" + id;
 					window.document.nextFrm.submit();
 				}
-
-				
 			}
 		//-->
 	</script>
@@ -173,11 +171,17 @@ for (int i=0; i < product.getUnits().size(); i++) {
 	<body onload="CheckTC();readdata();setFocus()" onunload="stop_listen()">
 
 		<%@ include file="/WEB-INF/jsp/productEntry/jspf/bodyHeader.jspf" %>
-		<div>
+				
+		<div style="valign:middle;">
+		
+			<img id="imageToModal"  src="//CARGOSRV1/COMMON CARGO/IMAGES/<%= product.getProductCode() %>.jpg" alt="<%=product.getProductCode() %>" height="42" width="42">
+		
 			<font id="pageTitle">
 				Nouvel arrivage de marchandises - ${arrival.supplier.supplierName} (${arrival.supplier.supplierCode})
 			</font>
 		</div>
+
+		<%@ include file="/WEB-INF/jsp/productEntry/jspf/showImgModal.jspf" %>
 
 		<hr>
 
