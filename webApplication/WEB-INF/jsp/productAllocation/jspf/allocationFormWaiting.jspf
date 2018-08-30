@@ -61,7 +61,7 @@
 																<table id="pendingProductsList" class="framing-table" border="0" cellspacing="1" cellpadding="3">
 																	<thead>
 																		<tr>
-																			<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingProductsList'), 0, 'String', null, null, null, null)" colspan="2">
+																			<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingProductsList'), 0, 'String', null, null, null, null)" colspan="3">
 																				Produit
 																			</td>
 																			<td class="column-head-name" width="1%">
@@ -75,6 +75,9 @@
 															<% } %>
 							
 															<tr>
+																<td class="table-text" align="left" nowrap valign="middle">
+																	<%=p.getProductCode()%>
+																</td>
 																<td class="table-text-bold-middle" nowrap onmouseover="ddrivetip('<%= StringUtils.replace(StringUtils.replace(p.getDescription(), "'", " "), "\"", " ") %>', 200)" onmouseout="hideddrivetip()">
 																	<% if (p.getProductCode().trim().endsWith("TBD")) { %>
 																		*** NEW *** <%= Util.getShortDisplayable(p.getDescription(), 30) %><br>
@@ -156,7 +159,7 @@
 
 																</td>
 																
-																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 1, 'String', null, null, null, null)" colspan="2">
+																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 1, 'String', null, null, null, null)" colspan="3">
 																	Produit
 																</td>
 																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 3, 'Number', null, null, null, null)">
@@ -214,6 +217,9 @@
 														<% } 
 													//}
 													%>
+													<td class="table-text" align="left" nowrap>
+														<%= co.getProductCode() %>
+													</td>
 													<td class="table-text-bold-middle" nowrap onmouseover="ddrivetip('<%= StringUtils.replace(StringUtils.replace(co.getProductDescription(), "'", " "), "\"", " ") %>', 200)" onmouseout="hideddrivetip()">
 
 														<%= Util.getShortDisplayable(co.getProductDescription(), 40) %>
