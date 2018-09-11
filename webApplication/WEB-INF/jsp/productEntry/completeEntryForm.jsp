@@ -174,7 +174,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				
 		<div style="valign:middle;">
 		
-			<img id="imageToModal"  src="http://cargosrv1/productsimages/<%= product.getProductCode() %>.jpg" alt="<%=product.getProductCode() %>" height="65px" width="65px">
+			<img id="imageToModal"  src="http://cargosrv1/productsimages/<%= product.getProductCode() %>.jpg" alt="<%=product.getProductCode() %>" height="120px" width="120px">
 		
 			<font id="pageTitle">
 				Nouvel arrivage de marchandises - ${arrival.supplier.supplierName} (${arrival.supplier.supplierCode})
