@@ -2,6 +2,7 @@
 <%@page import="org.belex.arrival.Arrival"%>
 <%
 	Arrival arrival = (Arrival) request.getAttribute("arrival");
+	//arrival.setSearchSupplierDate("20170530");
 %>
 <html>
 <head>

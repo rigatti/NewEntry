@@ -16,6 +16,7 @@ public class TreatedEntryTemp  implements java.io.Serializable {
 	private int numberOfUnit;
 	private int numberOfProduct;
 	private String lotNumber;
+	private String supplierProductCode;
 	private String supplierOrderNumbers;
 	private String supplierOrderLetters;
 	private String validityDate;
@@ -48,6 +49,14 @@ public class TreatedEntryTemp  implements java.io.Serializable {
 
 	public void setSupplierDocumentType(int supplierDocumentType) {
 		this.supplierDocumentType = supplierDocumentType;
+	}
+
+	public String getSupplierProductCode() {
+		return supplierProductCode;
+	}
+
+	public void setSupplierProductCode(String supplierProductCode) {
+		this.supplierProductCode = supplierProductCode;
 	}
 
 	public TreatedEntryTemp() {}

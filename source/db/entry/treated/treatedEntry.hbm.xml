@@ -11,6 +11,7 @@
        	<property name="ean"/>
        	<property name="lotNumber"/>
 		<property name="supplierCode"/>
+		<property name="supplierProductCode"/>
        	<property name="arrivalDate"/>
    		<property name="arrivalTime"/>
     </class>

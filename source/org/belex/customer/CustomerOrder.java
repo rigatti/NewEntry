@@ -25,6 +25,7 @@ public class CustomerOrder implements Serializable {
 	private String 	unit;
 	private int 	numberOfProduct;
 	private int 	totalNumberOfUnit;
+	private String 	supplierProductCode;
 	private String 	supplierCode;
 	private String 	fridge;
 	private float 	numberGets;
@@ -44,6 +45,7 @@ public class CustomerOrder implements Serializable {
 	private String substitutionProductDescription;
 	private int substitutionNumberOfUnit;
 	private String substitutionUnitConditionnement;
+	private String substitutionSupplierProductCode;
 	private String substitutionSupplierCode;
 	private String substitutionSupplierName;
 
@@ -157,6 +159,15 @@ public class CustomerOrder implements Serializable {
 
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
+	}
+
+
+	public String getSupplierProductCode() {
+		return supplierProductCode;
+	}
+
+	public void setSupplierProductCode(String supplierProductCode) {
+		this.supplierProductCode = supplierProductCode;
 	}
 
 	public String getSupplierCode() {
@@ -332,4 +343,12 @@ public class CustomerOrder implements Serializable {
 		this.totalNumberOfOrderStock = totalNumberOfOrderStock;
 	}
 
+
+	public String getSubstitutionSupplierProductCode() {
+		return substitutionSupplierProductCode;
+	}
+
+	public void setSubstitutionSupplierProductCode(String substitutionSupplierProductCode) {
+		this.substitutionSupplierProductCode = substitutionSupplierProductCode;
+	}
 }

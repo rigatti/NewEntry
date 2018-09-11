@@ -27,6 +27,7 @@ public class Product implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private String supplierCode;
+		private String supplierProductCode;
 		private String ean;
 		private String conditionnement;
 		private String dateLastMofication;
@@ -35,6 +36,7 @@ public class Product implements Serializable {
 		
 		public Unit() {
 			setSupplierCode("");
+			setSupplierProductCode("");
 			setEan("");
 			setNumber(0);
 			setConditionnement("");
@@ -93,6 +95,14 @@ public class Product implements Serializable {
 			if (dateLastMofication != null) {
 				this.dateLastMofication = dateLastMofication;
 			}
+		}
+
+		public String getSupplierProductCode() {
+			return supplierProductCode;
+		}
+
+		public void setSupplierProductCode(String supplierProductCode) {
+			this.supplierProductCode = supplierProductCode;
 		}
 	}
 	

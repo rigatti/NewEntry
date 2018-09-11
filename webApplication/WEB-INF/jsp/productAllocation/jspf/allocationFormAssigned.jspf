@@ -46,6 +46,9 @@
 									<tr>
 										<td class="table-text" align="left" nowrap>
 											<%=p.getProductCode()%>
+											<% if (p.getSupplierProductCode() != null) { %>
+												- <%=p.getSupplierProductCode()%>
+											<% } %>
 										</td>
 										<td class="table-text-bold" nowrap>
 											<%=p.getProductCode().trim().endsWith("TBD")?"*** NEW *** ":"" %><%=p.getDescription()%>

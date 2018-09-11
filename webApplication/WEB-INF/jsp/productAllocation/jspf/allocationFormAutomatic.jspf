@@ -37,6 +37,9 @@
 							<tr>
 								<td class="table-text" align="left" nowrap>
 									<%= co.getProductCode() %>
+									<% if (co.getSupplierProductCode() != null) { %>
+										- <%=co.getSupplierProductCode()%>
+									<% } %>
 								</td>
 								<td class="table-text-bold" nowrap>
 									<%= co.getProductDescription() %>

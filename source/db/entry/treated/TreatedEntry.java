@@ -10,6 +10,7 @@ public class TreatedEntry  implements java.io.Serializable {
 	private String ean;
 	private String lotNumber;
 	private String supplierCode;
+	private String supplierProductCode;
 	private String arrivalDate;
 	private String arrivalTime;
 	
@@ -69,6 +70,14 @@ public class TreatedEntry  implements java.io.Serializable {
 
 	public void setSupplierCode(String supplierCode) {
 		this.supplierCode = supplierCode;
+	}
+
+	public String getSupplierProductCode() {
+		return supplierProductCode;
+	}
+
+	public void setSupplierProductCode(String supplierProductCode) {
+		this.supplierProductCode = supplierProductCode;
 	}
 
 	public String getValidityDate() {

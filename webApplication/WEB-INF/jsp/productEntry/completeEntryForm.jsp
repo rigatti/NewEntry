@@ -221,7 +221,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						Ean : <br>
 					</td>
 					<td colspan="2">
-						<input name="entry.product.newProductEan" type="text" value="<%= condEan %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+						<input name="entry.product.newProductEan" id="entry.product.newProductEan" type="text" value="<%= condEan %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 						<input type="hidden" name="entry.product.newProductLabel" value="">
 						<input type="hidden" name="entry.product.newProductSupplierCode" value="">
 					</td>
@@ -235,14 +235,14 @@ for (int i=0; i < product.getUnits().size(); i++) {
 
 						<% if ( unitNewConditionnement ) { %>
 
-							<input type="text" size="4" name="entry.product.newProductNumberOfUnit" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+							<input type="text" size="4" name="entry.product.newProductNumberOfUnit" id="entry.product.newProductNumberOfUnit" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 							X
-							<input type="text" size="25" name="entry.product.newProductUnitConditionnement" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+							<input type="text" size="25" name="entry.product.newProductUnitConditionnement" id="entry.product.newProductUnitConditionnement" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 
 						<% } else { %>
 
-							<input type="hidden" name="entry.product.newProductNumberOfUnit" value="">
-							<input type="hidden" name="entry.product.newProductUnitConditionnement" value="">
+							<input type="hidden" name="entry.product.newProductNumberOfUnit" id="entry.product.newProductNumberOfUnit" value="">
+							<input type="hidden" name="entry.product.newProductUnitConditionnement" id="entry.product.newProductUnitConditionnement" value="">
 
 						<% } %>
 
@@ -255,7 +255,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 							<!--/span-->
 						<%/* } */%>
 
-						<input type="text" value="" size="10" name="entry.numberOfProduct" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+						<input type="text" value="" size="10" name="entry.numberOfProduct" id="entry.numberOfProduct" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 
 					</td>
 					<td wdth="70%">
@@ -350,7 +350,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						Date de validité : <br>
 					</td>
 					<td colspan="2">
-						<input name="entry.product.validityDate" type="text" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+						<input name="entry.product.validityDate" id="entry.product.validityDate" type="text" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
 						<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 						<dlcalendar click_element_id="img_calendar"
 				            input_element_id="entry.product.validityDate"

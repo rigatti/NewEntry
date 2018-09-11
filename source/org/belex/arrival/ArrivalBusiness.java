@@ -177,6 +177,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				treatedEntryTemp.setSupplierCode(arrival.getSupplier().getSupplierCode());
 				treatedEntryTemp.setArrivalDate(arrival.getDate());
 				treatedEntryTemp.setArrivalTime(arrival.getTime());
+				treatedEntryTemp.setSupplierProductCode(unit.getSupplierProductCode());
 				treatedEntryTemp.setProductCode(arrival.getEntry().getProduct().getProductCode());
 				treatedEntryTemp.setEan(unit.getEan());
 				treatedEntryTemp.setUnitConditionnement(Util.formatForDB(unit.getConditionnement()));
@@ -409,6 +410,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 			int numberOfUnit = treatedEntryTemp.getNumberOfUnit();
 			int numberOfProduct = treatedEntryTemp.getNumberOfProduct();
 			String lotNumber = treatedEntryTemp.getLotNumber();
+			String supplierProductCode = treatedEntryTemp.getSupplierProductCode();
 			String supplierOrderNumbers = treatedEntryTemp.getSupplierOrderNumbers();
 			String supplierOrderLetters = treatedEntryTemp.getSupplierOrderLetters();
 			int stockMovement = treatedEntryTemp.getStockMovement();
@@ -464,6 +466,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 			TreatedEntry treatedEntry = new TreatedEntry();
 			treatedEntry.setValidityDate(validityDate);
 			treatedEntry.setProductCode(productCode);
+			treatedEntry.setSupplierProductCode(supplierProductCode);
 			treatedEntry.setEan(ean);
 			treatedEntry.setLotNumber(lotNumber);
 			treatedEntry.setSupplierCode(supplierCode);

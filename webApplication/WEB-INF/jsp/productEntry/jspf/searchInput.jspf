@@ -31,7 +31,7 @@ if (writeTableHeader) { %>
 		</td>
 		<td width="35%" nowrap>
 			<a class="ctext" href="javascript:void(0)" onclick="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)">Code : </a>
-			<input type="text" name="searchCodeInput" value="<%= codeInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)"> 
+			<input type="text" name="searchCodeInput" id="searchCodeInput" value="<%= codeInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)"> 
 			<input class="checkbox" type="checkbox" name="searchExactMatchInput"> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchExactMatchInput')"> Exact </a> 
 		</td>
 		<td width="10%" align="right">

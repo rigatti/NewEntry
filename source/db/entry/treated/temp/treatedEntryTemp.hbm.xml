@@ -25,5 +25,6 @@
 		<property name="supplierDocumentDescription"/>
 		<property name="supplierDocumentType"/>
 		<property name="stockMovement"/>
+		<property name="supplierProductCode"/>
     </class>
 </hibernate-mapping>

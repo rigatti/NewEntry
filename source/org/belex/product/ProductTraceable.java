@@ -8,6 +8,7 @@ public class ProductTraceable implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String productCode;
+	private String supplierProductCode;
 	private String supplierCode;
 	private String supplierName;
 
@@ -277,6 +278,14 @@ public class ProductTraceable implements Serializable {
 		this.productCode = productCode;
 	}
 
+	public String getSupplierProductCode() {
+		return supplierProductCode;
+	}
+
+	public void setSupplierProductCode(String supplierProductCode) {
+		this.supplierProductCode = supplierProductCode;
+	}
+	
 	public String getSupplierCode() {
 		return supplierCode;
 	}

@@ -199,6 +199,7 @@ public class ProductBusiness extends HibernateDaoSupport implements IProductBusi
 	
 						Product.Unit unit = currentProduct. new Unit();
 						unit.setSupplierCode(currentconditioningDB.getSupplierCode());
+						unit.setSupplierProductCode(currentconditioningDB.getSupplierProductCode());
 						unit.setEan(currentconditioningDB.getEan());
 						unit.setConditionnement(currentconditioningDB.getUnit());
 	

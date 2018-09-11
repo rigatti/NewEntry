@@ -296,7 +296,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 				product.setDescription(co.getSubstitutionProductDescription());
 
 				product.setUnitConditionnement(co.getSubstitutionUnitConditionnement());
-
+				product.setSupplierProductCode(co.getSubstitutionSupplierProductCode());
 				product.setSupplierCode(co.getSubstitutionSupplierCode());
 				product.setSupplierName(co.getSubstitutionSupplierName());
 
@@ -406,7 +406,14 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 					co.setProductCode(cod.getProductCode());
 					co.setProductDescription(cod.getProductDescription());
 					co.setSupplierCode(cod.getSupplierCode());
-	
+					
+					ArrayList<Conditioning> productConditionings = conditioningDAO.get(cod.getProductCode(), cod.getSupplierCode());
+					if (productConditionings != null) {
+						if (productConditionings.size() == 1) {
+							co.setSupplierProductCode(productConditionings.get(0).getSupplierProductCode());
+						}
+					}
+					
 					//co.setTotalNumberOfUnit(sod.getTotalNumberOfUnit());
 					// WARNING the field TotalNumberOfUnit is not always correctly filled by ouistiti
 					// re-compute it to be sure.
@@ -453,6 +460,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 									co.setSubstitutionProductDescription(ted.getDescription());
 									co.setSubstitutionNumberOfUnit(tedd.getNumberOfUnit());
 									co.setSubstitutionUnitConditionnement(ted.getUnitConditionnement());
+									co.setSubstitutionSupplierProductCode(te.getSupplierProductCode());
 									co.setSubstitutionSupplierCode(te.getSupplierCode());
 									co.setSubstitutionSupplierName(supplierDAO.getByCode(te.getSupplierCode()).getDescription());
 								}
@@ -499,6 +507,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 					ProductTraceable product = new ProductTraceable();
 	
 					product.setProductCode(te.getProductCode());
+					product.setSupplierProductCode(te.getSupplierProductCode());
 					product.setSupplierCode(te.getSupplierCode());
 					product.setSupplierName(supplierDAO.getByCode(product.getSupplierCode()).getDescription());
 					product.setArrivalDate(te.getArrivalDate());
@@ -529,6 +538,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 				ProductTraceable product = new ProductTraceable();
 	
 				product.setProductCode(te.getProductCode());
+				product.setSupplierProductCode(te.getSupplierProductCode());
 				product.setSupplierCode(te.getSupplierCode());
 				product.setSupplierName(supplierDAO.getByCode(product.getSupplierCode()).getDescription());
 				product.setArrivalDate(te.getArrivalDate());
@@ -1030,6 +1040,7 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 									SupplierReturnsEntry sre = new SupplierReturnsEntry();
 									sre.setNumberOfProducts(newTedd.getNumberOfUnit());
 									sre.setProductCode(te.getProductCode());
+									//???setSupplierProductCode
 									sre.setSupplierCode(te.getSupplierCode());
 									sre.setTreatedEntryDetailDestinationId(treatedEDDId);
 									
