@@ -24,10 +24,19 @@
 								<table id="assignedProductsList" class="framing-table" width="20%" border=0 cellspacing=1 cellpadding=3 width=100%>
 									<thead>
 										<tr>
-											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 0, 'String', null, null, null, null)" colspan="3">
-												Produit
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 0, 'String', null, null, null, null)">
+												Code Produit
+											</td>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 1, 'String', null, null, null, null)">
+												Code Produit Fournisseur
 											</td>
 											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 2, 'String', null, null, null, null)">
+												Description
+											</td>
+											<td class="column-head-name" width="1%">
+												<br>
+											</td>
+											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('assignedProductsList'), 4, 'String', null, null, null, null)">
 												Client
 											</td>
 										</tr>
@@ -37,8 +46,10 @@
 							<tr>
 								<td class="table-text" align="left" nowrap>
 									<%= co.getProductCode() %>
+								</td>
+								<td class="table-text" align="left" nowrap>
 									<% if (co.getSupplierProductCode() != null) { %>
-										- <%=co.getSupplierProductCode()%>
+										<%=co.getSupplierProductCode()%>
 									<% } %>
 								</td>
 								<td class="table-text-bold" nowrap>
