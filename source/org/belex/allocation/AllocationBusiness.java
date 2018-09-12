@@ -145,9 +145,10 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 */
 								ArrayList<Conditioning> cs = conditioningDAO.get(sod.getProductCode(), sod.getSupplierCode());
 								for (Conditioning c : cs) {
-	
+	log.info(c.getProductCode() + "(" + sod.getSupplierCode() + ")" + "sod.getUnitLargeScale() :" + sod.getUnitLargeScale());
+	log.info(c.getProductCode() + "(" + sod.getSupplierCode() + ")" + " - c.getUnitLargeScale() :" + c.getUnitLargeScale());
 									// some cases have an added string like "," "." or " " at the end of the conditioning BUT for the same product.
-									if (sod.getUnitLargeScale().startsWith(c.getUnitLargeScale()) || c.getUnitLargeScale().startsWith(sod.getUnitLargeScale())) {
+									if (sod.getUnitLargeScale().startsWith(c.getUnitLargeScale()) || (c.getUnitLargeScale() != null && c.getUnitLargeScale().startsWith(sod.getUnitLargeScale()))) {
 	
 										ArrayList<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(sod.getProductCode(), new StringTokenizer(String.valueOf(supplierOrderNumber)));
 										for (CustomerOrderDetail cod : cods) {
