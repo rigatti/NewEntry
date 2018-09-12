@@ -406,8 +406,14 @@ public class AllocationBusiness extends HibernateDaoSupport implements IAllocati
 					co.setProductCode(cod.getProductCode());
 					co.setProductDescription(cod.getProductDescription());
 					co.setSupplierCode(cod.getSupplierCode());
+
+					Product pr = new Product();
+					Product.Unit unit = pr.new Unit();
 					
-					ArrayList<Conditioning> productConditionings = conditioningDAO.get(cod.getProductCode(), cod.getSupplierCode());
+					unit.setConditionnement(cod.getUnit());
+					unit.setNumber(cod.getNumberOfUnit());
+
+					ArrayList<Conditioning> productConditionings = conditioningDAO.get(cod.getProductCode(), cod.getSupplierCode(), unit);
 					if (productConditionings != null) {
 						if (productConditionings.size() == 1) {
 							co.setSupplierProductCode(productConditionings.get(0).getSupplierProductCode());
