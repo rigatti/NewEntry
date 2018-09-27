@@ -200,7 +200,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 					<input type="hidden" name="searchOnSupplier">
 
 					<%@include file="/WEB-INF/jsp/productEntry/jspf/searchInput.jspf" %>
-					<td>
+					<td valign="top">
 						<input class="button" type="submit" value=" Recherche ">  
 					</td>
 				</form>
