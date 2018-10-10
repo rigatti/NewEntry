@@ -18,6 +18,10 @@ public class TreatedEntryDetail  implements java.io.Serializable {
 	private String supplierDocumentDescription;
 	private int supplierDocumentType;
 	private int stockMovement;
+	private int supplierEntryProductIntegrity;
+	private int supplierEntryPackagingIntegrity;
+	private int supplierEntryDlcDdmValidity;
+	private int supplierEntryTemperatureValidity;
 
 	private ArrayList<TreatedEntryDetailDestination> treatedEntryDetailDestinations  = new ArrayList<TreatedEntryDetailDestination>();
 	
@@ -126,5 +130,37 @@ public class TreatedEntryDetail  implements java.io.Serializable {
 
 	public void setStockMovement(int stockMovement) {
 		this.stockMovement = stockMovement;
+	}
+
+	public int getSupplierEntryProductIntegrity() {
+		return supplierEntryProductIntegrity;
+	}
+
+	public void setSupplierEntryProductIntegrity(int supplierEntryProductIntegrity) {
+		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
+	}
+
+	public int getSupplierEntryPackagingIntegrity() {
+		return supplierEntryPackagingIntegrity;
+	}
+
+	public void setSupplierEntryPackagingIntegrity(int supplierEntryPackagingIntegrity) {
+		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
+	}
+
+	public int getSupplierEntryDlcDdmValidity() {
+		return supplierEntryDlcDdmValidity;
+	}
+
+	public void setSupplierEntryDlcDdmValidity(int supplierEntryDlcDdmValidity) {
+		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
+	}
+
+	public int getSupplierEntryTemperatureValidity() {
+		return supplierEntryTemperatureValidity;
+	}
+
+	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
+		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
 	}
 }

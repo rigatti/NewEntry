@@ -22,6 +22,10 @@ public class Arrival implements Serializable {
 	private Supplier supplier = new Supplier();
 	String supplierDocumentDescription = "";
 	int supplierDocumentType;
+	int supplierEntryProductIntegrity;
+	int supplierEntryPackagingIntegrity;
+	int supplierEntryDlcDdmValidity;
+	int supplierEntryTemperatureValidity;
 
 	private boolean saved = false;
 	
@@ -222,4 +226,37 @@ public class Arrival implements Serializable {
 	public void setSupplierDocumentType(int supplierDocumentType) {
 		this.supplierDocumentType = supplierDocumentType;
 	}
+	
+	public int getSupplierEntryProductIntegrity() {
+		return supplierEntryProductIntegrity;
+	}
+
+	public void setSupplierEntryProductIntegrity(int supplierEntryProductIntegrity) {
+		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
+	}
+
+	public int getSupplierEntryPackagingIntegrity() {
+		return supplierEntryPackagingIntegrity;
+	}
+
+	public void setSupplierEntryPackagingIntegrity(int supplierEntryPackagingIntegrity) {
+		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
+	}
+
+	public int getSupplierEntryDlcDdmValidity() {
+		return supplierEntryDlcDdmValidity;
+	}
+
+	public void setSupplierEntryDlcDdmValidity(int supplierEntryDlcDdmValidity) {
+		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
+	}
+
+	public int getSupplierEntryTemperatureValidity() {
+		return supplierEntryTemperatureValidity;
+	}
+
+	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
+		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
+	}
+
 }

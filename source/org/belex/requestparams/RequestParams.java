@@ -26,6 +26,11 @@ public class RequestParams implements Serializable {
 	private String entrySupplierDocumentDescription = "";
 	private String entrySupplierDocumentType = "";
 	
+	int entrySupplierEntryProductIntegrity;
+	int entrySupplierEntryPackagingIntegrity;
+	int entrySupplierEntryDlcDdmValidity;
+	int entrySupplierEntryTemperatureValidity;
+
 	// represented by a Stringtokenizer delim by "#" 
 	// each element is a Stringtokenizer containing a supplierCode, number and letter
 	// ex : Supplier=CT;Number=1;Letter=DFR#Supplier=RLL;Number=2;Letter=DFX
@@ -383,5 +388,29 @@ public class RequestParams implements Serializable {
 	}
 	public void setProductExportWithImage(String productExportWithImage) {
 		this.productExportWithImage = productExportWithImage;
+	}
+	public int getEntrySupplierEntryProductIntegrity() {
+		return entrySupplierEntryProductIntegrity;
+	}
+	public void setEntrySupplierEntryProductIntegrity(int entrySupplierEntryProductIntegrity) {
+		this.entrySupplierEntryProductIntegrity = entrySupplierEntryProductIntegrity;
+	}
+	public int getEntrySupplierEntryPackagingIntegrity() {
+		return entrySupplierEntryPackagingIntegrity;
+	}
+	public void setEntrySupplierEntryPackagingIntegrity(int entrySupplierEntryPackagingIntegrity) {
+		this.entrySupplierEntryPackagingIntegrity = entrySupplierEntryPackagingIntegrity;
+	}
+	public int getEntrySupplierEntryDlcDdmValidity() {
+		return entrySupplierEntryDlcDdmValidity;
+	}
+	public void setEntrySupplierEntryDlcDdmValidity(int entrySupplierEntryDlcDdmValidity) {
+		this.entrySupplierEntryDlcDdmValidity = entrySupplierEntryDlcDdmValidity;
+	}
+	public int getEntrySupplierEntryTemperatureValidity() {
+		return entrySupplierEntryTemperatureValidity;
+	}
+	public void setEntrySupplierEntryTemperatureValidity(int entrySupplierEntryTemperatureValidity) {
+		this.entrySupplierEntryTemperatureValidity = entrySupplierEntryTemperatureValidity;
 	}
 }

@@ -16,6 +16,11 @@ public class Entry implements Serializable {
 	private String supplierDocumentDescription;
 	private int supplierDocumentType;
 
+	int supplierEntryProductIntegrity;
+	int supplierEntryPackagingIntegrity;
+	int supplierEntryDlcDdmValidity;
+	int supplierEntryTemperatureValidity;
+	
 	private Supplier supplier;
 
 	private String date;
@@ -151,5 +156,37 @@ public class Entry implements Serializable {
 
 	public void setSupplierDocumentType(int supplierDocumentType) {
 		this.supplierDocumentType = supplierDocumentType;
+	}
+
+	public int getSupplierEntryProductIntegrity() {
+		return supplierEntryProductIntegrity;
+	}
+
+	public void setSupplierEntryProductIntegrity(int supplierEntryProductIntegrity) {
+		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
+	}
+
+	public int getSupplierEntryPackagingIntegrity() {
+		return supplierEntryPackagingIntegrity;
+	}
+
+	public void setSupplierEntryPackagingIntegrity(int supplierEntryPackagingIntegrity) {
+		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
+	}
+
+	public int getSupplierEntryDlcDdmValidity() {
+		return supplierEntryDlcDdmValidity;
+	}
+
+	public void setSupplierEntryDlcDdmValidity(int supplierEntryDlcDdmValidity) {
+		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
+	}
+
+	public int getSupplierEntryTemperatureValidity() {
+		return supplierEntryTemperatureValidity;
+	}
+
+	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
+		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
 	}
 }

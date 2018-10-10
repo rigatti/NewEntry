@@ -193,6 +193,10 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				treatedEntryTemp.setSupplierDocumentType(arrival.getSupplierDocumentType());
 				treatedEntryTemp.setNumberOfProductReceived(nbrReceived);
 				treatedEntryTemp.setStockMovement(StringUtils.equals(arrival.getSupplier().getSupplierCode(), Constants.SUPPLIER_STOCK)?1:0);
+				treatedEntryTemp.setSupplierEntryProductIntegrity(arrival.getSupplierEntryProductIntegrity());
+				treatedEntryTemp.setSupplierEntryPackagingIntegrity(arrival.getSupplierEntryPackagingIntegrity());
+				treatedEntryTemp.setSupplierEntryDlcDdmValidity(arrival.getSupplierEntryDlcDdmValidity());
+				treatedEntryTemp.setSupplierEntryTemperatureValidity(arrival.getSupplierEntryTemperatureValidity());
 
 				if (treatedEntryTempDAO.save(treatedEntryTemp, currentSession)) {
 

@@ -57,6 +57,9 @@ TEXTAREA {
 	background-color:#FFFFFF;
 	color:#000066;
 }
+.inputCheckbox {
+	transform: scale(1.5);
+}
 .inputTextFocused {
 	font-size:20px;
 	background-color:#000066;
