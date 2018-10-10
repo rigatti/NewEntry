@@ -438,6 +438,11 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 			String description = treatedEntryTemp.getDescription();
 			String supplierDocumentDescription = treatedEntryTemp.getSupplierDocumentDescription();
 			int supplierDocumentType = treatedEntryTemp.getSupplierDocumentType();
+			int supplierEntryProductIntegrity = treatedEntryTemp.getSupplierEntryProductIntegrity();
+			int supplierEntryPackagingIntegrity = treatedEntryTemp.getSupplierEntryPackagingIntegrity();
+			int supplierEntryDlcDdmValidity = treatedEntryTemp.getSupplierEntryDlcDdmValidity();
+			int supplierEntryTemperatureValidity = treatedEntryTemp.getSupplierEntryTemperatureValidity();
+
 
 			ArrayList<TreatedEntryCustomerTemp> treatedEntryCustomerTemps = 
 				treatedEntryCustomerTempDAO.getAllForEntryId(entryTempId);
@@ -506,6 +511,10 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				treatedEntryDetail.setNumberOfProduct(numberOfProduct);
 				treatedEntryDetail.setSupplierDocumentDescription(supplierDocumentDescription);
 				treatedEntryDetail.setSupplierDocumentType(supplierDocumentType);
+				treatedEntryDetail.setSupplierEntryProductIntegrity(supplierEntryProductIntegrity);
+				treatedEntryDetail.setSupplierEntryPackagingIntegrity(supplierEntryPackagingIntegrity);
+				treatedEntryDetail.setSupplierEntryDlcDdmValidity(supplierEntryDlcDdmValidity);
+				treatedEntryDetail.setSupplierEntryTemperatureValidity(supplierEntryTemperatureValidity);
 				treatedEntryDetail.setStockMovement(stockMovement);
 
 				try {
@@ -867,6 +876,10 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 
 				arrival.setSupplierDocumentDescription(tet.getSupplierDocumentDescription());
 				arrival.setSupplierDocumentType(tet.getSupplierDocumentType());
+				arrival.setSupplierEntryProductIntegrity(tet.getSupplierEntryProductIntegrity());
+				arrival.setSupplierEntryPackagingIntegrity(tet.getSupplierEntryPackagingIntegrity());
+				arrival.setSupplierEntryDlcDdmValidity(tet.getSupplierEntryDlcDdmValidity());
+				arrival.setSupplierEntryTemperatureValidity(tet.getSupplierEntryTemperatureValidity());
 
 				Product product = new Product(tet.getProductCode());
 				product.setLotNumber(tet.getLotNumber());
