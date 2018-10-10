@@ -56,7 +56,6 @@
 				if (askConfirmation) {
 					return confirmAction();
 				}
-				return false;
 				return true;
 			}
 			function validateNext() {
