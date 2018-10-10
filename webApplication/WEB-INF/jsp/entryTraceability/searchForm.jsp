@@ -1,7 +1,7 @@
 <%@page import="org.belex.util.Util"%>
 <html>
 <head>
-	<title>Belex - Tracabilité</title>
+	<title>Belex - Tracabilité des fournisseurs</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
 	<script type="text/javascript">
@@ -51,7 +51,7 @@
 	</form>
 
 	<h1 onclick="window.document.adminFrm.submit()">
-		Traçabilité des articles
+		Traçabilité des fournisseurs
 	</h1>
 
 	<table border="0" cellpadding="0" cellspacing="0"  width="100%" >
@@ -79,12 +79,12 @@
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-								Recherche d'un article
+								Recherche d'un fournisseur
 							</td>
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								Code Produit :<br>
+								Code Fournisseur :<br>
 								<span style="padding-left:25px">
 									<input type="text" name="productCodeInput" size="30px" value="">
 								</span>
@@ -92,29 +92,13 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								EAN :<br>
+								Date d'entrée : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="eanInput" size="30px" value="">
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="table-text-bold" nowrap>
-								Numéro de lot :<br>
-								<span style="padding-left:25px">
-									<input type="text" name="lotNumberInput" size="30px" value="">
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td class="table-text-bold" nowrap>
-								Date de validité : <br>
-								<span style="padding-left:25px">
-									<input type="text" name="validityDateInput" size="30px" value="">
+									<input type="text" name="entryDateInput" size="30px" value="">
 									<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 									<dlcalendar click_element_id="img_calendar"
-							            input_element_id="validityDateInput"
-							            tool_tip="Click to choose a validity date"
+							            input_element_id="entryDateInput"
+							            tool_tip="Click to choose an entry date"
 							            start_date="2007-01-01"
 							            end_date="2050-02-15"
 							            date_format="dd-mm-yyyy"

@@ -17,6 +17,7 @@
 		<flow:location path="/WEB-INF/productEntry.xml" />
 		<flow:location path="/WEB-INF/productAdmin.xml" />
 		<flow:location path="/WEB-INF/productTraceability.xml" />
+		<flow:location path="/WEB-INF/entryTraceability.xml" />
 		<flow:location path="/WEB-INF/productAllocation.xml" />
 		<!-- flow:location path="/WEB-INF/messaging.xml"/ -->
 		<flow:location path="/WEB-INF/productCleaning.xml" />

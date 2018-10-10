@@ -99,7 +99,7 @@
 							<td class="table-text-bold" nowrap>
 								<input type="radio" value="1" name="searchType"> <a class="ctext" href="javascript:void(0)" onclick="setRadioState(window.document.frmProductSearch,'searchType',0, true)">Code Produit :</a><br>
 								<span style="padding-left:25px">
-									<input type="text" name="productCodeInput" size="100px" value="" onfocus="setRadioState(window.document.frmProductSearch,'searchType',0, true)">
+									<input type="text" name="productCodeInput" size="30px" value="" onfocus="setRadioState(window.document.frmProductSearch,'searchType',0, true)">
 								</span>
 							</td>
 						</tr>
@@ -107,7 +107,7 @@
 							<td class="table-text-bold" nowrap>
 								<input type="radio" value="2" name="searchType"> <a class="ctext" href="javascript:void(0)" onclick="setRadioState(window.document.frmProductSearch,'searchType',1, true)">Libellé :</a><br>
 								<span style="padding-left:25px">
-									<input type="text" name="labelInput" size="100px" value="" onfocus="setRadioState(window.document.frmProductSearch,'searchType',1, true)">
+									<input type="text" name="labelInput" size="30px" value="" onfocus="setRadioState(window.document.frmProductSearch,'searchType',1, true)">
 								</span>
 							</td>
 						</tr>

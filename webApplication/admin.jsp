@@ -93,7 +93,12 @@ String rememberMe = request.getParameter("rememberMe");
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Traçabilité</a><br>
+								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Traçabilité des produits</a><br>
+							</td>
+						</tr>
+						<tr>
+							<td class="table-text-bold">
+								<a class="ctextunderlined" href="flowController.htm?_flowId=entryTraceability">Traçabilité des entrées fournisseurs</a><br>
 							</td>
 						</tr>
 					</table>
