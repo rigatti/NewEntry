@@ -197,6 +197,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				treatedEntryTemp.setSupplierEntryPackagingIntegrity(arrival.getSupplierEntryPackagingIntegrity());
 				treatedEntryTemp.setSupplierEntryDlcDdmValidity(arrival.getSupplierEntryDlcDdmValidity());
 				treatedEntryTemp.setSupplierEntryTemperatureValidity(arrival.getSupplierEntryTemperatureValidity());
+				treatedEntryTemp.setSupplierEntryCommentOnQuality(Util.formatForDB(arrival.getSupplierEntryCommentOnQuality(), 250));
 
 				if (treatedEntryTempDAO.save(treatedEntryTemp, currentSession)) {
 
@@ -442,6 +443,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 			int supplierEntryPackagingIntegrity = treatedEntryTemp.getSupplierEntryPackagingIntegrity();
 			int supplierEntryDlcDdmValidity = treatedEntryTemp.getSupplierEntryDlcDdmValidity();
 			int supplierEntryTemperatureValidity = treatedEntryTemp.getSupplierEntryTemperatureValidity();
+			String supplierEntryCommentOnQuality = treatedEntryTemp.getSupplierEntryCommentOnQuality();
 
 
 			ArrayList<TreatedEntryCustomerTemp> treatedEntryCustomerTemps = 
@@ -515,6 +517,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				treatedEntryDetail.setSupplierEntryPackagingIntegrity(supplierEntryPackagingIntegrity);
 				treatedEntryDetail.setSupplierEntryDlcDdmValidity(supplierEntryDlcDdmValidity);
 				treatedEntryDetail.setSupplierEntryTemperatureValidity(supplierEntryTemperatureValidity);
+				treatedEntryDetail.setSupplierEntryCommentOnQuality(supplierEntryCommentOnQuality);
 				treatedEntryDetail.setStockMovement(stockMovement);
 
 				try {
@@ -880,6 +883,7 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 				arrival.setSupplierEntryPackagingIntegrity(tet.getSupplierEntryPackagingIntegrity());
 				arrival.setSupplierEntryDlcDdmValidity(tet.getSupplierEntryDlcDdmValidity());
 				arrival.setSupplierEntryTemperatureValidity(tet.getSupplierEntryTemperatureValidity());
+				arrival.setSupplierEntryCommentOnQuality(tet.getSupplierEntryCommentOnQuality());
 
 				Product product = new Product(tet.getProductCode());
 				product.setLotNumber(tet.getLotNumber());

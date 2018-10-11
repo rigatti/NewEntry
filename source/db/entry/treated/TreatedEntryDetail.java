@@ -22,6 +22,7 @@ public class TreatedEntryDetail  implements java.io.Serializable {
 	private int supplierEntryPackagingIntegrity;
 	private int supplierEntryDlcDdmValidity;
 	private int supplierEntryTemperatureValidity;
+	private String supplierEntryCommentOnQuality;
 
 	private ArrayList<TreatedEntryDetailDestination> treatedEntryDetailDestinations  = new ArrayList<TreatedEntryDetailDestination>();
 	
@@ -162,5 +163,13 @@ public class TreatedEntryDetail  implements java.io.Serializable {
 
 	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
 		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
+	}
+
+	public String getSupplierEntryCommentOnQuality() {
+		return supplierEntryCommentOnQuality;
+	}
+
+	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
+		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
 	}
 }

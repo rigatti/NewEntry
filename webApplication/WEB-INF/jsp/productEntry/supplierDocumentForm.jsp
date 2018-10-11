@@ -16,11 +16,11 @@
 					return false;
 				}
 
-				var askConfirmation = false;
+				var askComment = false;
 				var checkboxToInspect = window.document.getElementById("inputSupplierEntryProductIntegrity");
 				var supplierEntryProductIntegrity = window.document.getElementById("supplierEntryProductIntegrity");
 				if (checkboxToInspect.checked == false){
-					askConfirmation = true;
+					askComment = true;
 					supplierEntryProductIntegrity.value = 0;
 				} else {
 					supplierEntryProductIntegrity.value = 1;
@@ -29,7 +29,7 @@
 				checkboxToInspect = window.document.getElementById("inputSupplierEntryPackagingIntegrity");
 				var supplierEntryPackagingIntegrity = window.document.getElementById("supplierEntryPackagingIntegrity");
 				if (checkboxToInspect.checked == false){
-					askConfirmation = true;
+					askComment = true;
 					supplierEntryPackagingIntegrity.value = 0;
 				} else {
 					supplierEntryPackagingIntegrity.value = 1;
@@ -38,7 +38,7 @@
 				checkboxToInspect = window.document.getElementById("inputSupplierEntryDlcDdmValidity");
 				var supplierEntryDlcDdmValidity = window.document.getElementById("supplierEntryDlcDdmValidity");
 				if (checkboxToInspect.checked == false){
-					askConfirmation = true;
+					askComment = true;
 					supplierEntryDlcDdmValidity.value = 0;
 				} else {
 					supplierEntryDlcDdmValidity.value = 1;
@@ -47,17 +47,24 @@
 				checkboxToInspect = window.document.getElementById("inputSupplierEntryTemperatureValidity");
 				var supplierEntryTemperatureValidity = window.document.getElementById("supplierEntryTemperatureValidity");
 				if (checkboxToInspect.checked == false){
-					askConfirmation = true;
+					askComment = true;
 					supplierEntryTemperatureValidity.value = 0;
 				} else {
 					supplierEntryTemperatureValidity.value = 1;
 				}
 				
-				if (askConfirmation) {
-					return confirmAction();
+				var supplierEntryCommentOnQuality = window.document.getElementById("supplierEntryCommentOnQuality");
+				
+				if (askComment) {
+					if (supplierEntryCommentOnQuality.value == '') {
+						alert("Veuillez introduire un commentaire sur la livraison");
+						supplierEntryCommentOnQuality.focus();
+						return false;
+					}
 				}
 				return true;
 			}
+		
 			function validateNext() {
 				var obj = window.document.nextFrm;
 				if (checkValues(obj)) {
@@ -150,6 +157,12 @@
 					</tr>
 					<tr>
 						<td colspan="2"><hr></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							Commentaire<br>
+							<textarea maxlength="220" style="width: 420px; height: 80px; margin: 0px;" name="supplierEntryCommentOnQuality" id="supplierEntryCommentOnQuality"></textarea>
+						</td>
 					</tr>
 				</table>
 			</p>

@@ -26,10 +26,11 @@ public class RequestParams implements Serializable {
 	private String entrySupplierDocumentDescription = "";
 	private String entrySupplierDocumentType = "";
 	
-	int entrySupplierEntryProductIntegrity;
-	int entrySupplierEntryPackagingIntegrity;
-	int entrySupplierEntryDlcDdmValidity;
-	int entrySupplierEntryTemperatureValidity;
+	private int entrySupplierEntryProductIntegrity;
+	private int entrySupplierEntryPackagingIntegrity;
+	private int entrySupplierEntryDlcDdmValidity;
+	private int entrySupplierEntryTemperatureValidity;
+	private String entrySupplierEntryCommentOnQuality;
 
 	// represented by a Stringtokenizer delim by "#" 
 	// each element is a Stringtokenizer containing a supplierCode, number and letter
@@ -412,5 +413,11 @@ public class RequestParams implements Serializable {
 	}
 	public void setEntrySupplierEntryTemperatureValidity(int entrySupplierEntryTemperatureValidity) {
 		this.entrySupplierEntryTemperatureValidity = entrySupplierEntryTemperatureValidity;
+	}
+	public String getEntrySupplierEntryCommentOnQuality() {
+		return entrySupplierEntryCommentOnQuality;
+	}
+	public void setEntrySupplierEntryCommentOnQuality(String entrySupplierEntryCommentOnQuality) {
+		this.entrySupplierEntryCommentOnQuality = entrySupplierEntryCommentOnQuality;
 	}
 }

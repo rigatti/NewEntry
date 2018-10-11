@@ -16,10 +16,11 @@ public class Entry implements Serializable {
 	private String supplierDocumentDescription;
 	private int supplierDocumentType;
 
-	int supplierEntryProductIntegrity;
-	int supplierEntryPackagingIntegrity;
-	int supplierEntryDlcDdmValidity;
-	int supplierEntryTemperatureValidity;
+	private int supplierEntryProductIntegrity;
+	private int supplierEntryPackagingIntegrity;
+	private int supplierEntryDlcDdmValidity;
+	private int supplierEntryTemperatureValidity;
+	private String supplierEntryCommentOnQuality;
 	
 	private Supplier supplier;
 
@@ -188,5 +189,13 @@ public class Entry implements Serializable {
 
 	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
 		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
+	}
+
+	public String getSupplierEntryCommentOnQuality() {
+		return supplierEntryCommentOnQuality;
+	}
+
+	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
+		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
 	}
 }

@@ -29,6 +29,7 @@
 		<property name="supplierEntryProductIntegrity"/>
 		<property name="supplierEntryPackagingIntegrity"/>
 		<property name="supplierEntryDlcDdmValidity"/>
-		<property name="supplierEntryTemperatureValidity"/>		
+		<property name="supplierEntryTemperatureValidity"/>
+		<property name="supplierEntryCommentOnQuality"/>		
     </class>
 </hibernate-mapping>

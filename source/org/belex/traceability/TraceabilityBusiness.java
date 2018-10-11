@@ -71,6 +71,7 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 			entry.setSupplierEntryPackagingIntegrity(ted.getSupplierEntryPackagingIntegrity());
 			entry.setSupplierEntryDlcDdmValidity(ted.getSupplierEntryDlcDdmValidity());
 			entry.setSupplierEntryTemperatureValidity(ted.getSupplierEntryTemperatureValidity());
+			entry.setSupplierEntryCommentOnQuality(ted.getSupplierEntryCommentOnQuality());
 
 			Supplier s = new Supplier();
 			s.setSupplierCode(te.getSupplierCode());

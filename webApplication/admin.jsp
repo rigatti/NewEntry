@@ -96,11 +96,11 @@ String rememberMe = request.getParameter("rememberMe");
 								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Traçabilité des produits</a><br>
 							</td>
 						</tr>
-						<tr>
+						<!-- tr>
 							<td class="table-text-bold">
 								<a class="ctextunderlined" href="flowController.htm?_flowId=entryTraceability">Traçabilité des entrées fournisseurs</a><br>
 							</td>
-						</tr>
+						</tr-->
 					</table>
 				</td>
 			</tr>

@@ -20,12 +20,13 @@ public class Arrival implements Serializable {
 	private Vector<Supplier> suppliers;
 	
 	private Supplier supplier = new Supplier();
-	String supplierDocumentDescription = "";
-	int supplierDocumentType;
-	int supplierEntryProductIntegrity;
-	int supplierEntryPackagingIntegrity;
-	int supplierEntryDlcDdmValidity;
-	int supplierEntryTemperatureValidity;
+	private String supplierDocumentDescription = "";
+	private int supplierDocumentType;
+	private int supplierEntryProductIntegrity;
+	private int supplierEntryPackagingIntegrity;
+	private int supplierEntryDlcDdmValidity;
+	private int supplierEntryTemperatureValidity;
+	private String supplierEntryCommentOnQuality;
 
 	private boolean saved = false;
 	
@@ -257,6 +258,14 @@ public class Arrival implements Serializable {
 
 	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
 		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
+	}
+
+	public String getSupplierEntryCommentOnQuality() {
+		return supplierEntryCommentOnQuality;
+	}
+
+	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
+		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
 	}
 
 }
