@@ -141,7 +141,7 @@
 					</tr>
 					<tr>
 						<td>
-							DLC ou DDM suffisantes<br>
+							DLC ou DDM suffisante<br>
 						</td>
 						<td style="padding-left:20px;">
 							<input class="inputText inputCheckbox" type="checkbox" name="inputSupplierEntryDlcDdmValidity" id="inputSupplierEntryDlcDdmValidity">
