@@ -4,5 +4,6 @@ import org.belex.requestparams.RequestParams;
 
 
 public interface ITraceabilityBusiness {
-	Traceability searchEntry(Traceability traceability, RequestParams requestParams);
+	Traceability searchProductEntry(Traceability traceability, RequestParams requestParams);
+	Traceability searchSupplierEntry(Traceability traceability, RequestParams requestParams);
 }

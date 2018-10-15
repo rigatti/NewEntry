@@ -113,8 +113,10 @@ public class TreatedEntryDAO extends HibernateDaoSupport implements ITreatedEntr
 		try {
 			log.debug("Finding treated entries for supplier:" + supplierCode + " and arrival date:" + arrivalDate);
 
-			String sql = "from TreatedEntry where supplierCode='" + supplierCode + "'" + 
-												" and arrivalDate='" + arrivalDate + "'";
+			String sql = "from TreatedEntry where supplierCode='" + supplierCode + "'";
+			if (arrivalDate != null && StringUtils.isNotBlank(arrivalDate)) {
+				sql += " and arrivalDate='" + arrivalDate + "'";
+			}
 
 			Object obj;
 			if (session == null) {

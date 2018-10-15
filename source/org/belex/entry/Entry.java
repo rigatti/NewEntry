@@ -21,6 +21,7 @@ public class Entry implements Serializable {
 	private int supplierEntryDlcDdmValidity;
 	private int supplierEntryTemperatureValidity;
 	private String supplierEntryCommentOnQuality;
+	private int supplierEntryNumberOfProducts;
 	
 	private Supplier supplier;
 
@@ -197,5 +198,13 @@ public class Entry implements Serializable {
 
 	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
 		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
+	}
+
+	public int getSupplierEntryNumberOfProducts() {
+		return supplierEntryNumberOfProducts;
+	}
+
+	public void setSupplierEntryNumberOfProducts(int supplierEntryNumberOfProducts) {
+		this.supplierEntryNumberOfProducts = supplierEntryNumberOfProducts;
 	}
 }

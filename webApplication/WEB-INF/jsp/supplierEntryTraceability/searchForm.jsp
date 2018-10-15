@@ -11,20 +11,12 @@
 			var hasError = false;
 
 			var itemDetected = false;				
-			if (frmProductSearch.productCodeInput.value != "") {
-				frmProductSearch.traceProductCode.value = frmProductSearch.productCodeInput.value;
+			if (frmProductSearch.traceEntrySupplierCodeInput.value != "") {
+				frmProductSearch.traceEntrySupplierCode.value = frmProductSearch.traceEntrySupplierCodeInput.value;
 				itemDetected = true;	
 			}
-			if (frmProductSearch.eanInput.value != "") {
-				frmProductSearch.traceEan.value = frmProductSearch.eanInput.value;
-				itemDetected = true;
-			}
-			if (frmProductSearch.lotNumberInput.value != "") {
-				frmProductSearch.traceLot.value = frmProductSearch.lotNumberInput.value;
-				itemDetected = true;
-			}
-			if (frmProductSearch.validityDateInput.value != "") {
-				frmProductSearch.traceValidityDate.value = frmProductSearch.validityDateInput.value;
+			if (frmProductSearch.traceEntryDateInput.value != "") {
+				frmProductSearch.traceEntryDate.value = frmProductSearch.traceEntryDateInput.value;
 				itemDetected = true;
 			}
 
@@ -68,10 +60,8 @@
 		<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		<input type="hidden" name="_eventId_submit" value="">
 
-		<input type="hidden" name="traceProductCode" value="">
-		<input type="hidden" name="traceEan" value="">
-		<input type="hidden" name="traceLot" value="">
-		<input type="hidden" name="traceValidityDate" value="">
+		<input type="hidden" name="traceEntryDate" value="">
+		<input type="hidden" name="traceEntrySupplierCode" value="">
 
 		<table border="0" cellpadding="10" cellspacing="0" valign="top" width="100%" summary="Framing Table">
 			<tr> 
@@ -86,7 +76,7 @@
 							<td class="table-text-bold" nowrap>
 								Code Fournisseur :<br>
 								<span style="padding-left:25px">
-									<input type="text" name="productCodeInput" size="30px" value="">
+									<input type="text" name="traceEntrySupplierCodeInput" size="30px" value="">
 								</span>
 							</td>
 						</tr>
@@ -94,10 +84,10 @@
 							<td class="table-text-bold" nowrap>
 								Date d'entrée : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="entryDateInput" size="30px" value="">
+									<input type="text" name="traceEntryDateInput" size="30px" value="">
 									<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 									<dlcalendar click_element_id="img_calendar"
-							            input_element_id="entryDateInput"
+							            input_element_id="traceEntryDateInput"
 							            tool_tip="Click to choose an entry date"
 							            start_date="2007-01-01"
 							            end_date="2050-02-15"

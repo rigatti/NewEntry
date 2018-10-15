@@ -115,25 +115,28 @@ if (traceability != null) {
 						<thead>
 							<tr>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 0, 'String', null, null, null, null)" nowrap>
-									Produit
+									Fournisseur
 								</td>
-								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 1, 'String', null, null, null, null)" nowrap>
-									Code
-								</td>
-								<td class="column-head-name" width="1%" align="right" onclick="sortTable(document.getElementById('sortableTable'), 2, 'String', null, null, null, null)" nowrap>
-									Ean
-								</td>
-								<td class="column-head-name" width="1%" align="right" onclick="sortTable(document.getElementById('sortableTable'), 3, 'String', null, null, null, null)" nowrap>
-									Quantité
-								</td>
-								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 4, 'Date', null, null, null, null)" nowrap>
+								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 1, 'Date', null, null, null, null)" nowrap>
 									Date d'entrée
 								</td>
+								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 2, 'Integer', null, null, null, null)" nowrap>
+									Nombre d'articles
+								</td>
+								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 3, 'String', null, null, null, null)" nowrap>
+									Aspect des aliments
+								</td>
+								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 4, 'String', null, null, null, null)" nowrap>
+									Intégrité des emballages
+								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 5, 'String', null, null, null, null)" nowrap>
-									Date de validité
+									DLC ou DDM suffisante
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 6, 'String', null, null, null, null)" nowrap>
-									Numéro de lot
+									Température à la réception
+								</td>
+								<td class="column-head-name" width="1%" nowrap>
+									Commentaire
 								</td>
 								<td class="column-head-name" width="1%" nowrap>
 									<input type="checkbox" name="entryToExport_Global" onclick="switchBoxStatus(-1)"><br>
@@ -145,31 +148,29 @@ if (traceability != null) {
 							for (int i=0 ; i < entries.size() ; i++) { 
 								Entry entry = entries.get(i); %>
 								<tr>
-									<td class="table-text-bold-middle" nowrap>
-										<a class="ctextunderlined" href="javascript:sendDetailFrm(<%= i %>)"><%= entry.getProduct().getDescription() %></a><br>
-									</td>
-									<td class="table-text" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getProduct().getProductCode() %><br>
+									<td class="table-text-bold" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
+										<%= entry.getSupplier().getSupplierName() != null ? entry.getSupplier().getSupplierName() : entry.getSupplier().getSupplierCode() %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
-											<%= entry.getProduct().getUnits().get(0).getEan() %><br>
-										<% } %>
+										<%= Util.formatDate(entry.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy") %>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getNumberOfProduct() %> 
-										<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
-											X <%= Util.displayContitionnement(entry.getProduct().getUnits().get(0).getNumber(), entry.getProduct().getUnits().get(0).getConditionnement()) %>
-										<% } %><br>
+										<%= entry.getSupplierEntryNumberOfProducts() %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= Util.formatDate(entry.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy") %><br>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryProductIntegrity() : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= StringUtils.replace(entry.getProduct().getValidityDate(), "-", "/") %><br>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryPackagingIntegrity() : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getProduct().getLotNumber() %><br>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryDlcDdmValidity() : "-" %><br>
+									</td>
+									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryTemperatureValidity() : "-" %><br>
+									</td>
+									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryCommentOnQuality() : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle">
 										<input type="checkbox" name="entryToExport_<%= i %>"><br>

@@ -1,6 +1,8 @@
 package org.belex.traceability;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import org.belex.customer.Customer;
@@ -27,19 +29,46 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 	ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
 	ISupplierDAO supplierDAO;
 	
-	public Traceability searchEntry(Traceability traceability, RequestParams requestParams) {
+	public Traceability searchSupplierEntry(Traceability traceability, RequestParams requestParams) {
+		Traceability traceabilityResult = execute(traceability, requestParams, getForSupplierTracability(requestParams));
+		
+		Vector<Entry> entries = traceabilityResult.getEntries();
+		Map<String, Entry> entriesByDate = new HashMap();
+		Map<String, Integer> numberOfEntriesByDate = new HashMap();
+		for (Entry entry : entries) {
+			String currentDate = entry.getArrivalDate();
+			entriesByDate.put(currentDate, entry);
+			numberOfEntriesByDate.put(currentDate, numberOfEntriesByDate.containsKey(currentDate)?numberOfEntriesByDate.get(currentDate) + 1 : 1);
+		}
+		
+		// overwrite the entries with new results
+		entries = new Vector<>();
+		for (String arrivalDate : entriesByDate.keySet()) {
+			Entry entry = entriesByDate.get(arrivalDate);
+			entry.setSupplierEntryNumberOfProducts(numberOfEntriesByDate.get(arrivalDate));			
+			entry.setCustomers(new Vector<>());
+			entry.setNumberOfProduct(0);
+			entry.setOrderLetter("");
+			entry.setOrderNumbers("");
+			entry.setProduct(null);
+			entries.add(entry);
+		}
+		traceabilityResult.setEntries(entries);
+		return traceabilityResult;
+	}
+	
+	public Traceability searchProductEntry(Traceability traceability, RequestParams requestParams) {
+		return execute(traceability, requestParams, getForProductTracability(requestParams));
+	}
+	
+	private Traceability execute(Traceability traceability, RequestParams requestParams, ArrayList<TreatedEntry> tes) {
+
 		Vector<Entry> entries = new Vector<Entry>();
 
 		if (traceability.getSuppliers().size() == 0) {
 			traceability.setSuppliers(supplierDAO.getAll());
 		}
-
-		ArrayList<TreatedEntry> tes = treatedEntryDAO.get(
-									 requestParams.getTraceProductCode().toUpperCase(), 
-									 requestParams.getTraceEan(), 
-									 requestParams.getTraceLot(), 
-									 requestParams.getTraceValidityDate() );
-
+		
 		for (TreatedEntry te : tes) {
 			
 			TreatedEntryDetail ted = treatedEntryDetailDAO.get(te.getTreatedEntryId());
@@ -111,6 +140,20 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 		traceability.setEntries(entries);
 
 		return traceability;
+	}
+
+	private ArrayList<TreatedEntry> getForProductTracability(RequestParams requestParams) {
+		return treatedEntryDAO.get(
+									 requestParams.getTraceProductCode().toUpperCase(), 
+									 requestParams.getTraceEan(), 
+									 requestParams.getTraceLot(), 
+									 requestParams.getTraceValidityDate() );
+	}
+
+	private ArrayList<TreatedEntry> getForSupplierTracability(RequestParams requestParams) {
+		return treatedEntryDAO.get(
+									 requestParams.getTraceEntrySupplierCode().toUpperCase(),
+									 requestParams.getTraceEntryDate());
 	}
 
 	public void setSupplierDAO(ISupplierDAO supplierDAO) {
