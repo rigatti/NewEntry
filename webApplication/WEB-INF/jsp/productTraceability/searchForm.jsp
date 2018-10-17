@@ -3,7 +3,11 @@
 <head>
 	<title>Belex - Tracabilité</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/jquery-ui.1.12.1.min.customForLocalResources.css">
+
 	<script type="text/javascript">
 	<!--
 		function validateSearchFrm(id) {
@@ -39,6 +43,10 @@
 		function switchBoxStatus(obj) {
 			obj.checked = !obj.checked;
 		}
+		
+		$( function() {
+          $("#validityDateInput").datepicker({ dateFormat: "dd/mm/yy"}).val()
+		} );
 	//-->
 	</script>
 
@@ -109,7 +117,7 @@
 							<td class="table-text-bold" nowrap>
 								Date de validité : <br>
 								<span style="padding-left:25px">
-									<input type="date" name="validityDateInput" value="">
+									<input type="text" name="validityDateInput" id="validityDateInput" value="">
 								</span>
 							</td>
 						</tr>

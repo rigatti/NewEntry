@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
+import org.belex.util.Util;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -111,11 +112,23 @@ public class TreatedEntryDAO extends HibernateDaoSupport implements ITreatedEntr
 
 			String sql = "from TreatedEntry where supplierCode='" + supplierCode + "'";
 			if (arrivalStartDate != null && StringUtils.isNotBlank(arrivalStartDate)) {
-				sql += " and arrivalDate >= '" + StringUtils.remove(arrivalStartDate, "-") + "'";
+				if (arrivalStartDate.contains("-")) {
+					arrivalStartDate = Util.formatDate(arrivalStartDate, "dd/MM/yyyy", "yyyyMMdd");
+				}
+				if (arrivalStartDate.contains("/")) {
+					arrivalStartDate = Util.formatDate(arrivalStartDate, "dd/MM/yyyy", "yyyyMMdd");
+				}
+				sql += " and arrivalDate >= '" + arrivalStartDate + "'";
 			}
 			
 			if (arrivalEndDate != null && StringUtils.isNotBlank(arrivalEndDate)) {
-				sql += " and arrivalDate <= '" + StringUtils.remove(arrivalEndDate, "-") + "'";
+				if (arrivalEndDate.contains("-")) {
+					arrivalEndDate = Util.formatDate(arrivalEndDate, "dd/MM/yyyy", "yyyyMMdd");
+				}
+				if (arrivalEndDate.contains("/")) {
+					arrivalEndDate = Util.formatDate(arrivalEndDate, "dd/MM/yyyy", "yyyyMMdd");
+				}
+				sql += " and arrivalDate <= '" + arrivalEndDate + "'";
 			}
 
 			Object obj = getHibernateTemplate().find(sql);

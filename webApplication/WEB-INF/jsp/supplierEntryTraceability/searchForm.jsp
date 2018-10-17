@@ -3,7 +3,10 @@
 <head>
 	<title>Belex - Tracabilité des fournisseurs</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/jquery-ui.1.12.1.min.customForLocalResources.css">
 	
 	<script type="text/javascript">
 	<!--
@@ -36,6 +39,13 @@
 		function switchBoxStatus(obj) {
 			obj.checked = !obj.checked;
 		}
+		
+		
+		
+		  $( function() {
+              $("#traceEntryStartDateInput").datepicker({ dateFormat: "dd/mm/yy" }).val()
+              $("#traceEntryEndDateInput").datepicker({ dateFormat: "dd/mm/yy" }).val()
+		  } );
 	//-->
 	</script>
 
@@ -89,7 +99,7 @@
 							<td class="table-text-bold" nowrap>
 								Date début : <br>
 								<span style="padding-left:25px">
-									<input type="date" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
+									<input type="text" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
 								</span>
 							</td>
 						</tr>
@@ -97,7 +107,7 @@
 							<td class="table-text-bold" nowrap>
 								Date de fin : <br>
 								<span style="padding-left:25px">
-									<input type="date" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
+									<input type="text" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
 								</span>
 							</td>
 						</tr>
