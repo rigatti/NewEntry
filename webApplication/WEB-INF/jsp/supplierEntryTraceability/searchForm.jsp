@@ -99,7 +99,7 @@
 							<td class="table-text-bold" nowrap>
 								Date début : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
+									<input type="text" autocomplete="off" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
 								</span>
 							</td>
 						</tr>
@@ -107,7 +107,7 @@
 							<td class="table-text-bold" nowrap>
 								Date de fin : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
+									<input type="text" autocomplete="off" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
 								</span>
 							</td>
 						</tr>

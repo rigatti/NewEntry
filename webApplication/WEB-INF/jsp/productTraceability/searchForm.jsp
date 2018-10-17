@@ -117,7 +117,7 @@
 							<td class="table-text-bold" nowrap>
 								Date de validité : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="validityDateInput" id="validityDateInput" value="">
+									<input type="text" autocomplete="off" name="validityDateInput" id="validityDateInput" value="">
 								</span>
 							</td>
 						</tr>
