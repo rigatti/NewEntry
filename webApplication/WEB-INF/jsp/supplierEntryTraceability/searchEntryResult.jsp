@@ -158,16 +158,28 @@ if (traceability != null) {
 										<%= entry.getSupplierEntryNumberOfProducts() %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryProductIntegrity() : "-" %><br>
+										<%
+										String strTmp = entry.getSupplierEntryProductIntegrity() == 0 ? "NOT OK" : "OK";
+										%>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryPackagingIntegrity() : "-" %><br>
+										<%
+										strTmp = entry.getSupplierEntryPackagingIntegrity() == 0 ? "NOT OK" : "OK";
+										%>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryDlcDdmValidity() : "-" %><br>
+										<%
+										strTmp = entry.getSupplierEntryDlcDdmValidity() == 0 ? "NOT OK" : "OK";
+										%>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryTemperatureValidity() : "-" %><br>
+										<%
+										strTmp = entry.getSupplierEntryTemperatureValidity() == 0 ? "NOT OK" : "OK";
+										%>
+										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%= entry.getSupplierEntryCommentOnQuality() != null ? entry.getSupplierEntryCommentOnQuality() : "-" %><br>

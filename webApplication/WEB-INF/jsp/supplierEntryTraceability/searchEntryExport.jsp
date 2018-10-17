@@ -21,7 +21,7 @@
 	Vector<Entry> entries = traceability.getEntries();
 
 	paragraph = new Paragraph(
-	"Rapport de tracabilité des produits",
+	"Rapport de tracabilité des fournisseurs",
 	FontFactory.getFont(FontFactory.TIMES_ITALIC, 24,
 	Font.BOLDITALIC, new Color(0, 0, 0)));
 	paragraph.setSpacingBefore(10.0f);
@@ -38,14 +38,13 @@ for (int i=0; i < entries.size() ; i++ ) {
 		table.setPadding(5.0f);
 		table.setSpacing(5.0f);
 		
-		String productDescription = entry.getProduct().getDescription();
-		if (productDescription == null) {
-			productDescription = "-";
+		String supplierName = entry.getSupplier().getSupplierName();
+		if (supplierName == null) {
+			supplierName = entry.getSupplier().getSupplierCode();
 		}
-		
 		RtfCell rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		productDescription,
+		supplierName,
 		FontFactory.getFont(FontFactory.TIMES_ITALIC, 12,
 		Font.BOLD, new Color(0, 0, 0)));
 		paragraph.setSpacingAfter(3.0f);
@@ -64,135 +63,86 @@ for (int i=0; i < entries.size() ; i++ ) {
 		
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Code EAN : ", labelFont);	
-		rtfcell.add(paragraph);
-		table.addCell(rtfcell);
-		if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) {
-			rtfcell = new RtfCell(entry.getProduct().getUnits().get(0).getEan());
-		} else {
-			rtfcell = new RtfCell("");
-		}
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell();
-		paragraph = new Paragraph(
-		"Référence interne : ", labelFont);	
-		rtfcell.add(paragraph);
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell(entry.getProduct().getProductCode());
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell();
-		paragraph = new Paragraph(
-		"Numéro de lot : ", labelFont);	
-		rtfcell.add(paragraph);
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell(entry.getProduct().getLotNumber());
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell();
-		paragraph = new Paragraph(
-		"Date de validité : ", labelFont);	
-		rtfcell.add(paragraph);
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell(entry.getProduct().getValidityDate());
-		table.addCell(rtfcell);
-	
-		rtfcell = new RtfCell();
-		paragraph = new Paragraph(
-		"Conditionnement : ", labelFont);	
-		rtfcell.add(paragraph);
-		table.addCell(rtfcell);
-		if (entry.getNumberOfProduct() > 0) {
-			if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) {
-				rtfcell = new RtfCell(entry.getNumberOfProduct() + " X " + entry.getProduct().getUnits().get(0).getNumber() + " X "+ entry.getProduct().getUnits().get(0).getConditionnement());
-			} else {
-				rtfcell = new RtfCell(String.valueOf(entry.getNumberOfProduct()));
-			}
-		} else {
-			rtfcell = new RtfCell("");
-		}
-		table.addCell(rtfcell);
-		
-		rtfcell = new RtfCell();
-		paragraph = new Paragraph(
 		"Date d'entrée : ", labelFont);	
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
-		
 		rtfcell = new RtfCell(Util.formatDate(entry.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy"));
 		table.addCell(rtfcell);
 	
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Fournisseur : ", labelFont);	
+		"Nombre d'articles : ", labelFont);	
+		rtfcell.add(paragraph);
+		table.addCell(rtfcell);
+	
+		rtfcell = new RtfCell(String.valueOf(entry.getSupplierEntryNumberOfProducts()));
+		table.addCell(rtfcell);
+	
+		rtfcell = new RtfCell();
+		paragraph = new Paragraph(
+		"Aspect des aliments : ", labelFont);	
+		rtfcell.add(paragraph);
+		table.addCell(rtfcell);
+	
+		String strTmp = entry.getSupplierEntryProductIntegrity() == 0 ? "NOT OK" : "OK";
+		if (entry.getSupplierEntryCommentOnQuality() != null) {
+			strTmp = "-";
+		}
+		rtfcell = new RtfCell(strTmp);
+		table.addCell(rtfcell);
+	
+		rtfcell = new RtfCell();
+		paragraph = new Paragraph(
+		"Intégrité des emballages : ", labelFont);	
+		rtfcell.add(paragraph);
+		table.addCell(rtfcell);
+	
+		strTmp = entry.getSupplierEntryPackagingIntegrity() == 0 ? "NOT OK" : "OK";
+		if (entry.getSupplierEntryCommentOnQuality() != null) {
+			strTmp = "-";
+		}
+		rtfcell = new RtfCell(strTmp);
+		table.addCell(rtfcell);
+	
+		rtfcell = new RtfCell();
+		paragraph = new Paragraph(
+		"DLC ou DDM suffisante : ", labelFont);	
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		
-		rtfcell = new RtfCell(entry.getSupplier().getSupplierName() + "(" + entry.getSupplier().getSupplierCode() + ")");
-		table.addCell(rtfcell);
-
-		if (entry.getSupplierDocumentType() > 0) {
-			rtfcell = new RtfCell();
-			if (entry.getSupplierDocumentType() == 1) {
-				paragraph = new Paragraph("Facture : ", labelFont);	
-			} else if (entry.getSupplierDocumentType() == 2) {
-				paragraph = new Paragraph("Note d'envoi : ", labelFont);	
-			} else {
-				paragraph = new Paragraph("Référence fournisseur : ", labelFont);	
-			}
-			rtfcell.add(paragraph);
-			table.addCell(rtfcell);
-
-			rtfcell = new RtfCell(entry.getSupplierDocumentDescription());
-			table.addCell(rtfcell);
+		strTmp = entry.getSupplierEntryDlcDdmValidity() == 0 ? "NOT OK" : "OK";
+		if (entry.getSupplierEntryCommentOnQuality() != null) {
+			strTmp = "-";
 		}
-
+		rtfcell = new RtfCell(strTmp);
+		table.addCell(rtfcell);
+		
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Destinataire(s) : ", labelFont);	
+		"Température à la réception : ", labelFont);	
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
-	
-		String strCustomers = "";
-		boolean first = true;
-		for (Customer customer : entry.getCustomers()) { 
-			if ( ! first) {
-				strCustomers += "\n\r\n\r";
-			}
-			first = false;
-
-			if (customer.isStockCustomer()) {
-				strCustomers += "En stock";
-			} else if (customer.isSupplierReturnsCustomer()) {
-				strCustomers += "Retour fournisseur";
-			} else {
-				if (customer.getName() != null) {
-					strCustomers += customer.getName() + "\n\r" + StringUtils.remove(customer.getAddressFurniture(), "\r\n" + customer.getName());
-					if (StringUtils.isNotEmpty(customer.getCustomerOrder().getFly().getAirportCode())) {
-						strCustomers += "\n\r" + customer.getCustomerOrder().getFly().getAirportCode() + "/" + customer.getCustomerOrder().getFly().getFlyNumber() + "/" + customer.getCustomerOrder().getFly().getLtaNumber();
-					}
-				} else { 
-					strCustomers += "-";
-				}
-			}
-			if (customer.getCustomerEntry() != null) {
-				strCustomers += "\n\r" + "Quantité : " + customer.getCustomerEntry().getNumberOfUnit();
-			}
-			if (StringUtils.isNotEmpty(customer.getAllocationDate())) {
-				strCustomers += "\n\r" + "Date d'attribution : " + Util.formatDate(customer.getAllocationDate(), "yyyyMMdd", "dd/MM/yyyy");
-			}
+		
+		strTmp = entry.getSupplierEntryTemperatureValidity() == 0 ? "NOT OK" : "OK";
+		if (entry.getSupplierEntryCommentOnQuality() != null) {
+			strTmp = "-";
 		}
-		if (entry.getCustomers() == null || entry.getCustomers().size() == 0) {
-			strCustomers = "-";
-		}
-
-		rtfcell = new RtfCell(strCustomers);
+		rtfcell = new RtfCell(strTmp);
 		table.addCell(rtfcell);
 	
+		rtfcell = new RtfCell();
+		paragraph = new Paragraph(
+		"Commentaire : ", labelFont);	
+		rtfcell.add(paragraph);
+		table.addCell(rtfcell);
+		
+		strTmp = entry.getSupplierEntryCommentOnQuality();
+		if (entry.getSupplierEntryCommentOnQuality() != null) {
+			strTmp = "-";
+		}
+		rtfcell = new RtfCell(strTmp);
+		table.addCell(rtfcell);
+
 		document.add(table);
 	} // end if index
 }

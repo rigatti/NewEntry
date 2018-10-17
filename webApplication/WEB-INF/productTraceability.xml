@@ -22,7 +22,7 @@
 	</view-state>
 
 	<action-state id="searchEntryAct">
-		<bean-action bean="traceabilityBusiness" method="searchEntry">
+		<bean-action bean="traceabilityBusiness" method="searchProductEntry">
 			<method-arguments>
 				<argument expression="flowScope.traceability"/>
 				<argument expression="flowScope.requestParams"/>

@@ -45,7 +45,6 @@
 </head>
 
 <body class="content">
-
 	<form name="adminFrm" action="<%= request.getContextPath() %>/admin.jsp" method="post" target="_top">
 		<input type="hidden" name="admin" value="1">
 	</form>

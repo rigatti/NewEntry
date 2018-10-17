@@ -146,7 +146,7 @@ if (traceability != null) {
 								Entry entry = entries.get(i); %>
 								<tr>
 									<td class="table-text-bold-middle" nowrap>
-										<a class="ctextunderlined" href="javascript:sendDetailFrm(<%= i %>)"><%= entry.getProduct().getDescription() %></a><br>
+										<a class="ctextunderlined" href="javascript:sendDetailFrm(<%= i %>)"><%= entry.getProduct().getDescription() == null ? "-" : entry.getProduct().getDescription() %></a><br>
 									</td>
 									<td class="table-text" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%= entry.getProduct().getProductCode() %><br>
@@ -157,9 +157,11 @@ if (traceability != null) {
 										<% } %>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
-										<%= entry.getNumberOfProduct() %> 
-										<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
-											X <%= Util.displayContitionnement(entry.getProduct().getUnits().get(0).getNumber(), entry.getProduct().getUnits().get(0).getConditionnement()) %>
+										<% if (entry.getNumberOfProduct() > 0) { %>
+											<%= entry.getNumberOfProduct() %> 
+											<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
+												X <%= Util.displayContitionnement(entry.getProduct().getUnits().get(0).getNumber(), entry.getProduct().getUnits().get(0).getConditionnement()) %>
+											<% } %>
 										<% } %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">

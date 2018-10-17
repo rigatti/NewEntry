@@ -4,6 +4,7 @@
 	<title>Belex - Tracabilité des fournisseurs</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
+	
 	<script type="text/javascript">
 	<!--
 		function validateSearchFrm(id) {
@@ -41,7 +42,7 @@
 </head>
 
 <body class="content">
-
+	<div class="modal"></div>
 	<form name="adminFrm" action="<%= request.getContextPath() %>/admin.jsp" method="post" target="_top">
 		<input type="hidden" name="admin" value="1">
 	</form>

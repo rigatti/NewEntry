@@ -67,7 +67,7 @@ if (traceability != null) {
 							Produit<br>
 						</td>
 						<td width="80%" class="table-text">
-							<%= entry.getProduct().getDescription() %><br>
+							<%= entry.getProduct().getDescription() == null ? "-" : entry.getProduct().getDescription() %><br>
 						</td>				
 					</tr>
 					<tr>
@@ -93,9 +93,11 @@ if (traceability != null) {
 							Quantité<br>
 						</td>
 						<td width="80%" class="table-text">
-							<%= entry.getNumberOfProduct() %> 
-							<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
-								X <%= Util.displayContitionnement(entry.getProduct().getUnits().get(0).getNumber(), entry.getProduct().getUnits().get(0).getConditionnement()) %>
+							<% if (entry.getNumberOfProduct() > 0) { %>
+								<%= entry.getNumberOfProduct() %> 
+								<% if ( entry.getProduct().getUnits() != null && entry.getProduct().getUnits().size() == 1 ) { %>
+									X <%= Util.displayContitionnement(entry.getProduct().getUnits().get(0).getNumber(), entry.getProduct().getUnits().get(0).getConditionnement()) %>
+								<% } %>
 							<% } %><br>
 						</td>				
 					</tr>					
