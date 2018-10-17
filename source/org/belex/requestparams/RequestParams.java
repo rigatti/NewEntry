@@ -20,7 +20,8 @@ public class RequestParams implements Serializable {
 	private String traceExportIndexList = "";
 	
 	private String traceEntrySupplierCode = "";
-	private String traceEntryDate = "";
+	private String traceEntryStartDate = "";
+	private String traceEntryEndDate = "";
 	
 	private int entryId = 0;
 	private int entryNumberOfProduct = 0;
@@ -34,19 +35,7 @@ public class RequestParams implements Serializable {
 	private int entrySupplierEntryDlcDdmValidity;
 	private int entrySupplierEntryTemperatureValidity;
 	private String entrySupplierEntryCommentOnQuality;
-
-	public String getTraceEntrySupplierCode() {
-		return traceEntrySupplierCode;
-	}
-	public void setTraceEntrySupplierCode(String traceEntrySupplierCode) {
-		this.traceEntrySupplierCode = traceEntrySupplierCode;
-	}
-	public String getTraceEntryDate() {
-		return traceEntryDate;
-	}
-	public void setTraceEntryDate(String traceEntryDate) {
-		this.traceEntryDate = traceEntryDate;
-	}
+	
 	// represented by a Stringtokenizer delim by "#" 
 	// each element is a Stringtokenizer containing a supplierCode, number and letter
 	// ex : Supplier=CT;Number=1;Letter=DFR#Supplier=RLL;Number=2;Letter=DFX
@@ -434,5 +423,24 @@ public class RequestParams implements Serializable {
 	}
 	public void setEntrySupplierEntryCommentOnQuality(String entrySupplierEntryCommentOnQuality) {
 		this.entrySupplierEntryCommentOnQuality = entrySupplierEntryCommentOnQuality;
+	}
+
+	public String getTraceEntrySupplierCode() {
+		return traceEntrySupplierCode;
+	}
+	public String getTraceEntryStartDate() {
+		return traceEntryStartDate;
+	}
+	public void setTraceEntryStartDate(String traceEntryStartDate) {
+		this.traceEntryStartDate = traceEntryStartDate;
+	}
+	public String getTraceEntryEndDate() {
+		return traceEntryEndDate;
+	}
+	public void setTraceEntryEndDate(String traceEntryEndDate) {
+		this.traceEntryEndDate = traceEntryEndDate;
+	}
+	public void setTraceEntrySupplierCode(String traceEntrySupplierCode) {
+		this.traceEntrySupplierCode = traceEntrySupplierCode;
 	}
 }

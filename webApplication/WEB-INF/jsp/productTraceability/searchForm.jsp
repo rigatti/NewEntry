@@ -110,23 +110,7 @@
 							<td class="table-text-bold" nowrap>
 								Date de validité : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="validityDateInput" size="30px" value="">
-									<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
-									<dlcalendar click_element_id="img_calendar"
-							            input_element_id="validityDateInput"
-							            tool_tip="Click to choose a validity date"
-							            start_date="2007-01-01"
-							            end_date="2050-02-15"
-							            date_format="dd-mm-yyyy"
-										navbar_style="background-color: #000066; color:white;font-size:12px; padding-left:10px;padding-right:10px"
-										daybar_style="background-color: black; color:white;font-size:12px"
-										selecteddate_style="font-size:12px"
-										weekenddate_style="font-size:12px"
-										othermonthdate_style="font-size:10px"
-										regulardate_style="font-size:10px"
-										nav_images="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevyear_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextyear_white.gif"
-							            >
-							        </dlcalendar>
+									<input type="date" name="validityDateInput" value="">
 								</span>
 							</td>
 						</tr>
@@ -143,7 +127,5 @@
 			</tr>
 		</table>
 	</form>
-	<script type="text/javascript" language="javascript" src="<%= request.getContextPath() %>/scripts/dlcalendarSmall.js"></script>
-
 </body>
 </html>

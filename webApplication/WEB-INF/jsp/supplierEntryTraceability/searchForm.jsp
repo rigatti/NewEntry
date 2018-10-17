@@ -14,17 +14,21 @@
 			if (frmProductSearch.traceEntrySupplierCodeInput.value != "") {
 				frmProductSearch.traceEntrySupplierCode.value = frmProductSearch.traceEntrySupplierCodeInput.value;
 				itemDetected = true;	
-			}
-			if (frmProductSearch.traceEntryDateInput.value != "") {
-				frmProductSearch.traceEntryDate.value = frmProductSearch.traceEntryDateInput.value;
-				itemDetected = true;
-			}
-
-			if ( ! itemDetected) {
-				alert("Veuillez introduire un critère de recherche");
 			} else {
-				window.document.frmProductSearch.submit();
+				alert("Veuillez introduire le code d'un fournisseur");
+				return false;
 			}
+			
+			if (frmProductSearch.traceEntryStartDateInput.value != "" || frmProductSearch.traceEntryEndDateInput.value != "") {
+				frmProductSearch.traceEntryStartDate.value = frmProductSearch.traceEntryStartDateInput.value;
+				frmProductSearch.traceEntryEndDate.value = frmProductSearch.traceEntryEndDateInput.value;
+				itemDetected = true;
+			} else {
+				alert("Veuillez introduire au moins une date de recherche");
+				return false;
+			}			
+			
+			return true;
 
 		}
 
@@ -60,7 +64,8 @@
 		<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		<input type="hidden" name="_eventId_submit" value="">
 
-		<input type="hidden" name="traceEntryDate" value="">
+		<input type="hidden" name="traceEntryStartDate" value="">
+		<input type="hidden" name="traceEntryEndDate" value="">
 		<input type="hidden" name="traceEntrySupplierCode" value="">
 
 		<table border="0" cellpadding="10" cellspacing="0" valign="top" width="100%" summary="Framing Table">
@@ -82,25 +87,17 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								Date d'entrée : <br>
+								Date début : <br>
 								<span style="padding-left:25px">
-									<input type="text" name="traceEntryDateInput" size="30px" value="">
-									<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
-									<dlcalendar click_element_id="img_calendar"
-							            input_element_id="traceEntryDateInput"
-							            tool_tip="Click to choose an entry date"
-							            start_date="2007-01-01"
-							            end_date="2050-02-15"
-							            date_format="dd-mm-yyyy"
-										navbar_style="background-color: #000066; color:white;font-size:12px; padding-left:10px;padding-right:10px"
-										daybar_style="background-color: black; color:white;font-size:12px"
-										selecteddate_style="font-size:12px"
-										weekenddate_style="font-size:12px"
-										othermonthdate_style="font-size:10px"
-										regulardate_style="font-size:10px"
-										nav_images="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevyear_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextyear_white.gif"
-							            >
-							        </dlcalendar>
+									<input type="date" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="table-text-bold" nowrap>
+								Date de fin : <br>
+								<span style="padding-left:25px">
+									<input type="date" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
 								</span>
 							</td>
 						</tr>
@@ -117,7 +114,5 @@
 			</tr>
 		</table>
 	</form>
-	<script type="text/javascript" language="javascript" src="<%= request.getContextPath() %>/scripts/dlcalendarSmall.js"></script>
-
 </body>
 </html>

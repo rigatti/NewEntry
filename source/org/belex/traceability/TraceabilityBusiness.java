@@ -151,9 +151,10 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 	}
 
 	private ArrayList<TreatedEntry> getForSupplierTracability(RequestParams requestParams) {
-		return treatedEntryDAO.get(
+		return treatedEntryDAO.getByDateRange(
 									 requestParams.getTraceEntrySupplierCode().toUpperCase(),
-									 requestParams.getTraceEntryDate());
+									 requestParams.getTraceEntryStartDate(),
+									 requestParams.getTraceEntryEndDate());
 	}
 
 	public void setSupplierDAO(ISupplierDAO supplierDAO) {

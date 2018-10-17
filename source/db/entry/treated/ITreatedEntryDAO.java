@@ -10,6 +10,7 @@ public interface ITreatedEntryDAO {
 	public boolean insert(TreatedEntry treatedEntry, Session session);
 	public ArrayList<TreatedEntry> get(String supplierCode, String arrivalDate, Session session);
 	public ArrayList<TreatedEntry> get(String supplierCode, String arrivalDate);
+	public ArrayList<TreatedEntry> getByDateRange(String supplierCode, String arrivalStartDate, String arrivalEndDate);
 	public ArrayList<TreatedEntry> get(String productCode, String ean, String lot, String validityDate);
 	public TreatedEntry getUnique(String supplierCode, String arrivalDate, String productCode);
 	public TreatedEntry getUnique(String supplierCode, String arrivalDate, String productCode, Session session);

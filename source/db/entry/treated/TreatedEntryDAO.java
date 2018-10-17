@@ -103,6 +103,38 @@ public class TreatedEntryDAO extends HibernateDaoSupport implements ITreatedEntr
 
 	}
 
+	public ArrayList<TreatedEntry> getByDateRange(String supplierCode, String arrivalStartDate, String arrivalEndDate) {
+		ArrayList<TreatedEntry> treatedEntries = new ArrayList<TreatedEntry>();
+
+		try {
+			log.debug("Finding treated entries for supplier:" + supplierCode + ", arrival start date:" + arrivalStartDate + "and arrival end date:" + arrivalEndDate);
+
+			String sql = "from TreatedEntry where supplierCode='" + supplierCode + "'";
+			if (arrivalStartDate != null && StringUtils.isNotBlank(arrivalStartDate)) {
+				sql += " and arrivalDate >= '" + StringUtils.remove(arrivalStartDate, "-") + "'";
+			}
+			
+			if (arrivalEndDate != null && StringUtils.isNotBlank(arrivalEndDate)) {
+				sql += " and arrivalDate <= '" + StringUtils.remove(arrivalEndDate, "-") + "'";
+			}
+
+			Object obj = getHibernateTemplate().find(sql);
+			
+			if (obj instanceof ArrayList) {
+
+				treatedEntries = (ArrayList<TreatedEntry>) obj;
+
+			} else {
+				log.debug("No treated entries found");
+			}
+			log.debug("Finding treated entries DONE");
+		} catch (Exception e) {
+			log.error("Error while finding treated entries", e);
+		}
+
+		return treatedEntries;
+	}
+	
 	public ArrayList<TreatedEntry> get(String supplierCode, String arrivalDate) {
 		return get(supplierCode, arrivalDate, null);
 	}
