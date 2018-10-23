@@ -16,10 +16,10 @@ public class Entry implements Serializable {
 	private String supplierDocumentDescription;
 	private int supplierDocumentType;
 
-	private int supplierEntryProductIntegrity;
-	private int supplierEntryPackagingIntegrity;
-	private int supplierEntryDlcDdmValidity;
-	private int supplierEntryTemperatureValidity;
+	private Integer supplierEntryProductIntegrity;
+	private Integer supplierEntryPackagingIntegrity;
+	private Integer supplierEntryDlcDdmValidity;
+	private Integer supplierEntryTemperatureValidity;
 	private String supplierEntryCommentOnQuality;
 	private int supplierEntryNumberOfProducts;
 	
@@ -160,35 +160,47 @@ public class Entry implements Serializable {
 		this.supplierDocumentType = supplierDocumentType;
 	}
 
-	public int getSupplierEntryProductIntegrity() {
-		return supplierEntryProductIntegrity;
+	public int getSupplierEntryProductIntegrityPrimitive() {
+		if (supplierEntryProductIntegrity != null) {
+			return supplierEntryProductIntegrity.intValue();
+		}
+		return 0;
 	}
 
-	public void setSupplierEntryProductIntegrity(int supplierEntryProductIntegrity) {
+	public void setSupplierEntryProductIntegrity(Integer supplierEntryProductIntegrity) {
 		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
 	}
 
-	public int getSupplierEntryPackagingIntegrity() {
-		return supplierEntryPackagingIntegrity;
+	public Integer getSupplierEntryPackagingIntegrityPrimitive() {
+		if (supplierEntryProductIntegrity != null) {
+			return supplierEntryPackagingIntegrity.intValue();
+		}
+		return 0;
 	}
 
-	public void setSupplierEntryPackagingIntegrity(int supplierEntryPackagingIntegrity) {
+	public void setSupplierEntryPackagingIntegrity(Integer supplierEntryPackagingIntegrity) {
 		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
 	}
 
-	public int getSupplierEntryDlcDdmValidity() {
-		return supplierEntryDlcDdmValidity;
+	public Integer getSupplierEntryDlcDdmValidityPrimitive() {
+		if (supplierEntryDlcDdmValidity != null) {
+			return supplierEntryDlcDdmValidity.intValue();
+		}
+		return 0;
 	}
 
-	public void setSupplierEntryDlcDdmValidity(int supplierEntryDlcDdmValidity) {
+	public void setSupplierEntryDlcDdmValidity(Integer supplierEntryDlcDdmValidity) {
 		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
 	}
 
-	public int getSupplierEntryTemperatureValidity() {
-		return supplierEntryTemperatureValidity;
+	public Integer getSupplierEntryTemperatureValidityPrimitive() {
+		if (supplierEntryTemperatureValidity != null) {
+			return supplierEntryTemperatureValidity.intValue();
+		}
+		return 0;
 	}
 
-	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
+	public void setSupplierEntryTemperatureValidity(Integer supplierEntryTemperatureValidity) {
 		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
 	}
 

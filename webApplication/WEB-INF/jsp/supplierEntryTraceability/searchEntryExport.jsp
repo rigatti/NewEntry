@@ -84,7 +84,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
-		String strTmp = entry.getSupplierEntryProductIntegrity() == 0 ? "NOT OK" : "OK";
+		String strTmp = entry.getSupplierEntryProductIntegrityPrimitive() == 0 ? "NOT OK" : "OK";
 		if (entry.getSupplierEntryCommentOnQuality() != null) {
 			strTmp = "-";
 		}
@@ -97,7 +97,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
-		strTmp = entry.getSupplierEntryPackagingIntegrity() == 0 ? "NOT OK" : "OK";
+		strTmp = entry.getSupplierEntryPackagingIntegrityPrimitive() == 0 ? "NOT OK" : "OK";
 		if (entry.getSupplierEntryCommentOnQuality() != null) {
 			strTmp = "-";
 		}
@@ -110,7 +110,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		
-		strTmp = entry.getSupplierEntryDlcDdmValidity() == 0 ? "NOT OK" : "OK";
+		strTmp = entry.getSupplierEntryDlcDdmValidityPrimitive() == 0 ? "NOT OK" : "OK";
 		if (entry.getSupplierEntryCommentOnQuality() != null) {
 			strTmp = "-";
 		}
@@ -123,7 +123,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		
-		strTmp = entry.getSupplierEntryTemperatureValidity() == 0 ? "NOT OK" : "OK";
+		strTmp = entry.getSupplierEntryTemperatureValidityPrimitive() == 0 ? "NOT OK" : "OK";
 		if (entry.getSupplierEntryCommentOnQuality() != null) {
 			strTmp = "-";
 		}

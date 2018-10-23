@@ -159,25 +159,25 @@ if (traceability != null) {
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%
-										String strTmp = entry.getSupplierEntryProductIntegrity() == 0 ? "NOT OK" : "OK";
+										String strTmp = entry.getSupplierEntryProductIntegrityPrimitive() == 0 ? "NOT OK" : "OK";
 										%>
 										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%
-										strTmp = entry.getSupplierEntryPackagingIntegrity() == 0 ? "NOT OK" : "OK";
+										strTmp = entry.getSupplierEntryPackagingIntegrityPrimitive() == 0 ? "NOT OK" : "OK";
 										%>
 										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%
-										strTmp = entry.getSupplierEntryDlcDdmValidity() == 0 ? "NOT OK" : "OK";
+										strTmp = entry.getSupplierEntryDlcDdmValidityPrimitive() == 0 ? "NOT OK" : "OK";
 										%>
 										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>
 									<td class="table-text" align="right" nowrap valign="middle" onclick="switchBoxStatus(<%= i %>)">
 										<%
-										strTmp = entry.getSupplierEntryTemperatureValidity() == 0 ? "NOT OK" : "OK";
+										strTmp = entry.getSupplierEntryTemperatureValidityPrimitive() == 0 ? "NOT OK" : "OK";
 										%>
 										<%= entry.getSupplierEntryCommentOnQuality() != null ? strTmp : "-" %><br>
 									</td>

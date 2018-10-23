@@ -439,10 +439,10 @@ public class ArrivalBusiness extends HibernateDaoSupport implements IArrivalBusi
 			String description = treatedEntryTemp.getDescription();
 			String supplierDocumentDescription = treatedEntryTemp.getSupplierDocumentDescription();
 			int supplierDocumentType = treatedEntryTemp.getSupplierDocumentType();
-			int supplierEntryProductIntegrity = treatedEntryTemp.getSupplierEntryProductIntegrity();
-			int supplierEntryPackagingIntegrity = treatedEntryTemp.getSupplierEntryPackagingIntegrity();
-			int supplierEntryDlcDdmValidity = treatedEntryTemp.getSupplierEntryDlcDdmValidity();
-			int supplierEntryTemperatureValidity = treatedEntryTemp.getSupplierEntryTemperatureValidity();
+			Integer supplierEntryProductIntegrity = treatedEntryTemp.getSupplierEntryProductIntegrity();
+			Integer supplierEntryPackagingIntegrity = treatedEntryTemp.getSupplierEntryPackagingIntegrity();
+			Integer supplierEntryDlcDdmValidity = treatedEntryTemp.getSupplierEntryDlcDdmValidity();
+			Integer supplierEntryTemperatureValidity = treatedEntryTemp.getSupplierEntryTemperatureValidity();
 			String supplierEntryCommentOnQuality = treatedEntryTemp.getSupplierEntryCommentOnQuality();
 
 

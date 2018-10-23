@@ -25,10 +25,10 @@ public class TreatedEntryTemp  implements java.io.Serializable {
 	private String supplierDocumentDescription;
 	private int supplierDocumentType;
 	private int stockMovement;
-	private int supplierEntryProductIntegrity;
-	private int supplierEntryPackagingIntegrity;
-	private int supplierEntryDlcDdmValidity;
-	private int supplierEntryTemperatureValidity;
+	private Integer supplierEntryProductIntegrity;
+	private Integer supplierEntryPackagingIntegrity;
+	private Integer supplierEntryDlcDdmValidity;
+	private Integer supplierEntryTemperatureValidity;
 	private String supplierEntryCommentOnQuality;
 
 	public int getStockMovement() {
@@ -193,35 +193,35 @@ public class TreatedEntryTemp  implements java.io.Serializable {
 		this.supplierOrderLetters = supplierOrderLetters;
 	}
 
-	public int getSupplierEntryProductIntegrity() {
+	public Integer getSupplierEntryProductIntegrity() {
 		return supplierEntryProductIntegrity;
 	}
 
-	public void setSupplierEntryProductIntegrity(int supplierEntryProductIntegrity) {
+	public void setSupplierEntryProductIntegrity(Integer supplierEntryProductIntegrity) {
 		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
 	}
 
-	public int getSupplierEntryPackagingIntegrity() {
+	public Integer getSupplierEntryPackagingIntegrity() {
 		return supplierEntryPackagingIntegrity;
 	}
 
-	public void setSupplierEntryPackagingIntegrity(int supplierEntryPackagingIntegrity) {
+	public void setSupplierEntryPackagingIntegrity(Integer supplierEntryPackagingIntegrity) {
 		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
 	}
 
-	public int getSupplierEntryDlcDdmValidity() {
+	public Integer getSupplierEntryDlcDdmValidity() {
 		return supplierEntryDlcDdmValidity;
 	}
 
-	public void setSupplierEntryDlcDdmValidity(int supplierEntryDlcDdmValidity) {
+	public void setSupplierEntryDlcDdmValidity(Integer supplierEntryDlcDdmValidity) {
 		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
 	}
 
-	public int getSupplierEntryTemperatureValidity() {
+	public Integer getSupplierEntryTemperatureValidity() {
 		return supplierEntryTemperatureValidity;
 	}
 
-	public void setSupplierEntryTemperatureValidity(int supplierEntryTemperatureValidity) {
+	public void setSupplierEntryTemperatureValidity(Integer supplierEntryTemperatureValidity) {
 		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
 	}
 
