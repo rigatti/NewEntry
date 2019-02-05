@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
 <%@page import="org.belex.arrival.Arrival"%>
 <%@page import="java.util.Vector"%>
@@ -76,6 +77,18 @@ Vector<Supplier> suppliers = arrival.getSuppliers();
 					<% } %>
 				>
 					<%= supplier.getSupplierName() %>
+
+					<% if (supplier.getOrders() != null && supplier.getOrders().size() > 0) {
+
+						java.util.Map<Integer, String> orderNumbers = new java.util.HashMap<Integer, String>();
+						for (int j = 0; j < supplier.getOrders().size(); j++) {
+							orderNumbers.put(supplier.getOrders().get(j).getNumber(), "");
+						} %>
+
+						<nobr>
+							<%= orderNumbers.keySet() %>
+						</nobr>
+					<% } %>
 				</td>
 					
 				<% if ( i > 0 && (i % (nbrOfColumn-1) == 0) ) { %>
