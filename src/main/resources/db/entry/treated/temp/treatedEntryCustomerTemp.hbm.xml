@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.entry.treated.temp.TreatedEntryCustomerTemp" table="TreatedEntryCustomerTemp" >
+    	<id name="id">
+   			<column name="id" />
+   			<generator class="native"/>
+   		</id>
+
+   		<property name="treatedEntryTempId"/>
+   		<property name="customerCode"/>
+   		<property name="customerOrderCode"/>
+   		<property name="customerOrderCodeNumber" />
+
+   		<property name="packagingFromBasket"/>
+   		<property name="packagingToBasket"/>
+
+  		<property name="customerNumberOfUnitRequested"/>
+
+		<property name="airportCode"/>
+		<property name="flight"/>
+		<property name="lta"/>
+    </class>
+</hibernate-mapping>

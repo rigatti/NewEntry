@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.product.Product" table="Articles" >
+       	<id name="tempId">
+       		<column name="ArtID" />
+       		<generator class="native"/>
+       	</id>
+    	<property name="productCode">
+   			<column name="CodeArticle"/>
+   		</property>
+       	<property name="alternateProductCode">
+       		<column name="CodeArticleRempl"/>
+       	</property>
+       	<property name="description">
+       		<column name="DescriptionArticle"/>
+       	</property>
+       	<property name="unitConditioning">
+       		<column name="CondUnitaire"/>
+       	</property>
+       	<property name="followedProduct">
+       		<column name="CodeTypeEdition"/>
+       	</property>
+       	<property name="planeMandatory">
+       		<column name="avionObligatoire"/>
+       	</property>
+       	<property name="familyCode">
+       		<column name="CodeFamille"/>
+       	</property>
+       	<property name="sortingOrder">
+       		<column name="TriParFamille"/>
+       	</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+
+      start-state="searchPlannedSuppliersAct">
+
+    <on-start>
+        <set name="flowScope.arrival" value="new org.belex.arrival.Arrival()" />
+
+<!--        <evaluate expression="arrivalBusiness.getPlannedSuppliers(flowScope.arrival)" result="flowScope.arrival"/>-->
+
+    </on-start>
+
+    <action-state id="searchPlannedSuppliersAct">
+
+        <evaluate
+                expression="arrivalBusiness.getPlannedSuppliers(flowScope.arrival)"
+                result="flowScope.arrival"/>
+
+        <transition to="selectArrivalDateView"/>
+
+    </action-state>
+    <view-state id="selectArrivalDateView" view="productEntry/selectArrivalDate">
+
+        <transition on="searchPlannedSupplier" to="searchPlannedSuppliersAct">
+            <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)" />
+        </transition>
+
+        <transition on="showSuppliers" to="checkPendingArrivalAct">
+            <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)" />
+        </transition>
+
+    </view-state>
+
+
+
+
+    <view-state id="fatalErrorView" view="error/fatalError"/>
+
+    <end-state id="terminateEntry" view="terminateEntry"/>
+</flow>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.airport.Airport" table="Aéroports" >
+    	<composite-id>
+    		<key-property name="destinationCode">
+    			<column name="CodeDestination" length="3" />
+    		</key-property>
+    		<key-property name="airportCode">
+    			<column name="CodeAéroport" length="3" />
+    		</key-property>
+    	</composite-id>
+       	<property name="description">
+       		<column name="DescriptionAéroport" length="50" />
+       	</property>
+    </class>
+</hibernate-mapping>

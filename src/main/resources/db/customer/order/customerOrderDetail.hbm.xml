@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.customer.order.CustomerOrderDetail" table="CommandesLignes">
+       	<id name="id">
+   			<column name="CLId" />
+   			<generator class="native"/>
+   		</id>
+   		<property name="orderNumber">
+   			<column name="NuméroCommande" />
+   		</property>
+       	<property name="orderLetter">
+       		<column name="LettreCommande" length="50" />
+       	</property>
+       	<property name="creationNumber">
+       		<column name="CreationNr" />
+       	</property>
+       	<property name="customerOrderCode">
+       		<column name="CodeClientCommande" length="5" />
+       	</property>
+       	<property name="customerOrderCodeNumber">
+       		<column name="NuméroCodeClientCommande" />
+       	</property>
+       	<property name="feesType">
+       		<column name="TypeFacture" />
+       	</property>
+       	<property name="productCode">
+       		<column name="CodeArticle" length="10" />
+       	</property>
+       	<property name="productDescription">
+       		<column name="DescriptionArticle" length="50" />
+       	</property>
+       	<property name="priority">
+       		<column name="Priorité" />
+       	</property>
+       	<property name="numberOfProduct">
+       		<column name="Quantité" />
+       	</property>
+       	<property name="unit">
+       		<column name="CondUnitaire" length="20" />
+       	</property>
+       	<property name="numberOfUnit">
+       		<column name="Unités" />
+       	</property>
+       	<property name="totalNumberOfUnit">
+       		<column name="TotalUnités" />
+       	</property>
+       	<property name="supplierCode">
+       		<column name="CodeFournisseur" length="2" />
+       	</property>
+       	<property name="fridge">
+       		<column name="Surgelé" />
+       	</property>
+       	<property name="numberGets">
+       		<column name="TotalUnitésReçues" />
+       	</property>
+       	<property name="treatedEDDId"/>
+       	<property name="deletedOrderFlag"/>
+       	<property name="renewedOrderFlag"/>
+    </class>
+</hibernate-mapping>

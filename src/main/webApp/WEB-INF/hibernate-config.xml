@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         https://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         https://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx
+         https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- DataSource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=OUISTITI;encrypt=false"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="1Oreiller-"/>
+    </bean>
+
+    <!-- SessionFactory Hibernate 5 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>db</value>
+                <value>org.belex</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+<!--                &lt;!&ndash; Oracle 12c et supérieur (recommandé pour Oracle 12c, 18c, 19c, 21c) &ndash;&gt;-->
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>-->
+
+                <!-- Oracle 10g -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</prop>
+
+<!--                &lt;!&ndash; Oracle 9i (ancien) &ndash;&gt;-->
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</prop>-->
+
+<!--                &lt;!&ndash; Oracle 8i (très ancien) &ndash;&gt;-->
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle8iDialect</prop>-->
+
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>-->
+
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+                <!-- Pour éviter les warnings -->
+                <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Active les annotations @Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

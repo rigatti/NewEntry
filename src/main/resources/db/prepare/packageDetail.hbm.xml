@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.prepare.PackageDetail" table="ColisLignes" >
+    	<id name="id">
+    		<column name="ColisLignesID" />
+    		<generator class="native"/>
+    	</id>
+    	<property name="orderNumber">
+    		<column name="NuméroCommande" />
+    	</property>
+    	<property name="orderLetter">
+    		<column name="LettreCommande" />
+    	</property>
+    	<property name="customerOrderCode">
+    		<column name="CodeClientCommande" />
+    	</property>
+    	<property name="customerOrderCodeNumber">
+    		<column name="NuméroCodeClientCommande" />
+    	</property>
+    	<property name="feesType">
+    		<column name="TypeFacture" />
+    	</property>
+    	<property name="productCode">
+    		<column name="CodeArticle" length="10"/>
+    	</property>
+    	<property name="fromPackageNumber">
+    		<column name="DeNoColis" />
+    	</property>
+       	<property name="numberOfProduct">
+       		<column name="Quantité" />
+       	</property>
+       	<property name="unit">
+       		<column name="CondUnitaire" length="20" />
+       	</property>
+       	<property name="numberOfUnit">
+       		<column name="Unités" />
+       	</property>
+    	<property name="supplierCode">
+    		<column name="CodeFournisseur" />
+    	</property>
+    </class>
+</hibernate-mapping>

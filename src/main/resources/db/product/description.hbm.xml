@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.product.Description" table="ArticlesAutresLangues" >
+    	<composite-id>
+    		<key-property name="productCode">
+    			<column name="CodeArticle"/>
+    		</key-property>
+    		<key-property name="language">
+    			<column name="CodeLangue"/>
+    		</key-property>
+    	</composite-id>
+       	<property name="description">
+       		<column name="DescriptionArticle"/>
+       	</property>
+    </class>
+</hibernate-mapping>

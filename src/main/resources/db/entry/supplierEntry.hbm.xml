@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.entry.SupplierEntry" table="RéceptionFournisseurs">
+    	<id name="supplierEntryId">
+   			<column name="RFId" />
+   			<generator class="native"/>
+   		</id>
+       	<property name="supplierCode">
+       		<column name="CodeFournisseur"  length="2"/>
+       	</property>
+       	<property name="orderNumbers">
+       		<column name="NumérosCommandes"  length="50"/>
+       	</property>
+       	<property name="checked">
+       		<column name="Checked" />
+       	</property>
+       	<property name="responsible">
+       		<column name="Responsable"  length="20"/>
+       	</property>
+       	<property name="entryDate">
+       		<column name="DateEntrée"  length="10"/>
+       	</property>
+       	<property name="entryTime">
+       		<column name="HeureEntrée"  length="8"/>
+       	</property>
+       	<property name="closed">
+       		<column name="Closed" />
+       	</property>
+    </class>
+</hibernate-mapping>

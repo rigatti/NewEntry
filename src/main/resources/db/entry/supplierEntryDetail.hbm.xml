@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="db.entry.SupplierEntryDetail" table="RéceptionFournisseursLignes" >
+    	<id name="id">
+    		<column name="RfLID"/>
+    		<generator class="native"/>
+    	</id>
+   		<property name="supplierEntryId">
+   			<column name="RfID"/>
+   		</property>
+       	<property name="supplierCode">
+       		<column name="CodeFournisseur"  length="2"/>
+       	</property>
+       	<property name="ligneNumber">
+       		<column name="LnNumber" />
+       	</property>
+       	<property name="orderNumber">
+       		<column name="NuméroCommande" />
+       	</property>
+       	<property name="date">
+       		<column name="DateRéception"  length="20" />
+       	</property>
+       	<property name="productCode">
+       		<column name="CodeArticle"  length="10"/>
+       	</property>
+       	<property name="ean">
+       		<column name="CodeEanCond"  length="20"/>
+       	</property>
+       	<property name="unit">
+       		<column name="Conditionnement"  length="50"/>
+       	</property>
+       	<property name="numberGets">
+       		<column name="QtéReçue" />
+       	</property>
+       	<property name="numberOfUnit">
+       		<column name="NbConditionnements" />
+       	</property>
+       	<property name="checked">
+       		<column name="CheckOk" />
+       	</property>
+       	<property name="updated">
+       		<column name="UpdateOk" />
+       	</property>
+       	<property name="lot">
+       		<column name="Lot"  length="50"/>
+       	</property>
+    </class>
+</hibernate-mapping>

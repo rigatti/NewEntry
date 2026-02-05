@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.entry.treated.SupplierReturnsEntry" table="SupplierReturnsEntry" >
+       	<id name="id">
+   			<generator class="native"/>
+   		</id>
+       	<property name="productCode">
+       		<column name="productCode" length="10"/>
+       	</property>
+		<property name="supplierCode">
+       		<column name="supplierCode" length="2"/>
+       	</property>
+       	<property name="numberOfProducts"/>
+       	<property name="treatedEntryDetailDestinationId"/>
+    </class>
+</hibernate-mapping>

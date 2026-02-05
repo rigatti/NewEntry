@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.prepare.PrepareOrder" table="PréparationCommandes" >
+    	<composite-id>
+    		<key-property name="orderNumber">
+    			<column name="NuméroCommande"></column>
+    		</key-property>
+    		<key-property name="orderLetter">
+    			<column name="LettreCommande" length="50"></column>
+    		</key-property>
+    	</composite-id>
+    	<property name="airportCode">
+    		<column name="CodeAéroport" length="3"></column>
+    	</property>
+    	<property name="flightNumber">
+    		<column name="NoVol" length="10"></column>
+    	</property>
+    	<property name="ltaNumber">
+    		<column name="NoLta" length="12"></column>
+    	</property>
+    	<property name="fret">
+    		<column name="Fret"></column>
+    	</property>
+    	<property name="flightDate">
+    		<column name="DateEnvoi"></column>
+    	</property>
+    </class>
+</hibernate-mapping>

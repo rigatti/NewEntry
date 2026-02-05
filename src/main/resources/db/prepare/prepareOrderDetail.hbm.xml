@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.prepare.PrepareOrderDetail" table="PréparationCommandesLignes" >
+    	<composite-id>
+	   		<key-property name="orderNumber">
+	   			<column name="NuméroCommande" />
+	   		</key-property>
+	       	<key-property name="orderLetter">
+	       		<column name="LettreCommande" length="50" />
+	       	</key-property>
+	       	<key-property name="customerOrderCode">
+	       		<column name="CodeClientCommande" length="5" />
+	       	</key-property>
+	       	<key-property name="customerOrderCodeNumber">
+	       		<column name="NuméroCodeClientCommande" />
+	       	</key-property>
+	       	<key-property name="feesType">
+	       		<column name="TypeFacture" />
+	       	</key-property>
+    	</composite-id>
+    	<property name="customerCode">
+    		<column name="CodeClient" length="12"></column>
+    	</property>
+    </class>
+</hibernate-mapping>

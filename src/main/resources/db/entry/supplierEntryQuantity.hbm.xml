@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="db.entry.SupplierEntryQuantity" table="RéceptionFournisseursDétail" >
+    	<composite-id>
+    		<key-property name="supplierEntryId">
+    			<column name="RfID"></column>
+    		</key-property>
+    		<key-property name="productCode">
+    			<column name="CodeArticle" length="10"></column>
+    		</key-property>
+    	</composite-id>
+       	<property name="numberGets">
+       		<column name="SommeQtéReçue" />
+       	</property>
+       	<property name="numberTransferedToCustomer">
+       		<column name="QtéTransférée" />
+       	</property>
+       	<property name="numberTransferedToStock">
+       		<column name="QtéVersStock" />
+       	</property>
+    </class>
+</hibernate-mapping>

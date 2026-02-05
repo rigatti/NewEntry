@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="db.product.Conditioning" table="ArticlesConditionnements" >
+    	<composite-id>
+    		<key-property name="productCode">
+    			<column name="CodeArticle"/>
+    		</key-property>
+    		<key-property name="priority">
+    			<column name="Priorité" />
+    		</key-property>
+    	</composite-id>
+       	<property name="supplierCode">
+       		<column name="CodeFournisseur"/>
+       	</property>
+       	<property name="supplierProductCode">
+       		<column name="CodeArticleFournisseur"/>
+       	</property>
+       	<property name="ean">
+       		<column name="CodeEanCond"/>
+       	</property>
+       	<property name="unitLargeScale">
+       		<column name="Conditionnement"/>
+       	</property>
+       	<property name="unit">
+       		<column name="CondUnitaire"/>
+       	</property>
+       	<property name="numberOfUnit">
+       		<column name="NbUnités"/>
+       	</property>
+       	<property name="unitPrice">
+       		<column name="PAUCourant"/>
+       	</property>
+       	<property name="editionTypeId">
+       		<column name="CodeTypeEdition"/>
+       	</property>
+       	<property name="dateLastModification">
+       		<column name="DateDernièreModification"/>
+       	</property>
+       	<property name="editionTypeAdditionalId">
+       		<column name="CodeTypeEditionExtra"/>
+       	</property>
+    </class>
+</hibernate-mapping>
