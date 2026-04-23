@@ -814,9 +814,13 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		arrival.setDate(arrival.getSearchSupplierDate());
 		arrival.setTime(Util.formatDate(null, null, "kkmmss"));
 		
+		log.debug("DEBUG checkPending: searchSupplierDate=" + arrival.getSearchSupplierDate() + ", date=" + arrival.getDate());
+		
 		Vector<Supplier> suppliers = arrival.getSuppliers();
+		log.debug("DEBUG checkPending: Found " + suppliers.size() + " suppliers");
 		for (int i = 0; i < suppliers.size(); i++) {
 			Supplier supplier = suppliers.get(i);
+			log.debug("DEBUG checkPending: Processing supplier " + supplier.getSupplierCode());
 
 			// if date must be took into account for the pending check
 			List<TreatedEntryTemp> treatedEntryTemps = treatedEntryTempDAO.getBySupplierCodeAndDate(supplier.getSupplierCode(), arrival.getSearchSupplierDate());
@@ -829,25 +833,29 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 			
 			// check if this supplier for the current date has already been treated
 			SupplierEntry supplierEntry = supplierEntryDAO.getSupplierByDate(supplier.getSupplierCode(), arrival.getDate());
+			log.debug("DEBUG checkPending: SupplierEntry for " + supplier.getSupplierCode() + " on " + arrival.getDate() + " = " + (supplierEntry == null ? "NULL" : "FOUND"));
 			
-			if ( StringUtils.isNotEmpty(supplierEntry.getOrderNumbers()) ) {
-				
-				boolean allOrdersClosed = true;
-				String orderNumbers = supplierEntry.getOrderNumbers();
-				Vector<Order> orders = supplier.getOrders();
-				for (int j = 0; j < orders.size(); j++) {
-					if (orderNumbers.indexOf(String.valueOf(orders.get(j).getNumber())) == -1){
-						allOrdersClosed = false;
+			// Handle null case: no supplier entry found for this date
+			if (supplierEntry != null) {
+				if ( StringUtils.isNotEmpty(supplierEntry.getOrderNumbers()) ) {
+					
+					boolean allOrdersClosed = true;
+					String orderNumbers = supplierEntry.getOrderNumbers();
+					Vector<Order> orders = supplier.getOrders();
+					for (int j = 0; j < orders.size(); j++) {
+						if (orderNumbers.indexOf(String.valueOf(orders.get(j).getNumber())) == -1){
+							allOrdersClosed = false;
+						}
 					}
-				}
-				if (allOrdersClosed) {
+					if (allOrdersClosed) {
+						supplier.setStatus(Supplier.STATUS_CLOSED);
+					} else {
+						supplier.setStatus(Supplier.STATUS_PENDING);
+					}
+				} else if ( StringUtils.isNotEmpty(supplierEntry.getEntryDate()) ) { 
+					// the current supplier entry has been closed without any product entered
 					supplier.setStatus(Supplier.STATUS_CLOSED);
-				} else {
-					supplier.setStatus(Supplier.STATUS_PENDING);
 				}
-			} else if ( StringUtils.isNotEmpty(supplierEntry.getEntryDate()) ) { 
-				// the current supplier entry has been closed without any product entered
-				supplier.setStatus(Supplier.STATUS_CLOSED);
 			}
 
 			suppliers.setElementAt(supplier, i);

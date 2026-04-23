@@ -53,7 +53,7 @@ public class SupplierDAO implements ISupplierDAO {
 
 			var query = currentSession().createQuery(hql.toString(), Supplier.class);
 
-			query.setParameter("supplier", supplierCode);
+			query.setParameter("supplierCode", supplierCode);
 
 			return query.getSingleResult();
 

@@ -1,5 +1,6 @@
 package org.belex.arrival;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.belex.entry.Entry;
 import org.belex.supplier.Supplier;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+@Slf4j
 public class Arrival implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -197,7 +199,6 @@ public class Arrival implements Serializable {
 			setSearchSupplierDate(sdf.format(new Date()));
 		}
 		return searchSupplierDate;
-		
 	}
 
 	public void setSearchSupplierDate(String searchSupplierDate) {

@@ -15,6 +15,7 @@
  */
 package org.belex.arrival;
 
+import lombok.extern.slf4j.Slf4j;
 import org.belex.entry.Entry;
 import org.belex.product.Product;
 import org.belex.product.Product.Unit;
@@ -27,6 +28,7 @@ import org.springframework.webflow.execution.ScopeType;
 
 import java.util.Vector;
 
+@Slf4j
 public class ArrivalFormAction extends FormAction {
 
 	public ArrivalFormAction() {
@@ -42,6 +44,17 @@ public class ArrivalFormAction extends FormAction {
 		// register a custom property editor to handle the date input
 		//SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
 		//registry.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
+
+	public Event bindSearchSupplierDate(RequestContext context) throws Exception {
+		Arrival arrival = (Arrival) getFormObject(context);
+		String searchSupplierDate = context.getExternalContext().getRequestParameterMap().get("searchSupplierDate");
+		
+		if (searchSupplierDate != null && !searchSupplierDate.isEmpty()) {
+			arrival.setSearchSupplierDate(searchSupplierDate);
+		}
+		
+		return success();
 	}
 
 	public Event resetNewEntry(RequestContext context) throws Exception {

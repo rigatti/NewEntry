@@ -28,6 +28,37 @@
                 <value>org.belex</value>
             </list>
         </property>
+        <property name="mappingResources">
+            <list>
+                <value>db/customer/customer.hbm.xml</value>
+                <value>db/editiontype/editionType.hbm.xml</value>
+                <value>db/family/familyLevel1.hbm.xml</value>
+                <value>db/family/familyLevel2.hbm.xml</value>
+                <value>db/family/familyLevel3.hbm.xml</value>
+                <value>db/entry/planning.hbm.xml</value>
+                <value>db/entry/supplierEntry.hbm.xml</value>
+                <value>db/entry/supplierEntryDetail.hbm.xml</value>
+                <value>db/entry/supplierEntryQuantity.hbm.xml</value>
+                <value>db/entry/treated/temp/treatedEntryTemp.hbm.xml</value>
+                <value>db/entry/treated/temp/treatedEntryCustomerTemp.hbm.xml</value>
+                <value>db/entry/treated/treatedEntry.hbm.xml</value>
+                <value>db/entry/treated/treatedEntryDetail.hbm.xml</value>
+                <value>db/entry/treated/treatedEntryDetailDestination.hbm.xml</value>
+                <value>db/entry/treated/supplierReturnsEntry.hbm.xml</value>
+                <value>db/entry/treated/stockEntry.hbm.xml</value>
+                <value>db/customer/order/customerOrderDetail.hbm.xml</value>
+                <value>db/prepare/packageDetail.hbm.xml</value>
+                <value>db/prepare/packaging.hbm.xml</value>
+                <value>db/prepare/packagingDetail.hbm.xml</value>
+                <value>db/prepare/prepareOrder.hbm.xml</value>
+                <value>db/prepare/prepareOrderDetail.hbm.xml</value>
+                <value>db/product/product.hbm.xml</value>
+                <value>db/product/conditioning.hbm.xml</value>
+                <value>db/product/description.hbm.xml</value>
+                <value>db/supplier/supplier.hbm.xml</value>
+                <value>db/supplier/order/supplierOrderDetail.hbm.xml</value>
+            </list>
+        </property>
         <property name="hibernateProperties">
             <props>
 <!--                &lt;!&ndash; Oracle 12c et supérieur (recommandé pour Oracle 12c, 18c, 19c, 21c) &ndash;&gt;-->
@@ -44,12 +75,18 @@
 
 <!--                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>-->
 
+                <!-- DEBUG: Afficher les requêtes SQL -->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
                 <!-- Pour éviter les warnings -->
                 <prop key="hibernate.jdbc.lob.non_contextual_creation">true</prop>
+
+                <!-- DEBUG: Logging des statistiques Hibernate -->
+                <prop key="hibernate.generate_statistics">true</prop>
             </props>
         </property>
     </bean>
