@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="org.belex.arrival.Arrival"%>
 <%
 	Arrival arrivalSearchInput = null;
@@ -37,13 +38,13 @@ if (writeTableHeader) { %>
 			<input type="text" name="searchCodeInput" id="searchCodeInput" value="<%= codeInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 0, true)"> 
 			<input class="checkbox" type="checkbox" name="searchExactMatchInput" id="searchExactMatchInput"> <a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchExactMatchInput')"> Exact </a>
 			<br>
-			<a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchOnSupplierBox')"> Fournisseur défini</a> 
+			<a class="ctext" href="javascript:void(0)" onclick="changeCheckBox('searchOnSupplierBox')"> Fournisseur dÃ©fini</a>
 		</td>
 		<td width="10%" align="right" valign="top">
 			<input style="margin-top:8px" type="radio" name="searchTypeInput" id="searchTypeInput" <%= strTmp2 %> value="2"> 
 		</td>
 		<td width="35%" nowrap valign="top">
-			<a class="ctext" href="javascript:void(0)" onclick="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">Libellé : </a>
+			<a class="ctext" href="javascript:void(0)" onclick="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">LibellÃ© : </a>
 			<input type="text" name="searchLabelInput" value="<%= labelInput %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'" onkeypress="setRadioState(<%= objFormName %>, 'searchTypeInput', 1, true)">
 		</td>
 <% if (writeTableHeader) { %>

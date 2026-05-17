@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 
 <%@page import="java.util.Vector"%>
@@ -32,23 +33,23 @@
 		<hr>
 	
 		<font id="pageSubTitle">
-			Articles command�s et re�us<br>
+			Articles commandés et reçus<br>
 		</font>
 		<% Arrival arrival = (Arrival) request.getAttribute("arrival"); %>
 		
-			<form name="selectEntryFrm" action="flowController.htm">
-				<input type="hidden" name="searchValue">
-				<input type="hidden" name="searchExactMatch" value="1">
-				<input type="hidden" name="searchType" value="1">
-				<%-- if ( StringUtils.equals(arrival.getSupplier().getSupplierCode(),"01") ) { --%>
-						<!-- input type="hidden" name="searchOnSupplier" value=""-->
-				<%-- } else { --%>
-						<input type="hidden" name="searchOnSupplier" value="${arrival.supplier.supplierCode}">
-				<%-- } --%>
-				<input type="hidden" name="_eventId_selectProductDisplayed">
-				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-			</form>
-	
+		<form name="selectEntryFrm" action="${flowExecutionUrl}" method="post">
+			<input type="hidden" name="searchValue">
+			<input type="hidden" name="searchExactMatch" value="1">
+			<input type="hidden" name="searchType" value="1">
+			<%-- if ( StringUtils.equals(arrival.getSupplier().getSupplierCode(),"01") ) { --%>
+					<!-- input type="hidden" name="searchOnSupplier" value=""-->
+			<%-- } else { --%>
+					<input type="hidden" name="searchOnSupplier" value="${arrival.supplier.supplierCode}">
+			<%-- } --%>
+			<input type="hidden" name="_eventId_selectProductDisplayed">
+			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+		</form>
+
 			<c:if test="${fn:length(arrival.savedEntries) == 0}">
 				Aucun arrivage d'article introduit 
 			</c:if>
@@ -97,7 +98,7 @@
 				</table>
 		</c:if>
 		<p>
-			<form name="backFrm" action="flowController.htm">
+			<form name="backFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 				<input class="button" type="submit" value=" << Retour " name="_eventId_entryForm">
 			</form>

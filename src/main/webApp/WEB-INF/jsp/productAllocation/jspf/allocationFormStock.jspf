@@ -5,7 +5,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr valign="top">
 				<td class="tabs-on" width="1%" nowrap id="areaHideStock" height="19" onclick="switchDisplay('spanShortStock');switchDisplay('spanFullStock');">
-					Articles assignés au stock <span id="subTitleStock"></span>
+					Articles assignÃ©s au stock <span id="subTitleStock"></span>
 				</td>
 				<td class="blank-tab" width="99%" nowrap height="19">
 					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">

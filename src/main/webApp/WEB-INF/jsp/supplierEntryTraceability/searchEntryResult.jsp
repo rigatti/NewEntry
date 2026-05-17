@@ -14,7 +14,7 @@ if (traceability != null) {
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <html>
 <head>
-	<title>Belex - Tracabilit� des fournisseurs</title>
+	<title>Belex - Tracabilité des fournisseurs</title>
 
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/sort.js"></script>
@@ -32,7 +32,7 @@ if (traceability != null) {
 			<% } %>
 
 			if (exportIndexList == "") {
-				alert("Veuillez s�lectionner un produit � exporter.");
+				alert("Veuillez sélectionner un produit à exporter.");
 				return false;
 			}
 
@@ -74,7 +74,7 @@ if (traceability != null) {
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr valign="top">
 		<td class="tabs-on" width="1%" nowrap height="19">
-			R�sultats de la recherche<br>
+			Résultats de la recherche<br>
 		</td>
 		<td class="blank-tab" width="99%" nowrap height="19">
 			<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -90,7 +90,7 @@ if (traceability != null) {
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
 						<td class="column-head-prefs">
-							Veuillez introduire un crit�re de recherche
+							Veuillez introduire un critère de recherche
 						</td>
 					</tr>
 				</table>
@@ -100,7 +100,7 @@ if (traceability != null) {
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-								Aucun article ne correspond � la recherche<br>
+								Aucun article ne correspond à la recherche<br>
 							</td>
 						</tr>
 					</table>
@@ -118,7 +118,7 @@ if (traceability != null) {
 									Fournisseur
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 1, 'Date', null, null, null, null)" nowrap>
-									Date d'entr�e
+									Date d'entrée
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 2, 'Integer', null, null, null, null)" nowrap>
 									Nombre d'articles
@@ -127,13 +127,13 @@ if (traceability != null) {
 									Aspect des aliments
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 4, 'String', null, null, null, null)" nowrap>
-									Int�grit� des emballages
+									Intégrité des emballages
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 5, 'String', null, null, null, null)" nowrap>
 									DLC ou DDM suffisante
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 6, 'String', null, null, null, null)" nowrap>
-									Temp�rature � la r�ception
+									Température à la réception
 								</td>
 								<td class="column-head-name" width="1%" nowrap>
 									Commentaire

@@ -5,7 +5,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr valign="top">
 				<td class="tabs-on" width="1%" nowrap height="19" id="areaHideDeletedOrder">
-					Commandes supprimées
+					Commandes supprimÃ©es
 				</td>
 				<td class="blank-tab" width="99%" nowrap height="19">
 					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -37,10 +37,10 @@
 												Produit
 											</td>
 											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('deleteCustOrdersList'), 2, 'Number', null, null, null, null)">
-												Demandé
+												DemandÃ©
 											</td>
 											<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('deleteCustOrdersList'), 3, 'Number', null, null, null, null)">
-												Reçu
+												ReÃ§u
 											</td>
 										</tr>
 									</thead>
@@ -82,7 +82,7 @@
 							<tbody>
 								<tr>
 									<td class="table-text-bold" nowrap>
-										Aucune commande supprimée
+										Aucune commande supprimÃ©e
 									</td>
 								</tr>
 							</tbody>

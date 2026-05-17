@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 
 <%@page import="java.util.Vector"%>
@@ -27,7 +28,7 @@
 
 		<hr>
 
-		<form name="selectEntryFrm" action="flowController.htm">
+		<form name="selectEntryFrm" action="${flowExecutionUrl}" method="post">
 			<input type="hidden" name="searchValue">
 			<input type="hidden" name="searchExactMatch" value="1">
 			<input type="hidden" name="searchType" value="1">

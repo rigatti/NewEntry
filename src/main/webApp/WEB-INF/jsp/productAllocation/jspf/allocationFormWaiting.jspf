@@ -24,7 +24,7 @@
 							<table class="framing-table" width="100%" border="0" cellspacing="0" cellpadding="3">
 								<tr>
 									<td class="column-head-prefs" width="1%" nowrap>
-										Articles livr�s en trop
+										Articles livrés en trop
 									</td>
 									<td class="clean-gray-cell" width="1%">
 										 <br>
@@ -186,10 +186,10 @@
 																	<br>
 																</td>
 																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 5, 'Number', null, null, null, null)">
-																	Demand�
+																	Demandé
 																</td>
 																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 6, 'Number', null, null, null, null)">
-																	Re�u
+																	Reçu
 																</td>
 																<td class="column-head-name sortable" width="1%" onclick="sortTable(document.getElementById('pendingCustOrdersList'), 7, 'String', null, null, null, null)">
 																	Stock

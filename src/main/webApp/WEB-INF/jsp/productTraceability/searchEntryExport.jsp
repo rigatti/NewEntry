@@ -21,7 +21,7 @@
 	Vector<Entry> entries = traceability.getEntries();
 
 	paragraph = new Paragraph(
-	"Rapport de tracabilit� des produits",
+	"Rapport de tracabilité des produits",
 	FontFactory.getFont(FontFactory.TIMES_ITALIC, 24,
 	Font.BOLDITALIC, new Color(0, 0, 0)));
 	paragraph.setSpacingBefore(10.0f);
@@ -76,7 +76,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 	
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"R�f�rence interne : ", labelFont);	
+		"Référence interne : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
@@ -85,7 +85,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 	
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Num�ro de lot : ", labelFont);	
+		"Numéro de lot : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
@@ -94,7 +94,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 	
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Date de validit� : ", labelFont);	
+		"Date de validité : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
@@ -119,7 +119,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Date d'entr�e : ", labelFont);	
+		"Date d'entrée : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		
@@ -142,7 +142,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 			} else if (entry.getSupplierDocumentType() == 2) {
 				paragraph = new Paragraph("Note d'envoi : ", labelFont);	
 			} else {
-				paragraph = new Paragraph("R�f�rence fournisseur : ", labelFont);	
+				paragraph = new Paragraph("Référence fournisseur : ", labelFont);
 			}
 			rtfcell.add(paragraph);
 			table.addCell(rtfcell);
@@ -180,7 +180,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 				}
 			}
 			if (customer.getCustomerEntry() != null) {
-				strCustomers += "\n\r" + "Quantit� : " + customer.getCustomerEntry().getNumberOfUnit();
+				strCustomers += "\n\r" + "Quantité : " + customer.getCustomerEntry().getNumberOfUnit();
 			}
 			if (StringUtils.isNotEmpty(customer.getAllocationDate())) {
 				strCustomers += "\n\r" + "Date d'attribution : " + Util.formatDate(customer.getAllocationDate(), "yyyyMMdd", "dd/MM/yyyy");

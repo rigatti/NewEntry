@@ -14,7 +14,7 @@ if (traceability != null) {
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <html>
 <head>
-	<title>Belex - Tracabilit�</title>
+	<title>Belex - Tracabilité</title>
 
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/sort.js"></script>
@@ -32,7 +32,7 @@ if (traceability != null) {
 			<% } %>
 
 			if (exportIndexList == "") {
-				alert("Veuillez s�lectionner un produit � exporter.");
+				alert("Veuillez sélectionner un produit à exporter.");
 				return false;
 			}
 
@@ -90,7 +90,7 @@ if (traceability != null) {
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
 						<td class="column-head-prefs">
-							Veuillez introduire un crit�re de recherche
+							Veuillez introduire un critère de recherche
 						</td>
 					</tr>
 				</table>
@@ -100,7 +100,7 @@ if (traceability != null) {
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-								Aucun article ne correspond � la recherche<br>
+								Aucun article ne correspond à la recherche<br>
 							</td>
 						</tr>
 					</table>
@@ -124,16 +124,16 @@ if (traceability != null) {
 									Ean
 								</td>
 								<td class="column-head-name" width="1%" align="right" onclick="sortTable(document.getElementById('sortableTable'), 3, 'String', null, null, null, null)" nowrap>
-									Quantit�
+									Quantité
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 4, 'Date', null, null, null, null)" nowrap>
-									Date d'entr�e
+									Date d'entrée
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 5, 'String', null, null, null, null)" nowrap>
-									Date de validit�
+									Date de validité
 								</td>
 								<td class="column-head-name" width="1%" onclick="sortTable(document.getElementById('sortableTable'), 6, 'String', null, null, null, null)" nowrap>
-									Num�ro de lot
+									Numéro de lot
 								</td>
 								<td class="column-head-name" width="1%" nowrap>
 									<input type="checkbox" name="entryToExport_Global" onclick="switchBoxStatus(-1)"><br>

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.customer.Customer"%>
@@ -77,7 +78,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				
 				
 				if (strtrim(obj.searchValue.value).length < 2) {
-					alert("Selection trop large, veuillez introduire plus de crit�res de recherche.");
+					alert("Selection trop large, veuillez introduire plus de critères de recherche.");
 					return false;
 				}
 				
@@ -88,7 +89,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 
 					var inputField = window.document.getElementById("entry.numberOfProduct");
 					if (inputField.value == "" || !IsNumeric(inputField.value) || inputField.value < "1" ) {
-						alert("Veuillez introduire une quantit�");
+						alert("Veuillez introduire une quantité");
 						inputField.focus();
 						return false;
 					}
@@ -113,7 +114,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						}
 	
 						if (inputField.value == "") {
-							if ( ! confirm("Attention, vous �tes sur le point de supprimer le code ean attribu� � ce conditionnement")) {
+							if ( ! confirm("Attention, vous êtes sur le point de supprimer le code ean attribué à ce conditionnement")) {
 								return false;
 							}
 						} 
@@ -142,7 +143,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 
 					var inputField = window.document.getElementById("entry.numberOfProduct");
 					if (inputField.value == "" || !IsNumeric(inputField.value) || inputField.value < "1" ) {
-						alert("Veuillez introduire une quantit�");
+						alert("Veuillez introduire une quantité");
 						inputField.focus();
 						return false;
 					}
@@ -191,7 +192,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 		%>
 		<table>
 			<tr>
-				<form name="searchFrm" action="flowController.htm" method="get" onsubmit="return checkFrm(this)">
+				<form name="searchFrm" action="${flowExecutionUrl}" method="post" onsubmit="return checkFrm(this)">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" name="_eventId_newSearch" value="">
 					<input type="hidden" name="searchValue">
@@ -209,7 +210,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 
 		<hr>
 
-		<form name="nextFrm" action="flowController.htm" method="get">
+		<form name="nextFrm" action="${flowExecutionUrl}" method="post">
 			<table>
 				<tr>
 					<td colspan="3">
@@ -347,7 +348,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				</tr -->
 				<tr>
 					<td  align="right">
-						Date de validit� : <br>
+						Date de validité : <br>
 					</td>
 					<td colspan="2">
 						<input name="entry.product.validityDate" id="entry.product.validityDate" type="text" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
@@ -370,7 +371,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				</tr>
 				<tr>
 					<td align="right">
-						Num�ro de lot : <br>
+						Numéro de lot : <br>
 					</td>
 					<td colspan="2">
 						<input name="entry.product.lotNumber" type="text" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
@@ -378,7 +379,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				</tr>
 				<!-- tr>
 					<td>
-						Donn�es compl�mentaires : <br>
+						Données complémentaires : <br>
 					</td>
 					<td colspan="2">
 						<textarea name="entry.product.additionalData" row="2" cols="60" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'"></textarea>
@@ -408,7 +409,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				</tr>
 			</table>
 		</form>
-		<form name="backFrm" action="flowController.htm" method="get" onsubmit="return checkFrm(this)">
+		<form name="backFrm" action="${flowExecutionUrl}" method="post" onsubmit="return checkFrm(this)">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			<input type="hidden" name="_eventId_back" value="">
 			<input type="hidden" name="searchValue"	value="">
@@ -433,7 +434,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						<td colspan="2">
 							<font style="color: red;font-weight: bold;"> Colis : <%= ce.getFromBasketNumber() %>
 								<% if (ce.getFromBasketNumber() != ce.getToBasketNumber() && ce.getToBasketNumber() != 0) { %>
-									� <%= ce.getToBasketNumber() %>
+									à <%= ce.getToBasketNumber() %>
 								<% } %>
 							</font><br>
 							<font style="color: green;font-weight: bold;"> Destination : <%= customer.getCustomerOrder().getFly().getAirportCode() %></font><br>

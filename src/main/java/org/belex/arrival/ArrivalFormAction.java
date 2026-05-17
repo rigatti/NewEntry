@@ -19,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.belex.entry.Entry;
 import org.belex.product.Product;
 import org.belex.product.Product.Unit;
+import org.belex.requestparams.RequestParams;
 import org.belex.supplier.Supplier;
 import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
@@ -28,6 +30,7 @@ import org.springframework.webflow.execution.ScopeType;
 
 import java.util.Vector;
 
+@Component("arrivalFormAction")
 @Slf4j
 public class ArrivalFormAction extends FormAction {
 
@@ -70,7 +73,7 @@ public class ArrivalFormAction extends FormAction {
 		// pull the date from the model
 		Vector<Product> productsFound = (Vector<Product>) context.getFlowScope().get("products");
 		
-		if (productsFound == null || productsFound.size() == 0) {
+		if (productsFound == null || productsFound.isEmpty()) {
 			return new Event("completeProducts", "none");			
 		}
 		
@@ -143,6 +146,87 @@ public class ArrivalFormAction extends FormAction {
 		// TODO sort 
 		return success();
 	}
-	
+
+	public Event bindRequestParams(RequestContext context) throws Exception {
+		Arrival arrival = (Arrival) getFormObject(context);
+
+		// Récupérer tous les paramètres POST
+		var requestParams = context.getExternalContext().getRequestParameterMap();
+
+		// Créer un objet RequestParams et le remplir
+		RequestParams params = new RequestParams();
+
+		// Récupérer les paramètres pertinents
+		String entryId = requestParams.get("entryId");
+		String removeEntryId = requestParams.get("removeEntryId");
+		String entryNumberOfProduct = requestParams.get("entryNumberOfProduct");
+		String entryValidityDate = requestParams.get("entryValidityDate");
+		String entryLotNumber = requestParams.get("entryLotNumber");
+
+		if (entryId != null && !entryId.isEmpty()) {
+			params.setEntryId(Integer.parseInt(entryId));
+		}
+		if (removeEntryId != null && !removeEntryId.isEmpty()) {
+			params.setEntryId(Integer.parseInt(removeEntryId));
+		}
+		if (entryNumberOfProduct != null && !entryNumberOfProduct.isEmpty()) {
+			params.setEntryNumberOfProduct(Integer.parseInt(entryNumberOfProduct));
+		}
+		if (entryValidityDate != null) {
+			params.setEntryValidityDate(entryValidityDate);
+		}
+		if (entryLotNumber != null) {
+			params.setEntryLotNumber(entryLotNumber);
+		}
+
+		// Stocker dans flowScope
+		context.getFlowScope().put("requestParams", params);
+
+		log.debug("bindRequestParams: entryId=" + params.getEntryId());
+
+		return success();
+	}
+
+	public Event bindSupplierDocument(RequestContext context) throws Exception {
+		Arrival arrival = (Arrival)getFormObject(context);
+		
+		// Get parameters from the form
+		String supplierDocumentType = context.getExternalContext().getRequestParameterMap().get("supplierDocumentType");
+		String supplierDocumentDescription = context.getExternalContext().getRequestParameterMap().get("supplierDocumentDescription");
+		String supplierEntryProductIntegrity = context.getExternalContext().getRequestParameterMap().get("supplierEntryProductIntegrity");
+		String supplierEntryPackagingIntegrity = context.getExternalContext().getRequestParameterMap().get("supplierEntryPackagingIntegrity");
+		String supplierEntryDlcDdmValidity = context.getExternalContext().getRequestParameterMap().get("supplierEntryDlcDdmValidity");
+		String supplierEntryTemperatureValidity = context.getExternalContext().getRequestParameterMap().get("supplierEntryTemperatureValidity");
+		String supplierEntryCommentOnQuality = context.getExternalContext().getRequestParameterMap().get("supplierEntryCommentOnQuality");
+		
+		// Bind to arrival object
+		if (supplierDocumentType != null && !supplierDocumentType.isEmpty()) {
+			arrival.setSupplierDocumentType(Integer.parseInt(supplierDocumentType));
+		}
+		if (supplierDocumentDescription != null) {
+			arrival.setSupplierDocumentDescription(supplierDocumentDescription);
+		}
+		if (supplierEntryProductIntegrity != null && !supplierEntryProductIntegrity.isEmpty()) {
+			arrival.setSupplierEntryProductIntegrity(Integer.parseInt(supplierEntryProductIntegrity));
+		}
+		if (supplierEntryPackagingIntegrity != null && !supplierEntryPackagingIntegrity.isEmpty()) {
+			arrival.setSupplierEntryPackagingIntegrity(Integer.parseInt(supplierEntryPackagingIntegrity));
+		}
+		if (supplierEntryDlcDdmValidity != null && !supplierEntryDlcDdmValidity.isEmpty()) {
+			arrival.setSupplierEntryDlcDdmValidity(Integer.parseInt(supplierEntryDlcDdmValidity));
+		}
+		if (supplierEntryTemperatureValidity != null && !supplierEntryTemperatureValidity.isEmpty()) {
+			arrival.setSupplierEntryTemperatureValidity(Integer.parseInt(supplierEntryTemperatureValidity));
+		}
+		if (supplierEntryCommentOnQuality != null) {
+			arrival.setSupplierEntryCommentOnQuality(supplierEntryCommentOnQuality);
+		}
+		
+		log.debug("bindSupplierDocument: documentType=" + arrival.getSupplierDocumentType() + 
+				  ", description=" + arrival.getSupplierDocumentDescription() + 
+				  ", productIntegrity=" + arrival.getSupplierEntryProductIntegrity());
+		
+		return success();
+	}
 
 }

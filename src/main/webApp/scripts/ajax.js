@@ -41,7 +41,7 @@
             }
         }
         if (!httpRequest) {
-            alert('Abandon :( Impossible de créer une instance XMLHTTP');
+            alert('Abandon :( Impossible de crÃ©er une instance XMLHTTP');
             return false;
         }
         httpRequest.onreadystatechange = function() { analyseAjaxResponse(httpRequest); };
@@ -56,7 +56,7 @@
                 	// defined in each jsp using this ajax script
                     treatAjaxResponse(httpRequest);
                 } else {
-                    alert('Un problème est survenu au cours de la requête.');
+                    alert('Un problÃ¨me est survenu au cours de la requÃªte.');
                 }
             }
         }

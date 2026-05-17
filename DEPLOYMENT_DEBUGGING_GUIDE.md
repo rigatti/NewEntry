@@ -384,15 +384,9 @@ $javaProcess | Select-Object WorkingSet64, VirtualMemorySize64
 
 ### Si la migration cause des erreurs
 ```bash
-# Revenir à l'ancien productEntry.xml en WebFlow 1.0
-cp src/main/webApp/WEB-INF/flows/productEntry.xml \
-   src/main/webApp/WEB-INF/flows/v2-productEntry.xml.bak
-
-# Restaurer le fichier original productEntry.xml (si disponible en VCS)
-git checkout src/main/webApp/WEB-INF/flows/productEntry.xml
 
 # Updater la configuration
-# flow-servlet.xml doit pointer vers productEntry.xml au lieu de v2-productEntry.xml
+# flow-servlet.xml doit pointer vers productEntry.xml au lieu de v2-productEntry-clean.xml
 
 # Rebuild
 mvn clean package -DskipTests
@@ -407,8 +401,8 @@ mvn clean package -DskipTests
 <flow:flow-registry id="flowRegistry"
                     flow-builder-services="flowBuilderServices">
     <flow:flow-location id="test" path="/WEB-INF/flows/test-flow.xml"/>
-    <flow:flow-location id="arrival" path="/WEB-INF/flows/v2-productEntry.xml"/>
-    <!-- ↑ Doit pointer vers v2-productEntry.xml -->
+    <flow:flow-location id="arrival" path="/WEB-INF/flows/v2-productEntry-clean.xml"/>
+    <!-- ↑ Doit pointer vers v2-productEntry-clean.xml -->
 </flow:flow-registry>
 ```
 

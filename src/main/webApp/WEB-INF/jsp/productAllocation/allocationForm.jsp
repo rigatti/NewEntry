@@ -27,7 +27,7 @@
 				var entryProductItem = getRadioValue(window.document.frmData, "entryProductItem");
 				
 				if (entryProductItem == "" && step != "deleteOrder" && step != "renewOrder") {
-					alert("Veuillez s�lectionner un produit � attribuer");
+					alert("Veuillez sélectionner un produit à attribuer");
 					return false;
 				}
 
@@ -47,17 +47,17 @@
 					var customerOrderItem = getRadioValue(window.document.frmData, "customerOrderItem");
 
 					if (customerOrderItem == "" && step == "substitution") {
-						alert("Veuillez s�lectionner un produit pour la substitution");
+						alert("Veuillez sélectionner un produit pour la substitution");
 						return false;
 					}
 					
 					if (customerOrderItem == "" && step == "deleteOrder") {
-						alert("Veuillez s�lectionner une commande client � annuler");
+						alert("Veuillez sélectionner une commande client à annuler");
 						return false;
 					}
 
 					if (customerOrderItem == "" && step == "renewOrder") {
-						alert("Veuillez s�lectionner une commande client � repasser");
+						alert("Veuillez sélectionner une commande client à repasser");
 						return false;
 					}
 
@@ -123,7 +123,7 @@
 					window.document.getElementById("allocReportRenewedOrder").checked == false &&
 					window.document.getElementById("allocReportStandard").checked == false
 					) {
-					alert("Veuillez s�lectionner un type de produit pour la g�n�ration du raport de colisage.");
+					alert("Veuillez sélectionner un type de produit pour la génération du rapport de colisage.");
 					return false;
 				}
 				return true;
@@ -136,7 +136,7 @@
 
 <body class="content">
 
-<!-- H1>R�sultat de la recherche d'articles</h1-->
+<!-- H1>Résultat de la recherche d'articles</h1-->
 
 <!-- 
 <p class="instruction-text">Instruction text</p>
@@ -165,7 +165,7 @@
 
 
 	<h1 onclick="window.document.adminFrm.submit()">
-		Attribution des articles r�ceptionn�s 
+		Attribution des articles réceptionnés
 		<% if (allocation != null && suppliers.size() > 0) { %>
 			: 
 			<% 
@@ -210,7 +210,7 @@ if (allocation == null) { %>
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr valign="top">
 			<td class="tabs-on" width="1%" nowrap height="19">
-				Traitement des articles apr�s cl�ture d'arrivage de marchandise
+				Traitement des articles après clôture d'arrivage de marchandise
 			</td>
 			<td class="blank-tab" width="99%" nowrap height="19">
 				<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -224,7 +224,7 @@ if (allocation == null) { %>
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
 						<td class="column-head-prefs">
-							Veuillez introduire un crit�re de recherche
+							Veuillez introduire un critère de recherche
 						</td>
 					</tr>
 				</table>
@@ -260,7 +260,7 @@ if (allocation == null) { %>
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-									Aucune arriv�e de marchandise/commande enregistr�e pour les crit�res introduits
+									Aucune arrivée de marchandise/commande enregistrée pour les critères introduits
 							</td>
 						</tr>
 					</table>
@@ -283,25 +283,25 @@ if (allocation == null) { %>
 					<input type="checkbox" id="checkboxAssigned" onclick="switchDisplay('spanFullAssigned');">
 				</td>
 				<td style="font-size: 60%" onclick="switchDisplay('spanFullAssigned');switchCheckBoxValue('checkboxAssigned');">
-					Articles assign�s pour substitution <span id="subTitleAssigned"></span>
+					Articles assignés pour substitution <span id="subTitleAssigned"></span>
 				</td>
 				<td width="1%" align="right">
 					<input type="checkbox" id="checkboxSupplier" onclick="switchDisplay('spanFullSupplier');">
 				</td>
 				<td style="font-size: 60%" onclick="switchDisplay('spanFullSupplier');switchCheckBoxValue('checkboxSupplier');">
-					Articles assign�s pour retour fournisseur <span id="subTitleSupplier"></span>
+					Articles assignés pour retour fournisseur <span id="subTitleSupplier"></span>
 				</td>
 				<td width="1%" align="right">
 					<input type="checkbox" id="checkboxStock" onclick="switchDisplay('spanFullStock');">
 				</td>
 				<td style="font-size: 60%" onclick="switchDisplay('spanFullStock');switchCheckBoxValue('checkboxStock');">
-					Articles assign�s au stock <span id="subTitleStock"></span>
+					Articles assignés au stock <span id="subTitleStock"></span>
 				</td>
 				<td width="1%" align="right">
 					<input type="checkbox" id="checkboxDeletedOrder" onclick="switchDisplay('spanFullDeletedOrder');">
 				</td>
 				<td style="font-size: 60%" onclick="switchDisplay('spanFullDeletedOrder');switchCheckBoxValue('checkboxDeletedOrder');">
-					Commandes supprim�es<span id="subTitleDeletedOrder"></span>
+					Commandes supprimées<span id="subTitleDeletedOrder"></span>
 				</td>
 				<td width="1%" align="right">
 					<input type="checkbox" id="checkboxRenewedOrder" onclick="switchDisplay('spanFullRenewedOrder');">
@@ -313,7 +313,7 @@ if (allocation == null) { %>
 					<input type="checkbox" id="checkboxAutomatic" onclick="switchDisplay('spanFullAutomatic');">
 				</td>
 				<td style="font-size: 60%" onclick="switchDisplay('spanFullAutomatic');switchCheckBoxValue('checkboxAutomatic');">
-					Articles correctement attribu�s <span id="subTitleAutomatic"></span>
+					Articles correctement attribués <span id="subTitleAutomatic"></span>
 				</td>
 			</tr>
 		</table>
@@ -368,7 +368,7 @@ if (allocation == null) { %>
 						<table id="assignedProductsList" class="framing-table" width="20%" border=0 cellspacing=1 cellpadding=3 width=100%>
 							<tr>
 								<td colspan="2" class="column-head-prefs" nowrap>
-									S�lection du type d'articles � inclure dans le rapport
+									Sélection du type d'articles à inclure dans le rapport
 								</td>
 							</tr>
 							<tr>
@@ -376,7 +376,7 @@ if (allocation == null) { %>
 									<input type="checkBox" name="allocReportSubstitution">
 									<span onclick="changeCheckBox('allocReportSubstitution')">Substitution</span>
 								</td>
-								<td class="table-text" witdh="50%"�nowrap>
+								<td class="table-text" witdh="50%" nowrap>
 									<input type="checkBox" name="allocReportStock">
 									<span onclick="changeCheckBox('allocReportStock')">Stock</span>
 								</td>
@@ -396,14 +396,14 @@ if (allocation == null) { %>
 									<input type="checkBox" name="allocReportRenewedOrder">
 									<span onclick="changeCheckBox('allocReportRenewedOrder')">Recommande</span>
 								</td>
-								<td class="table-text" witdh="50%"�nowrap>
+								<td class="table-text" witdh="50%" nowrap>
 									<input type="checkBox" name="allocReportDeletedOrder">
 									<span onclick="changeCheckBox('allocReportDeletedOrder')">Suppression</span>
 								</td>
 							</tr>
 						</table>
 						<br>
-						<input type="submit" class="button" value=" G�n�ration du document ">
+						<input type="submit" class="button" value=" Génération du document ">
 					</td>
 				</tr>
 			</table>

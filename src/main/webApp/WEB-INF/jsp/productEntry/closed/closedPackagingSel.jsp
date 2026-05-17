@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.product.Product"%>
@@ -22,7 +23,7 @@
 	<%@ include file="/WEB-INF/jsp/productEntry/jspf/bodyHeader.jspf" %>
 	<div>
 		<font id="pageTitle">
-			Séléction du type de conditionnement du produit recherché<br>
+			SÃ©lÃ©ction du type de conditionnement du produit recherchÃ©<br>
 		</font>
 	
 		<hr>
@@ -33,7 +34,7 @@
 			</c:if>
 			<c:if test="${fn:length(products) > 0}">
 			
-				<form id="dataFrm" name="dataFrm" action="flowController.htm" method="get">
+				<form id="dataFrm" name="dataFrm" action="${flowExecutionUrl}" method="post">
 					<input type="hidden" name="productCodeSelected">
 					<input type="hidden" name="unitIndexSelected">
 					<input type="hidden" name="_eventId_productSelection">
@@ -70,7 +71,7 @@
 											</td-->
 										<% } else { %>
 								        	<td id="item" onclick="sendCondtionnementFrm('<%= currentProduct.getProductCode() %>', 0);">
-												Conditionnement non répertorié<br>
+												Conditionnement non rÃ©pertoriÃ©<br>
 											</td>
 										<% } %>
 									</tr>

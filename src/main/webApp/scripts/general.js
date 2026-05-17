@@ -3,7 +3,7 @@ var newFlowExecutionKey = ""; // springWebflow execution key
 //---------------------------------
 
 function confirmAction() {
-	return confirm("Etes-vous sûr?");
+	return confirm("Etes-vous sÃ»r?");
 }
 
 function getSelectedValue(selObj) {

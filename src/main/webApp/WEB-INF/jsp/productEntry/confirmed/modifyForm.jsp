@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.product.Product"%>
@@ -35,7 +36,7 @@ Vector<Entry> entries = arrival.getSavedEntries();
 				var dataFrm = window.document.dataFrm;
 				var numberOfProduct = dataFrm.newNumberOfProduct.value;
 				if (numberOfProduct == "" || !IsNumeric(numberOfProduct) || numberOfProduct < "1" ) {
-					alert("Veuillez introduire une quantité");
+					alert("Veuillez introduire une quantitÃ©");
 					dataFrm.newNumberOfProduct.focus();
 					return false;
 				} else {
@@ -86,13 +87,13 @@ Vector<Entry> entries = arrival.getSavedEntries();
 					Product.Unit selectedUnit = utb.getSelectedUnit(currentProduct);
 			%>
 	
-				<form name="removeEntryFrm" action="flowController.htm">
+				<form name="removeEntryFrm" action="${flowExecutionUrl}" method="post">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" value="" name="_eventId_removeEntry">
 					<input type="hidden" name="removeEntryId" value="<%= entryId %>">
 				</form>
 	
-				<form name="modifyEntryFrm" action="flowController.htm">
+				<form name="modifyEntryFrm" action="${flowExecutionUrl}" method="post">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" value="" name="_eventId_confirmModifyEntry">
 					<input type="hidden" name="entryId" value="<%= entryId %>">
@@ -115,13 +116,13 @@ Vector<Entry> entries = arrival.getSavedEntries();
 								<table border="0" cellspacing="2" cellpadding="2">
 									<tr> 
 										<td id="header">
-											Quantité<br>
+											QuantitÃ©<br>
 										</td>
 							        	<td id="header">
 											Conditionnement<br>
 										</td>
 										<td id="header">
-											Validité &nbsp;<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
+											ValiditÃ© &nbsp;<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
 											<dlcalendar click_element_id="img_calendar"
 									            input_element_id="newValidityDate"
 									            tool_tip="Click to choose a validity date"
@@ -249,8 +250,8 @@ Vector<Entry> entries = arrival.getSavedEntries();
 		<% } %>
 	
 		<p id="lalign">
-			<form name="listOfConfirmedFrm" action="flowController.htm">
-				<input class="button" type="submit" value=" << Retour " name="_eventId_listOfConfirmedEntry"> 
+			<form name="listOfConfirmedFrm" action="${flowExecutionUrl}" method="post">
+				<input class="button" type="submit" value=" << Retour " name="_eventId_listOfConfirmedEntry">
 				<input class="button" type="button" value=" Valider " onclick="sendModifyEntryFrm()"> 
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>

@@ -15,9 +15,10 @@
  */
 package org.belex.allocation;
 
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.ScopeType;
-
+@Component("allocationFormAction")
 public class AllocationFormAction extends FormAction {
 
 	public AllocationFormAction() {

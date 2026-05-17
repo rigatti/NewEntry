@@ -51,7 +51,7 @@
 	</form>
 
 	<h1 onclick="window.document.adminFrm.submit()">
-		Attribution des articles réceptionnés
+		Attribution des articles rÃ©ceptionnÃ©s
 	</h1>
 
 	<!-- 
@@ -63,7 +63,7 @@
 	<table border="0" cellpadding="0" cellspacing="0"  width="100%" >
 		<tr valign="top"> 
     		<td class="tabs-on" width="1%" nowrap height="19">
-		       Sélection
+		       SÃ©lection
 			</td>
 		    <td class="blank-tab" width="99%" nowrap height="19">
         		<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">

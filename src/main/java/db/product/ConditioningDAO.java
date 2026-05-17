@@ -66,13 +66,13 @@ public class ConditioningDAO implements IConditioningDAO {
 			StringBuilder hql = new StringBuilder("from Conditioning c where ");
 
 			if (searchExactMatch) {
-				hql.append("upper(c.codeArticle) = :code");
+				hql.append("upper(c.productCode) = :code");
 			} else {
-				hql.append("upper(c.codeArticle) like :code");
+				hql.append("upper(c.productCode) like :code");
 			}
 
 			if (searchOnSupplier != null && !searchOnSupplier.isBlank()) {
-				hql.append(" and c.CodeFournisseur = :supplier");
+				hql.append(" and c.supplierCode = :supplier");
 			}
 
 			var query = currentSession().createQuery(hql.toString(), Conditioning.class);

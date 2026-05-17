@@ -21,7 +21,7 @@
 	Vector<Entry> entries = traceability.getEntries();
 
 	paragraph = new Paragraph(
-	"Rapport de tracabilit� des fournisseurs",
+	"Rapport de tracabilité des fournisseurs",
 	FontFactory.getFont(FontFactory.TIMES_ITALIC, 24,
 	Font.BOLDITALIC, new Color(0, 0, 0)));
 	paragraph.setSpacingBefore(10.0f);
@@ -63,7 +63,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Date d'entr�e : ", labelFont);	
+		"Date d'entrée : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		rtfcell = new RtfCell(Util.formatDate(entry.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy"));
@@ -93,7 +93,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 	
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Int�grit� des emballages : ", labelFont);	
+		"Intégrité des emballages : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 	
@@ -119,7 +119,7 @@ for (int i=0; i < entries.size() ; i++ ) {
 		
 		rtfcell = new RtfCell();
 		paragraph = new Paragraph(
-		"Temp�rature � la r�ception : ", labelFont);	
+		"Température à la réception : ", labelFont);
 		rtfcell.add(paragraph);
 		table.addCell(rtfcell);
 		

@@ -32,7 +32,7 @@
 	<flow:flow-registry id="flowRegistry"
 						flow-builder-services="flowBuilderServices">
 		<flow:flow-location id="test" path="/WEB-INF/flows/test-flow.xml"/>
-		<flow:flow-location id="arrival" path="/WEB-INF/flows/v2-productEntry.xml"/>
+		<flow:flow-location id="arrival" path="/WEB-INF/flows/v2-productEntry-clean.xml"/>
 	</flow:flow-registry>
 
 	<flow:flow-builder-services id="flowBuilderServices"

@@ -5,25 +5,37 @@ import db.entry.treated.ISupplierReturnsEntryDAO;
 import db.entry.treated.ITreatedEntryDAO;
 import db.entry.treated.temp.ITreatedEntryTempDAO;
 import db.product.*;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.belex.arrival.Arrival;
 import org.belex.product.Product.Unit;
 import org.belex.util.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Vector;
 
+@Setter
+@Service("productBusiness")
 @Slf4j
 public class ProductBusiness implements IProductBusiness {
-	
+
+	@Autowired
 	IProductDAO productDAO;
+	@Autowired
 	IConditioningDAO conditioningDAO;
+	@Autowired
 	IDescriptionDAO descriptionDAO;
+	@Autowired
 	ITreatedEntryDAO treatedEntryDAO;
+	@Autowired
 	ITreatedEntryTempDAO treatedEntryTempDAO;
+	@Autowired
 	ISupplierReturnsEntryDAO supplierReturnsEntryDAO;
+	@Autowired
 	IStockEntryDAO stockEntryDAO;
 	
 	
@@ -450,28 +462,4 @@ public class ProductBusiness implements IProductBusiness {
 		} // if is not empty 
 	}
 
-	public void setConditioningDAO(IConditioningDAO conditioningDAO) {
-		this.conditioningDAO = conditioningDAO;
-	}
-
-	public void setDescriptionDAO(IDescriptionDAO descriptionDAO) {
-		this.descriptionDAO = descriptionDAO;
-	}
-
-	public void setStockEntryDAO(IStockEntryDAO stockEntryDAO) {
-		this.stockEntryDAO = stockEntryDAO;
-	}
-
-	public void setSupplierReturnsEntryDAO(
-			ISupplierReturnsEntryDAO supplierReturnsEntryDAO) {
-		this.supplierReturnsEntryDAO = supplierReturnsEntryDAO;
-	}
-
-	public void setTreatedEntryDAO(ITreatedEntryDAO treatedEntryDAO) {
-		this.treatedEntryDAO = treatedEntryDAO;
-	}
-
-	public void setTreatedEntryTempDAO(ITreatedEntryTempDAO treatedEntryTempDAO) {
-		this.treatedEntryTempDAO = treatedEntryTempDAO;
-	}
 }

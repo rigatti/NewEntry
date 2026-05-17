@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <html>
 <head>
@@ -15,7 +16,7 @@
 
 				var inputLabel = window.document.getElementById("newProductLabel");
 				if (inputLabel.value == "") {
-					alert("Veuillez introduire un libellé de produit");
+					alert("Veuillez introduire un libellÃ© de produit");
 					inputLabel.focus();
 					return false;
 				}
@@ -49,14 +50,14 @@
 		<hr>
 		Introduction d'un nouveau produit
 		
-		<form name="nextFrm" action="flowController.htm" method="get" onsubmit="return checkValues();">
+		<form name="nextFrm" action="${flowExecutionUrl}" method="post" onsubmit="return checkValues()">">
 			<input type="hidden" name="_eventId_submit" value="">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			<input type="hidden" name="newProductSupplierCode" value="${arrival.supplier.supplierCode}">
 			<table>
 				<tr>
 					<td width="25%">
-						Libellé:<br>
+						LibellÃ©:<br>
 					</td>
 					<td>
 						<input maxlength="50" size="60" class="inputText" type="text" name="newProductLabel" value="" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">

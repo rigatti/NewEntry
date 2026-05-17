@@ -17,14 +17,14 @@
 
 			if (searchType == 1) {
 				if (dataFrm.productCodeInput.value == "") {
-					alert("Veuillez introduire un critère de recherche");
+					alert("Veuillez introduire un critÃ¨re de recherche");
 					dataFrm.productCodeInput.focus();
 					return false;
 				}
 				dataFrm.searchValue.value = dataFrm.productCodeInput.value;
 			} else {
 				if (dataFrm.labelInput.value == "") {
-					alert("Veuillez introduire un critère de recherche");
+					alert("Veuillez introduire un critÃ¨re de recherche");
 					dataFrm.labelInput.focus();
 					return false;
 				}
@@ -105,7 +105,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								<input type="radio" value="2" name="searchType"> <a class="ctext" href="javascript:void(0)" onclick="setRadioState(window.document.frmProductSearch,'searchType',1, true)">Libellé :</a><br>
+								<input type="radio" value="2" name="searchType"> <a class="ctext" href="javascript:void(0)" onclick="setRadioState(window.document.frmProductSearch,'searchType',1, true)">LibellÃ© :</a><br>
 								<span style="padding-left:25px">
 									<input type="text" name="labelInput" size="30px" value="" onfocus="setRadioState(window.document.frmProductSearch,'searchType',1, true)">
 								</span>
@@ -115,7 +115,7 @@
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs" style="padding-left:10px">
-								+ Options supplémrentaires
+								+ Options supplÃ©mrentaires
 							</td>
 						</tr>
 						<tr>

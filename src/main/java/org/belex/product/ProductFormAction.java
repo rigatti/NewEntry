@@ -3,13 +3,14 @@ package org.belex.product;
 import org.belex.arrival.Arrival;
 import org.belex.product.Product.Unit;
 import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.ScopeType;
 
 import java.util.Vector;
-
+@Component("productFormAction")
 public class ProductFormAction extends FormAction {
 
 	public ProductFormAction() {

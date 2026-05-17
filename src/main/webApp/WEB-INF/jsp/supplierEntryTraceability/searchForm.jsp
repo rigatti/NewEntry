@@ -1,7 +1,7 @@
 <%@page import="org.belex.util.Util"%>
 <html>
 <head>
-	<title>Belex - Tracabilité des fournisseurs</title>
+	<title>Belex - TracabilitÃ© des fournisseurs</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
@@ -57,7 +57,7 @@
 	</form>
 
 	<h1 onclick="window.document.adminFrm.submit()">
-		Traçabilité des fournisseurs
+		TraÃ§abilitÃ© des fournisseurs
 	</h1>
 
 	<table border="0" cellpadding="0" cellspacing="0"  width="100%" >
@@ -97,7 +97,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								Date début : <br>
+								Date dÃ©but : <br>
 								<span style="padding-left:25px">
 									<input type="text" autocomplete="off" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
 								</span>

@@ -3,7 +3,7 @@
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr valign="top">
 			<td class="tabs-on" width="1%" nowrap height="19" id="areaHideAssigned" onclick="switchDisplay('spanShortAssigned');switchDisplay('spanFullAssigned');">
-				Articles assignés pour substitution <span id="subTitleAssigned"></span>
+				Articles assignÃ©s pour substitution <span id="subTitleAssigned"></span>
 			</td>
 			<td class="blank-tab" width="99%" nowrap height="19">
 				<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -89,7 +89,7 @@
 							<tbody>
 								<tr>
 									<td class="table-text-bold" nowrap>
-										Aucun article de substitution n'a été encodé
+										Aucun article de substitution n'a Ã©tÃ© encodÃ©
 									</td>
 								</tr>
 					<% } %>

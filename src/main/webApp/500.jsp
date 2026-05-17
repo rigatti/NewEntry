@@ -1,4 +1,4 @@
-<%-- make sure we have a session --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page session="true" %>
 <%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
 
@@ -19,7 +19,7 @@
 
 <body class="content" style="padding-top:37px">
 	<center>
-		<H1>Erreur système</h1>
+		<H1>Erreur systÃ¨me</h1>
 		
 		<!-- 
 		<p class="instruction-text">Instruction text</p>
@@ -30,7 +30,7 @@
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="table-text-bold">
-								Suite à un problème technique, votre requête ne peut aboutir normalement.<br> <br>
+								Suite Ã  un problÃ¨me technique, votre requÃ¨te ne peut aboutir normalement.<br> <br>
 								Veuillez nous en excuser.<br> <br>
 								
 								Contact technique : 0477/23.47.93<br>

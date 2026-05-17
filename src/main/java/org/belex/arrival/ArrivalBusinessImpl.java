@@ -16,7 +16,6 @@ import db.product.IProductDAO;
 import db.supplier.ISupplierDAO;
 import db.supplier.order.ISupplierOrderDetailDAO;
 import db.supplier.order.SupplierOrderDetail;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -91,17 +90,14 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 	@Autowired
 	ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
 
-	@Override
 	public String storeEntry(Arrival arrival) {
 		return storeEntry(arrival, "0");
 	}
 
-	@Override
 	public String forceStoreEntry(Arrival arrival) {
 		return storeEntry(arrival, "1");
 	}
 
-	@Override
 	@Transactional
 	public String storeEntry(Arrival arrival, String forceStoreEntry) {
 		int result = STORE_ERROR;
@@ -248,7 +244,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		}
 	}
 
-	@Override
 	public Event modifyEntry(Arrival arrival, RequestParams requestParams) {
 		try {
 			int entryId = requestParams.getEntryId();
@@ -306,7 +301,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 	}
 
 	@Transactional
-	@Override
+
 	public Event removeEntry(Arrival arrival, RequestParams requestParams) {
 
 		int entryId = requestParams.getEntryId();
@@ -357,7 +352,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 	}
 
 	@Transactional
-	@Override
 	public Event saveEntry(Arrival arrival) {
 
 		List<TreatedEntryTemp> treatedEntryTemps = treatedEntryTempDAO.getBySupplierCodeAndDate(arrival.getSupplier().getSupplierCode(), arrival.getDate());
@@ -808,7 +802,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return new Event("removeEntry", String.valueOf(saveEntrySucceeded));
 	}
 
-	@Override
 	public Event checkPending(Arrival arrival) {
 		
 		arrival.setDate(arrival.getSearchSupplierDate());
@@ -864,7 +857,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return new Event("arrivalBusiness","success");
 	}
 
-	@Override
 	public Event getPending(Arrival arrival) {
 		boolean result = false;
 		
@@ -934,7 +926,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 	}
 
 	@Transactional
-	@Override
 	public boolean deletePending(Arrival arrival){
 		boolean result = true;
 
@@ -956,7 +947,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return result;
 	}
 
-	@Override
 	public Arrival getPlannedSuppliers(Arrival arrival) {
 		if (arrival == null) {
 			arrival = new Arrival();
@@ -1036,7 +1026,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return arrival;
 	}
 
-	@Override
 	public Event getPlannedSupplier(Arrival arrival) {
 		if (arrival == null) {
 			arrival = new Arrival();
@@ -1066,7 +1055,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		//return arrival;
 	}
 
-	@Override
 	public Supplier fillSupplierOrder(Supplier supplier){
 
 		Vector<Entry> entries = supplier.getRequestedEntries();
@@ -1237,7 +1225,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return false;
 	}
 
-	@Override
 	public Arrival productSelection(Arrival arrival, Vector<Product> products) {
 		String productCodeSelected = arrival.getProductCodeSelected();
 		String unitIndexSelected = arrival.getUnitIndexSelected(); 
@@ -1263,7 +1250,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		return arrival;
 	}
 
-	@Override
 	public void selectBasket(Arrival arrival){
 		Supplier supplier = arrival.getSupplier();
 		Entry entry = arrival.getEntry();

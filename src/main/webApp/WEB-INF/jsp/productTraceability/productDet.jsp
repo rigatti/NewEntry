@@ -19,7 +19,7 @@ if (traceability != null) {
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <html>
 <head>
-	<title>Belex - Tracabilit�</title>
+	<title>Belex - Tracabilité</title>
 
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
@@ -46,7 +46,7 @@ if (traceability != null) {
 				<table width="100%">
 					<tr>
 						<td valign="top">
-							Aucun article ne correspond � la recherche<br>
+							Aucun article ne correspond à la recherche<br>
 						</td>
 					</tr>
 				</table>
@@ -90,7 +90,7 @@ if (traceability != null) {
 					</tr>
 					<tr>
 						<td width="20%" class="table-text-bold">
-							Quantit�<br>
+							Quantité<br>
 						</td>
 						<td width="80%" class="table-text">
 							<% if (entry.getNumberOfProduct() > 0) { %>
@@ -117,7 +117,7 @@ if (traceability != null) {
 							<% } else if (entry.getSupplierDocumentType() == 2) { %>
 								Note d'envoi<br>
 							<% } else { %>
-								R�f�rence fournisseur<br>
+								Référence fournisseur<br>
 							<% } %>
 							</td>
 							<td width="80%" class="table-text">
@@ -127,7 +127,7 @@ if (traceability != null) {
 					<% } %>
 					<tr>
 						<td width="20%" class="table-text-bold">
-							Date d'entr�e<br>
+							Date d'entrée<br>
 						</td>
 						<td width="80%" class="table-text">
 							<%= Util.formatDate(entry.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy") %><br>
@@ -135,7 +135,7 @@ if (traceability != null) {
 					</tr>
 					<tr>
 						<td width="20%" class="table-text-bold">
-							Date de validit�<br>
+							Date de validité<br>
 						</td>
 						<td width="80%" class="table-text">
 							<%= entry.getProduct().getValidityDate() %><br>
@@ -143,7 +143,7 @@ if (traceability != null) {
 					</tr>
 					<tr>
 						<td width="20%" class="table-text-bold">
-							Num�ro de lot<br>
+							Numéro de lot<br>
 						</td>
 						<td width="80%" class="table-text">
 							<%= entry.getProduct().getLotNumber() %><br>
@@ -176,7 +176,7 @@ if (traceability != null) {
 									Retour fournisseur<br>
 								<% } 
 								if (customer.getCustomerEntry() != null) { %>
-									Quantit� : <%= customer.getCustomerEntry().getNumberOfUnit() %><br>
+									Quantité : <%= customer.getCustomerEntry().getNumberOfUnit() %><br>
 								<% }
 								if (StringUtils.isNotEmpty(customer.getAllocationDate())) { %>
 									Date d'attribution : <%= Util.formatDate(customer.getAllocationDate(), "yyyyMMdd", "dd/MM/yyyy") %><br>

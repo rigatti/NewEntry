@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.customer.Customer"%>
@@ -37,7 +38,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 		<hr>
 
 		<center>
-			<form name="backFrm" action="flowController.htm">
+			<form name="backFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 				<input class="button" type="submit" value=" << Retour " name="_eventId_back">
 			</form>
@@ -57,7 +58,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 						<td colspan="2">
 							<font style="color: red;font-weight: bold;"> Colis : <%= ce.getFromBasketNumber() %>
 								<% if (ce.getFromBasketNumber() != ce.getToBasketNumber() && ce.getToBasketNumber() != 0) { %>
-									à <%= ce.getToBasketNumber() %>
+									Ã  <%= ce.getToBasketNumber() %>
 								<% } %>
 							</font><br>
 							<font style="color: green;font-weight: bold;"> Destination : <%= customer.getCustomerOrder().getFly().getAirportCode() %></font><br>
@@ -104,7 +105,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 		} %>
 	</table>
 	<center>
-		<form name="backFrm" action="flowController.htm">
+		<form name="backFrm" action="${flowExecutionUrl}" method="post">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			<input class="button" type="submit" value=" << Retour " name="_eventId_back">
 		</form>

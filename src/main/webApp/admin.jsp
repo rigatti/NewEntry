@@ -1,4 +1,4 @@
-<%-- make sure we have a session --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page session="true" %>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
@@ -78,12 +78,12 @@ String rememberMe = request.getParameter("rememberMe");
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productEntry">Arriv�e de marchandise</a><br>
+								<a class="ctextunderlined" href="flowController.htm?_flowId=productEntry">Arrivée de marchandise</a><br>
 							</td>
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productAllocation">Attribution des marchandises re�ues</a><br>
+								<a class="ctextunderlined" href="flowController.htm?_flowId=productAllocation">Attribution des marchandises reçues</a><br>
 							</td>
 						</tr>
 						<tr>
@@ -93,12 +93,12 @@ String rememberMe = request.getParameter("rememberMe");
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Tra�abilit� des produits</a><br>
+								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Traçabilité des produits</a><br>
 							</td>
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=supplierEntryTraceability">Tra�abilit� des entr�es fournisseurs</a><br>
+								<a class="ctextunderlined" href="flowController.htm?_flowId=supplierEntryTraceability">Traçabilité des entrées fournisseurs</a><br>
 							</td>
 						</tr>
 					</table>
@@ -112,7 +112,7 @@ String rememberMe = request.getParameter("rememberMe");
 								<a class="ctextunderlined" href="javascript:void(0);">Messagerie</a>
 								<div id="messagingShortInfo" style="display:none;padding-top:10px;">
 									Dernier message du <i><span id="messagingDate"></span></i><br>
-									Post� par <i><span id="messagingUsername"></span></i><br>
+									Posté par <i><span id="messagingUsername"></span></i><br>
 								</div><br>
 							</td>
 						</tr>
@@ -136,7 +136,7 @@ String rememberMe = request.getParameter("rememberMe");
 									<script>
 										<!--
 											function sendFrm() {
-												if (confirm('Etes-vous s�r?')) {
+												if (confirm('Etes-vous sûr?')) {
 													window.document.frmCleanDb.submit();
 												}
 											}
@@ -154,7 +154,7 @@ String rememberMe = request.getParameter("rememberMe");
 										<!--
 											function sendFrmExportProduct() {
 												alert("Request not allowed");
-												//if (confirm('Etes-vous s�r?')) {
+												//if (confirm('Etes-vous sûr?')) {
 												//	window.document.frmExportProduct.submit();
 												//}
 											}
@@ -172,7 +172,7 @@ String rememberMe = request.getParameter("rememberMe");
 										<!--
 											function sendFrmExportCustomer() {
 												alert("Request not allowed");
-												//if (confirm('Etes-vous s�r?')) {
+												//if (confirm('Etes-vous sûr?')) {
 												//	window.document.frmExportCustomer.submit();
 												//}
 											}

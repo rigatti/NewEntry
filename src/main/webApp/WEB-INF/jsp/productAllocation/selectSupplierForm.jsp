@@ -121,7 +121,7 @@
 					<table class="framing-table" border="0" cellspacing="1" cellpadding="3" width="100%">			
 						<tr>
 							<td class="column-head-prefs">
-								Arrivées à attribuer
+								ArrivÃ©es Ã  attribuer
 							</td>
 						</tr>
 						<tr>
@@ -179,7 +179,7 @@
 					<table class="framing-table" border="0" cellspacing="1" cellpadding="3" width="100%">
 						<tr>
 							<td class="column-head-prefs">
-								Aucune arrivée pour cette date
+								Aucune arrivÃ©e pour cette date
 							</td>
 						</tr>
 					</table>

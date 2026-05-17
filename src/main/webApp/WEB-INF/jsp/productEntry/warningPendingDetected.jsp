@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <html>
 <head>
@@ -5,15 +6,19 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
 	<script type="text/javascript">
 		<!--
-			function sendNextFrm(event) {
-				var next = true;
-				if (event == "delete") {
-					next = confirm("Etes-vous sûr de supprimer l'encodage?");
+			function sendNextFrm(eventName) {
+				var confirmed = true;
+				if (eventName === "delete") {
+					confirmed = confirm("Etes-vous sÃ»r de supprimer l'encodage?");
 				}
-				if (next) {
-					var eventTag = window.document.getElementById("eventTag");
-					eventTag.name += event;
-					window.document.nextFrm.submit();
+				if (confirmed) {
+					// Create hidden input with event name
+					var eventInput = document.createElement("input");
+					eventInput.type = "hidden";
+					eventInput.name = "_eventId_" + eventName;
+					eventInput.value = "";
+					document.nextFrm.appendChild(eventInput);
+					document.nextFrm.submit();
 				}
 			}
 		//-->
@@ -28,12 +33,12 @@
 	
 		<hr>
 			
-		<form name="nextFrm" action="flowController.htm">
-			<input type="hidden" name="_eventId_" id="eventTag">
+		<!-- WebFlow 2.5.1: Submit via POST with event ID -->
+		<form name="nextFrm" action="${flowExecutionUrl}" method="post">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		</form>
 
-		<form action="flowAction.do" method="get">
+		<form method="post">
 			<table>
 				<tr>
 					<td colspan="2">
@@ -42,7 +47,7 @@
 				</tr>
 				<tr>
 					<td align="center">
-						Une arrivée similaire non confirmée a été détectée.<br>
+						Une arrivÃ©e similaire non confirmÃ©e a Ã©tÃ© dÃ©tectÃ©e.<br>
 					</td>
 				</tr>
 				<tr>

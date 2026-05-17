@@ -1,5 +1,7 @@
 package org.belex.arrival;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.belex.entry.Entry;
@@ -11,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+@Setter
+@Getter
 @Slf4j
 public class Arrival implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -55,10 +59,10 @@ public class Arrival implements Serializable {
 	public void init(){
 		getDate();
 		getTime();
-		setSuppliers(new Vector<Supplier>());
+		setSuppliers(new Vector<>());
 		supplier = new Supplier();
 		setSaved(false);
-		setSavedEntries(new Vector<Entry>());
+		setSavedEntries(new Vector<>());
 		setEntry(new Entry());
 		setSearchValue("");
 		setSearchType("");
@@ -82,9 +86,9 @@ public class Arrival implements Serializable {
 		}
 		return date;
 	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+//	public void setDate(String date) {
+//		this.date = date;
+//	}
 
 	public String getTime() {
 		if (date == null){
@@ -92,106 +96,106 @@ public class Arrival implements Serializable {
 		}
 		return time;
 	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-
-	public Entry getEntry() {
-		return entry;
-	}
-
-	public void setEntry(Entry entry) {
-		this.entry = entry;
-	}
-
-	public boolean isSaved() {
-		return saved;
-	}
-
-	public void setSaved(boolean saved) {
-		this.saved = saved;
-	}
-
-	public Vector<Entry> getSavedEntries() {
-		return savedEntries;
-	}
-
-	public void setSavedEntries(Vector<Entry> savedEntries) {
-		this.savedEntries = savedEntries;
-	}
-
-	public Supplier getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
-	}
-
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
-	}
-
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-
-	public boolean isSavedEntry() {
-		return savedEntry;
-	}
-
-	public void setSavedEntry(boolean savedEntry) {
-		this.savedEntry = savedEntry;
-	}
-
-	public String getRemoveEntryId() {
-		return removeEntryId;
-	}
-
-	public void setRemoveEntryId(String removeEntryId) {
-		this.removeEntryId = removeEntryId;
-	}
-
-	public Vector<Supplier> getSuppliers() {
-		return suppliers;
-	}
-
-	public void setSuppliers(Vector<Supplier> suppliers) {
-		this.suppliers = suppliers;
-	}
-
-	public String getSearchExactMatch() {
-		return searchExactMatch;
-	}
-
-	public void setSearchExactMatch(String searchExactMatch) {
-		this.searchExactMatch = searchExactMatch;
-	}
-
-	public String getProductCodeSelected() {
-		return productCodeSelected;
-	}
-
-	public void setProductCodeSelected(String productCodeSelected) {
-		this.productCodeSelected = productCodeSelected;
-	}
-
-	public String getUnitIndexSelected() {
-		return unitIndexSelected;
-	}
-
-	public void setUnitIndexSelected(String unitIndexSelected) {
-		this.unitIndexSelected = unitIndexSelected;
-	}
+//	public void setTime(String time) {
+//		this.time = time;
+//	}
+//
+//
+//	public Entry getEntry() {
+//		return entry;
+//	}
+//
+//	public void setEntry(Entry entry) {
+//		this.entry = entry;
+//	}
+//
+//	public boolean isSaved() {
+//		return saved;
+//	}
+//
+//	public void setSaved(boolean saved) {
+//		this.saved = saved;
+//	}
+//
+//	public Vector<Entry> getSavedEntries() {
+//		return savedEntries;
+//	}
+//
+//	public void setSavedEntries(Vector<Entry> savedEntries) {
+//		this.savedEntries = savedEntries;
+//	}
+//
+//	public Supplier getSupplier() {
+//		return supplier;
+//	}
+//
+//	public void setSupplier(Supplier supplier) {
+//		this.supplier = supplier;
+//	}
+//
+//	public String getSearchValue() {
+//		return searchValue;
+//	}
+//
+//	public void setSearchValue(String searchValue) {
+//		this.searchValue = searchValue;
+//	}
+//
+//	public String getSearchType() {
+//		return searchType;
+//	}
+//
+//	public void setSearchType(String searchType) {
+//		this.searchType = searchType;
+//	}
+//
+//	public boolean isSavedEntry() {
+//		return savedEntry;
+//	}
+//
+//	public void setSavedEntry(boolean savedEntry) {
+//		this.savedEntry = savedEntry;
+//	}
+//
+//	public String getRemoveEntryId() {
+//		return removeEntryId;
+//	}
+//
+//	public void setRemoveEntryId(String removeEntryId) {
+//		this.removeEntryId = removeEntryId;
+//	}
+//
+//	public Vector<Supplier> getSuppliers() {
+//		return suppliers;
+//	}
+//
+//	public void setSuppliers(Vector<Supplier> suppliers) {
+//		this.suppliers = suppliers;
+//	}
+//
+//	public String getSearchExactMatch() {
+//		return searchExactMatch;
+//	}
+//
+//	public void setSearchExactMatch(String searchExactMatch) {
+//		this.searchExactMatch = searchExactMatch;
+//	}
+//
+//	public String getProductCodeSelected() {
+//		return productCodeSelected;
+//	}
+//
+//	public void setProductCodeSelected(String productCodeSelected) {
+//		this.productCodeSelected = productCodeSelected;
+//	}
+//
+//	public String getUnitIndexSelected() {
+//		return unitIndexSelected;
+//	}
+//
+//	public void setUnitIndexSelected(String unitIndexSelected) {
+//		this.unitIndexSelected = unitIndexSelected;
+//	}
 
 	public String getSearchSupplierDate() {
 		if ( StringUtils.isEmpty(searchSupplierDate) ) {
@@ -200,73 +204,73 @@ public class Arrival implements Serializable {
 		}
 		return searchSupplierDate;
 	}
-
-	public void setSearchSupplierDate(String searchSupplierDate) {
-		this.searchSupplierDate = searchSupplierDate;
-	}
-
-	public String getSearchOnSupplier() {
-		return searchOnSupplier;
-	}
-
-	public void setSearchOnSupplier(String searchOnSupplier) {
-		this.searchOnSupplier = searchOnSupplier;
-	}
-
-	public String getSupplierDocumentDescription() {
-		return supplierDocumentDescription;
-	}
-
-	public void setSupplierDocumentDescription(String supplierDocumentDescription) {
-		this.supplierDocumentDescription = supplierDocumentDescription;
-	}
-
-	public int getSupplierDocumentType() {
-		return supplierDocumentType;
-	}
-
-	public void setSupplierDocumentType(int supplierDocumentType) {
-		this.supplierDocumentType = supplierDocumentType;
-	}
-	
-	public Integer getSupplierEntryProductIntegrity() {
-		return supplierEntryProductIntegrity;
-	}
-
-	public void setSupplierEntryProductIntegrity(Integer supplierEntryProductIntegrity) {
-		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
-	}
-
-	public Integer getSupplierEntryPackagingIntegrity() {
-		return supplierEntryPackagingIntegrity;
-	}
-
-	public void setSupplierEntryPackagingIntegrity(Integer supplierEntryPackagingIntegrity) {
-		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
-	}
-
-	public Integer getSupplierEntryDlcDdmValidity() {
-		return supplierEntryDlcDdmValidity;
-	}
-
-	public void setSupplierEntryDlcDdmValidity(Integer supplierEntryDlcDdmValidity) {
-		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
-	}
-
-	public Integer getSupplierEntryTemperatureValidity() {
-		return supplierEntryTemperatureValidity;
-	}
-
-	public void setSupplierEntryTemperatureValidity(Integer supplierEntryTemperatureValidity) {
-		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
-	}
-
-	public String getSupplierEntryCommentOnQuality() {
-		return supplierEntryCommentOnQuality;
-	}
-
-	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
-		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
-	}
+//
+//	public void setSearchSupplierDate(String searchSupplierDate) {
+//		this.searchSupplierDate = searchSupplierDate;
+//	}
+//
+//	public String getSearchOnSupplier() {
+//		return searchOnSupplier;
+//	}
+//
+//	public void setSearchOnSupplier(String searchOnSupplier) {
+//		this.searchOnSupplier = searchOnSupplier;
+//	}
+//
+//	public String getSupplierDocumentDescription() {
+//		return supplierDocumentDescription;
+//	}
+//
+//	public void setSupplierDocumentDescription(String supplierDocumentDescription) {
+//		this.supplierDocumentDescription = supplierDocumentDescription;
+//	}
+//
+//	public int getSupplierDocumentType() {
+//		return supplierDocumentType;
+//	}
+//
+//	public void setSupplierDocumentType(int supplierDocumentType) {
+//		this.supplierDocumentType = supplierDocumentType;
+//	}
+//
+//	public Integer getSupplierEntryProductIntegrity() {
+//		return supplierEntryProductIntegrity;
+//	}
+//
+//	public void setSupplierEntryProductIntegrity(Integer supplierEntryProductIntegrity) {
+//		this.supplierEntryProductIntegrity = supplierEntryProductIntegrity;
+//	}
+//
+//	public Integer getSupplierEntryPackagingIntegrity() {
+//		return supplierEntryPackagingIntegrity;
+//	}
+//
+//	public void setSupplierEntryPackagingIntegrity(Integer supplierEntryPackagingIntegrity) {
+//		this.supplierEntryPackagingIntegrity = supplierEntryPackagingIntegrity;
+//	}
+//
+//	public Integer getSupplierEntryDlcDdmValidity() {
+//		return supplierEntryDlcDdmValidity;
+//	}
+//
+//	public void setSupplierEntryDlcDdmValidity(Integer supplierEntryDlcDdmValidity) {
+//		this.supplierEntryDlcDdmValidity = supplierEntryDlcDdmValidity;
+//	}
+//
+//	public Integer getSupplierEntryTemperatureValidity() {
+//		return supplierEntryTemperatureValidity;
+//	}
+//
+//	public void setSupplierEntryTemperatureValidity(Integer supplierEntryTemperatureValidity) {
+//		this.supplierEntryTemperatureValidity = supplierEntryTemperatureValidity;
+//	}
+//
+//	public String getSupplierEntryCommentOnQuality() {
+//		return supplierEntryCommentOnQuality;
+//	}
+//
+//	public void setSupplierEntryCommentOnQuality(String supplierEntryCommentOnQuality) {
+//		this.supplierEntryCommentOnQuality = supplierEntryCommentOnQuality;
+//	}
 
 }

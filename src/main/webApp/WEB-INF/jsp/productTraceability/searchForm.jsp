@@ -1,7 +1,7 @@
 <%@page import="org.belex.util.Util"%>
 <html>
 <head>
-	<title>Belex - Tracabilité</title>
+	<title>Belex - TracabilitÃ©</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
@@ -33,7 +33,7 @@
 			}
 
 			if ( ! itemDetected) {
-				alert("Veuillez introduire un critère de recherche");
+				alert("Veuillez introduire un critÃ¨re de recherche");
 			} else {
 				window.document.frmProductSearch.submit();
 			}
@@ -58,7 +58,7 @@
 	</form>
 
 	<h1 onclick="window.document.adminFrm.submit()">
-		Traçabilité des articles
+		TraÃ§abilitÃ© des articles
 	</h1>
 
 	<table border="0" cellpadding="0" cellspacing="0"  width="100%" >
@@ -107,7 +107,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								Numéro de lot :<br>
+								NumÃ©ro de lot :<br>
 								<span style="padding-left:25px">
 									<input type="text" name="lotNumberInput" size="30px" value="">
 								</span>
@@ -115,7 +115,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
-								Date de validité : <br>
+								Date de validitÃ© : <br>
 								<span style="padding-left:25px">
 									<input type="text" autocomplete="off" name="validityDateInput" id="validityDateInput" value="">
 								</span>

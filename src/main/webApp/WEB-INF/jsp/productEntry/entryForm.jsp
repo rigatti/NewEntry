@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.product.Product"%>
@@ -50,7 +51,7 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 				<%/* } */%>
 
 				if (strtrim(obj.searchValue.value).length < 2) {
-					alert("Selection trop large, veuillez introduire plus de critères de recherche.");
+					alert("Selection trop large, veuillez introduire plus de critÃ¨res de recherche.");
 					return false;
 				}
 
@@ -85,13 +86,13 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 			<font id="pageSubTitle">
 				Nombre d'<a href="javascript:sendListOfConfirmed()">article introduit</a> pour cette session : ${fn:length(arrival.savedEntries)}
 			</font>
-			<form name="listOfConfirmedFrm" action="flowController.htm">
+			<form name="listOfConfirmedFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="_eventId_listOfConfirmedEntry">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>
 		</c:if>
 
-		<form name="nextFrm" action="flowController.htm" method="get" onsubmit="return checkFrm(this);">
+		<form name="nextFrm" action="${flowExecutionUrl}" method="post" onsubmit="return checkFrm(this);">
 			<input type="hidden" name="_eventId_submit" value="">
 			<input type="hidden" name="searchValue">
 			<input type="hidden" name="searchExactMatch">
@@ -110,7 +111,7 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 			<input class="button" type="submit" value=" Rechercher "> <input class="button" type="button" value=" Nouveau produit " onclick="sendNewProductFrm()">
 		</form>
 
-		<form name="newProductFrm" action="flowController.htm">
+		<form name="newProductFrm" action="${flowExecutionUrl}" method="post">
 			<input type="hidden" name="_eventId_newProduct">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		</form>
@@ -121,13 +122,13 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 			</c:if>
 			<c:if test="${fn:length(products) > 0}">
 			
-				<form id="dataFrm" name="dataFrm" action="flowController.htm" method="get">
-					<input type="hidden" name="productCodeSelected">
-					<input type="hidden" name="unitIndexSelected">
-					<input type="hidden" name="_eventId_productSelection">
-					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-				</form>
-	
+			<form id="dataFrm" name="dataFrm" action="${flowExecutionUrl}" method="post">
+				<input type="hidden" name="productCodeSelected">
+				<input type="hidden" name="unitIndexSelected">
+				<input type="hidden" name="_eventId_productSelection">
+				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+			</form>
+
 				<table border="1" width="95%" cellspacing="0" cellpadding="2">
 					<%
 					Vector<Product> products = (Vector<Product>)request.getAttribute("products");
@@ -158,7 +159,7 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 											</td-->
 										<% } else { %>
 								        	<td id="item" onclick="sendCondtionnementFrm('<%= currentProduct.getProductCode() %>', 0);">
-												Conditionnement non répertorié<br>
+												Conditionnement non rÃ©pertoriÃ©<br>
 											</td>
 										<% } %>
 									</tr>
@@ -174,16 +175,16 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 		<table>
 			<tr>
 				<td>
-					<form action="flowController.htm">
+					<form action="${flowExecutionUrl}" method="post">
 						<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 						<input class="button" type="submit" value=" Status de la commande " name="_eventId_entryStatus">
 					</form>
 				</td>
 				<%-- c:if test="${fn:length(arrival.savedEntries) > 0}" --%>
 					<td>
-						<form action="flowController.htm" onsubmit="return confirm('Etes-vous certain de le clôturer?')">
+						<form action="${flowExecutionUrl}" method="post" onsubmit="return confirm('Etes-vous certain de le clÃ´turer?')">
 							<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-							<input class="button" type="submit" value=" Clôture de l'encodage " name="_eventId_saveEntry">
+							<input class="button" type="submit" value=" ClÃ´ture de l'encodage " name="_eventId_saveEntry">
 						</form>
 					</td>
 				<%-- /c:if --%>

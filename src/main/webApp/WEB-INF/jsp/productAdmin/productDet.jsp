@@ -8,7 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <html>
 <head>
-	<title>Belex - Détail d'un article</title>
+	<title>Belex - DÃ©tail d'un article</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
 	<script type="text/javascript">
@@ -27,7 +27,7 @@
 
 <body class="content" style="padding-top:37px">
 
-<!-- H1>Résultat de la recherche d'articles</h1-->
+<!-- H1>RÃ©sultat de la recherche d'articles</h1-->
 
 <!-- 
 <p class="instruction-text">Instruction text</p>
@@ -36,7 +36,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr valign="top">
 		<td class="tabs-on" width="1%" nowrap height="19">
-			Détail d'un article
+			DÃ©tail d'un article
 		</td>
 		<td class="blank-tab" width="99%" nowrap height="19">
 			<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -58,7 +58,7 @@
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
 						<td class="column-head-prefs">
-							Suite à un problème technique, pas de détail disponible.<br>
+							Suite Ã  un problÃ¨me technique, pas de dÃ©tail disponible.<br>
 						</td>
 					</tr>
 				</table>
@@ -74,7 +74,7 @@
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-								Suite à un problème technique, il n'y a pas de détail disponible.<br>
+								Suite Ã  un problÃ¨me technique, il n'y a pas de dÃ©tail disponible.<br>
 							</td>
 						</tr>
 					</table>
@@ -106,7 +106,7 @@
 										<input type="hidden" name="_eventId_updateProductCode" value="">
 										<input type="hidden" name="adminOldProductCode" value="<%= product.getProductCode() %>">
 										<input type="text"   name="adminNewProductCode" value="<%= product.getProductCode() %>" maxlength="10"> 
-											ENTER après modification
+											ENTER aprÃ¨s modification
 									</form>
 									
 									<form name="frmdeleteProduct" action="flowController.htm" method="get" target="rightFrame" onsubmit="return validateUpdateProductCode()">

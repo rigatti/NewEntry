@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="searchPlannedSuppliersAct">
+
+    <!--
+        STEP 1: Load planned suppliers for selected date
+    -->
+    <action-state id="searchPlannedSuppliersAct">
+        <evaluate expression="arrivalBusiness.getPlannedSuppliers(flowScope.arrival)" result="flowScope.arrival" />
+        <transition to="selectArrivalDateView" />
+    </action-state>
+
+    <!--
+        STEP 2: Display date picker + supplier list
+        User can:
+        - Change date (searchPlannedSupplier event)
+        - Select supplier (showSuppliers event)
+    -->
+    <view-state id="selectArrivalDateView" view="productEntry/selectArrivalDate" model="arrival">
+        <!-- Event: User changes date in calendar -->
+        <transition on="searchPlannedSupplier" to="searchPlannedSuppliersAct" />
+
+        <!-- Event: User clicks "Show Suppliers" button to view suppliers for that date -->
+        <transition on="showSuppliers" to="checkPendingArrivalAct" />
+    </view-state>
+
+    <!--
+        STEP 3: Check supplier status (closed, pending, etc.)
+        This determines which view to show next
+    -->
+    <action-state id="checkPendingArrivalAct">
+        <evaluate expression="arrivalBusiness.checkPending(flowScope.arrival)" />
+        <transition on="success" to="showSuppliersView" />
+        <transition on="error" to="fatalErrorView" />
+    </action-state>
+
+    <!--
+        STEP 4: Show list of suppliers for final selection
+        User picks which supplier to process
+    -->
+    <view-state id="showSuppliersView" view="productEntry/showSuppliers" model="arrival">
+        <!-- Event: User selects a supplier and clicks Continue -->
+        <transition on="searchEntry" to="fillPlannedSupplierAct" />
+    </view-state>
+
+    <!--
+        STEP 5: Load selected supplier details
+        Determines if this is a closed or open supplier
+    -->
+    <action-state id="fillPlannedSupplierAct">
+        <evaluate expression="arrivalBusiness.getPlannedSupplier(flowScope.arrival)" />
+        <!-- Business logic sets event ID via Event.setId() -->
+        <transition on="isClosed" to="closedListView" />
+        <transition on="isNotClosed" to="getPendingArrivalAct" />
+    </action-state>
+
+    <!--
+        STEP 6: Check for pending/unfinished entries
+        Determines if warning should be shown or form can proceed
+    -->
+    <action-state id="getPendingArrivalAct">
+        <evaluate expression="arrivalBusiness.getPending(flowScope.arrival)" />
+        <transition on="true" to="warningPendingDetectedView" />
+        <transition on="false" to="supplierDocumentFormView" />
+    </action-state>
+
+    <!--
+        STEP 7a: Show warning if pending entry found
+        User can continue or delete the pending entry
+    -->
+    <view-state id="warningPendingDetectedView" view="productEntry/warningPendingDetected" model="arrival">
+        <transition on="continue" to="entryFormView" />
+        <transition on="delete" to="deletePendingArrivalAct" />
+    </view-state>
+
+    <!--
+        Delete any pending entry for this supplier
+    -->
+    <action-state id="deletePendingArrivalAct">
+        <evaluate expression="arrivalBusiness.deletePending(flowScope.arrival)" />
+        <transition to="entryFormView" />
+    </action-state>
+
+    <!--
+        STEP 7b: Show supplier document form (product info, packaging, etc.)
+        Only if no pending entry exists
+    -->
+    <view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm" model="arrival">
+<!--        <evaluate expression="ArrivalFormAction.bindSupplierDocument(flowRequestContext)"/>-->
+        <transition on="next" to="entryFormView" />
+    </view-state>
+
+    <!--
+        STEP 8: Main product entry form
+        User records products, quantities, etc.
+    -->
+    <view-state id="entryFormView" view="productEntry/entryForm" model="arrival">
+        <transition on="productSelection" to="productSelectionAct" />
+        <transition on="submit" to="completeProductsAct" />
+        <transition on="listOfConfirmedEntry" to="listOfConfirmedEntryView" />
+        <transition on="saveEntry" to="saveEntryAct" />
+        <transition on="newProduct" to="newProductFormView" />
+        <transition on="entryStatus" to="entryStatusView" />
+    </view-state>
+
+    <!--
+        Product selection action
+    -->
+    <action-state id="productSelectionAct">
+        <evaluate expression="arrivalBusiness.productSelection(flowScope.arrival, flowScope.products)" result="flowScope.arrival" />
+        <transition to="selectBasketAct" />
+    </action-state>
+
+    <!--
+        Complete products search
+    -->
+    <action-state id="completeProductsAct">
+        <evaluate expression="productBusiness.getProducts(
+            flowScope.arrival.searchValue,
+            flowScope.arrival.searchExactMatch,
+            flowScope.arrival.searchType,
+            flowScope.arrival.searchOnSupplier)" result="flowScope.products" />
+        <evaluate expression="arrivalFormAction.checkProductsFound(flowRequestContext)" />
+        <transition on="single" to="selectBasketAct" />
+        <transition on="multiple" to="entryFormView" />
+        <transition on="none" to="entryFormView" />
+    </action-state>
+
+    <!--
+        Select basket (product packaging/conditioning)
+    -->
+    <action-state id="selectBasketAct">
+        <evaluate expression="arrivalBusiness.selectBasket(flowScope.arrival)" />
+        <transition to="completeEntryFormView" />
+    </action-state>
+
+    <!--
+        Complete entry form
+    -->
+    <view-state id="completeEntryFormView" view="productEntry/completeEntryForm" model="arrival">
+        <transition on="submit" to="confirmEntryAct" />
+        <transition on="back" to="entryFormClearAct" />
+        <transition on="newSearch" to="completeProductsAct" />
+        <transition on="submitDontSaveUnit" to="fillSelectedUnitAct" />
+        <transition on="updateProductUnitAndSubmit" to="updateProductUnitAct" />
+    </view-state>
+
+    <!--
+        Clear entry form
+    -->
+    <action-state id="entryFormClearAct">
+        <transition to="entryFormView" />
+    </action-state>
+
+    <!--
+        Update product unit
+    -->
+    <action-state id="updateProductUnitAct">
+        <evaluate expression="productBusiness.updateProductUnit(flowScope.arrival)" />
+        <transition to="confirmEntryAct" />
+    </action-state>
+
+    <!--
+        Fill selected unit
+    -->
+    <action-state id="fillSelectedUnitAct">
+        <evaluate expression="productBusiness.fillSelectedUnit(flowScope.arrival)" />
+        <transition to="confirmEntryAct" />
+    </action-state>
+
+    <!--
+        Confirm entry with validation
+    -->
+    <action-state id="confirmEntryAct">
+        <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)" />
+        <transition on="success" to="saveTempEntryAct" />
+        <transition on="error" to="completeEntryFormView" />
+    </action-state>
+
+    <!--
+        Save temporary entry
+    -->
+    <action-state id="saveTempEntryAct">
+        <evaluate expression="arrivalFormAction.saveTempEntry(flowRequestContext)" />
+        <transition to="storeEntryAct" />
+    </action-state>
+
+    <!--
+        Store entry in database
+    -->
+    <action-state id="storeEntryAct">
+        <evaluate expression="arrivalBusiness.storeEntry(flowScope.arrival)" result="flowScope.result" />
+        <transition on="success" to="confirmEntryView" />
+        <transition on="warning" to="warningEntryView" />
+        <transition on="update" to="updateTempEntryAct" />
+        <transition on="error" to="fatalErrorView" />
+    </action-state>
+
+    <!--
+        Update temporary entry
+    -->
+    <action-state id="updateTempEntryAct">
+        <evaluate expression="arrivalFormAction.updateTempEntry(flowRequestContext)" />
+        <transition to="confirmEntryView" />
+    </action-state>
+
+    <!--
+        Warning when storing entry
+    -->
+    <view-state id="warningEntryView" view="productEntry/warningEntry" model="arrival">
+        <transition on="confirm" to="forceStoreEntryAct" />
+        <transition on="cancel" to="entryFormView" />
+    </view-state>
+
+    <!--
+        Force store entry
+    -->
+    <action-state id="forceStoreEntryAct">
+        <evaluate expression="arrivalBusiness.forceStoreEntry(flowScope.arrival)" result="flowScope.result" />
+        <transition on="success" to="confirmEntryView" />
+        <transition on="warning" to="warningEntryView" />
+        <transition on="update" to="updateTempEntryAct" />
+        <transition on="error" to="fatalErrorView" />
+    </action-state>
+
+    <!--
+        Confirm entry saved
+    -->
+    <view-state id="confirmEntryView" view="productEntry/confirmEntry" model="arrival">
+        <transition on="submit" to="clearNewEntryAct" />
+    </view-state>
+
+    <!--
+        Clear and prepare for new entry
+    -->
+    <action-state id="clearNewEntryAct">
+        <evaluate expression="arrivalFormAction.resetNewEntry(flowRequestContext)" />
+        <transition to="entryFormView" />
+    </action-state>
+
+    <!--
+        Entry status view
+    -->
+    <view-state id="entryStatusView" view="productEntry/entryStatus" model="arrival">
+        <transition on="selectProductDisplayed" to="completeProductsAct" />
+        <transition on="entryForm" to="entryFormView" />
+    </view-state>
+
+    <!--
+        List of confirmed entries
+    -->
+    <view-state id="listOfConfirmedEntryView" view="productEntry/confirmed/list" model="arrival">
+        <transition on="entryForm" to="entryFormView" />
+        <transition on="removeEntry" to="removeEntryAct" />
+        <transition on="modifyEntry" to="modifyEntryView" />
+    </view-state>
+
+    <!--
+        Modify entry view
+    -->
+    <view-state id="modifyEntryView" view="productEntry/confirmed/modifyForm" model="arrival">
+        <on-entry>
+            <evaluate expression="arrivalFormAction.bindRequestParams(flowRequestContext)" />
+        </on-entry>
+        <transition on="listOfConfirmedEntry" to="listOfConfirmedEntryView" />
+        <transition on="confirmModifyEntry" to="confirmModifyEntryAct" />
+    </view-state>
+
+    <!--
+        Confirm modify entry
+    -->
+    <action-state id="confirmModifyEntryAct">
+        <on-entry>
+            <evaluate expression="arrivalFormAction.bindRequestParams(flowRequestContext)" />
+        </on-entry>
+        <evaluate expression="arrivalBusiness.modifyEntry(flowScope.arrival, flowScope.requestParams)" />
+        <transition on="success" to="listOfConfirmedEntryView" />
+    </action-state>
+
+    <!--
+        Remove entry
+    -->
+    <action-state id="removeEntryAct">
+        <evaluate expression="arrivalBusiness.removeEntry(flowScope.arrival, flowScope.requestParams)" />
+        <transition on="noMoreEntry" to="entryFormView" />
+        <transition on="existEntry" to="listOfConfirmedEntryView" />
+    </action-state>
+
+    <!--
+        Closed supplier list view
+    -->
+    <view-state id="closedListView" view="productEntry/closed/closedList" model="arrival">
+        <transition on="selectProductDisplayed" to="closedCompleteProductsAct" />
+        <transition on="showSuppliers" to="showSuppliersView" />
+    </view-state>
+
+    <!--
+        Closed complete products
+    -->
+    <action-state id="closedCompleteProductsAct">
+        <evaluate expression="productBusiness.getProducts(
+            flowScope.arrival.searchValue,
+            flowScope.arrival.searchExactMatch,
+            flowScope.arrival.searchType,
+            flowScope.arrival.searchOnSupplier)" result="flowScope.products" />
+        <evaluate expression="arrivalFormAction.checkProductsFound(flowRequestContext)" />
+        <transition on="single" to="closedSelectBasketAct" />
+        <transition on="multiple" to="closedPackagingSelView" />
+        <transition on="none" to="closedListView" />
+    </action-state>
+
+    <!--
+        Closed packaging selection
+    -->
+    <view-state id="closedPackagingSelView" view="productEntry/closed/closedPackagingSel" model="arrival">
+        <transition on="productSelection" to="closedProductSelectionAct" />
+    </view-state>
+
+    <!--
+        Closed product selection
+    -->
+    <action-state id="closedProductSelectionAct">
+        <evaluate expression="arrivalBusiness.productSelection(flowScope.arrival, flowScope.products)" result="flowScope.arrival" />
+        <transition to="closedSelectBasketAct" />
+    </action-state>
+
+    <!--
+        Closed select basket
+    -->
+    <action-state id="closedSelectBasketAct">
+        <evaluate expression="arrivalBusiness.selectBasket(flowScope.arrival)" />
+        <transition to="closedBasketDetailView" />
+    </action-state>
+
+    <!--
+        Closed basket detail
+    -->
+    <view-state id="closedBasketDetailView" view="productEntry/closed/closedBasketDetail" model="arrival">
+        <transition on="back" to="closedListView" />
+    </view-state>
+
+    <!--
+        New product form
+    -->
+    <view-state id="newProductFormView" view="productEntry/productManagement/newProductForm" model="arrival">
+        <transition on="submit" to="newProductAct" />
+    </view-state>
+
+    <!--
+        New product action
+    -->
+    <action-state id="newProductAct">
+        <evaluate expression="productBusiness.newProduct(flowScope.product, flowScope.arrival)" />
+        <transition to="completeProductsAct" />
+    </action-state>
+
+    <!--
+        Save entry action
+    -->
+    <action-state id="saveEntryAct">
+        <evaluate expression="arrivalBusiness.saveEntry(flowScope.arrival)" />
+        <transition on="true" to="clearTempEntryAct" />
+        <transition on="false" to="fatalErrorView" />
+    </action-state>
+
+    <!--
+        Clear temp entry
+    -->
+    <action-state id="clearTempEntryAct">
+        <evaluate expression="arrivalBusiness.deletePending(flowScope.arrival)" />
+        <transition to="confirmSaveEntryView" />
+    </action-state>
+
+    <!--
+        Confirm save entry
+    -->
+    <view-state id="confirmSaveEntryView" view="productEntry/confirmSaveEntry" model="arrival">
+        <transition on="submit" to="searchPlannedSuppliersAct" />
+    </view-state>
+
+    <!-- Error state -->
+    <view-state id="fatalErrorView" view="error/fatalError" />
+
+    <!-- End state -->
+    <end-state id="terminateEntry" view="terminateEntry" />
+
+</flow>
+

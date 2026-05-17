@@ -66,7 +66,7 @@
 
 	<view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm">
 		<transition on="next" to="entryFormView">
-			<action bean="arrivalFormAction" method="bindAndValidate"/>
+			<action bean="arrivalFormAction" method="bindSupplierDocument"/>
 		</transition>
 	</view-state>
 

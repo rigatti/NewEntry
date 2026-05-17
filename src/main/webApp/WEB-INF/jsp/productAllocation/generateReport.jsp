@@ -235,7 +235,7 @@ String fileName = "Colisage" + sdf.format(new Date())+ ".rtf";
 						if (dest.getPackagingFromBasket() == 0) {
 							packaging = "-";
 						} else if (dest.getPackagingToBasket() != 0 && dest.getPackagingFromBasket() != dest.getPackagingToBasket()) {
-							packaging = "De " + packaging + " à " + dest.getPackagingToBasket();
+							packaging = "De " + packaging + " Ã  " + dest.getPackagingToBasket();
 						}
 			
 						rtfCell = new RtfCell();
@@ -304,7 +304,7 @@ String fileName = "Colisage" + sdf.format(new Date())+ ".rtf";
 				table.endHeaders();
 			
 				rtfCell = new RtfCell();
-				paragraph = new Paragraph("Nombre et conditionnement commandé: ", labelFont);
+				paragraph = new Paragraph("Nombre et conditionnement commandÃ©: ", labelFont);
 				rtfCell.add(paragraph);
 				table.addCell(rtfCell);
 		
@@ -314,7 +314,7 @@ String fileName = "Colisage" + sdf.format(new Date())+ ".rtf";
 				if (co.getNumberGets() > 0) {
 		
 					rtfCell = new RtfCell();
-					paragraph = new Paragraph("Nombre et conditionnement reçu: ", labelFont);
+					paragraph = new Paragraph("Nombre et conditionnement reÃ§u: ", labelFont);
 					rtfCell.add(paragraph);
 					table.addCell(rtfCell);
 			
@@ -346,7 +346,7 @@ String fileName = "Colisage" + sdf.format(new Date())+ ".rtf";
 	
 	if (showEmptyReportMessage) {
 		paragraph = new Paragraph(
-			"Aucun colis n'est disponible pour cette demande. Soit il n'y a aucun article de substitution soit cette demande est issue d'une arrivée encodée avec la version antérieure de ouistiti.",
+			"Aucun colis n'est disponible pour cette demande. Soit il n'y a aucun article de substitution soit cette demande est issue d'une arrivÃ©e encodÃ©e avec la version antÃ©rieure de ouistiti.",
 			FontFactory.getFont(FontFactory.TIMES_ITALIC, 18,
 			Font.ITALIC, new Color(0, 0, 0)));
 		paragraph.setSpacingBefore(10.0f);

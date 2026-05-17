@@ -33,7 +33,8 @@
     <!-- Check for pending arrivals -->
     <action-state id="checkPendingArrivalAct">
         <evaluate expression="arrivalBusiness.checkPending(flowScope.arrival)"/>
-        <transition to="showSuppliersView" />
+        <transition on="success" to="showSuppliersView" />
+        <transition on="error" to="fatalErrorView" />
     </action-state>
 
     <!-- View: Show suppliers -->
@@ -60,7 +61,7 @@
     <!-- View: Supplier document form -->
     <view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm">
         <transition on="next" to="entryFormView">
-            <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)"/>
+            <evaluate expression="arrivalFormAction.bindSupplierDocument(flowRequestContext)"/>
         </transition>
     </view-state>
 

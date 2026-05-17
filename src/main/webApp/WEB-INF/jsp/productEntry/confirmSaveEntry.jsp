@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <html>
 <head>
@@ -22,11 +23,11 @@
 		</font>
 		<hr>
 		<p>
-			Votre encodage a été correctement enregistré<br>
+			Votre encodage a Ã©tÃ© correctement enregistrÃ©<br>
 		</p>
 	</div>
 
-	<form name="newEntryFrm" action="flowController.htm" method="get">
+	<form name="newEntryFrm" action="${flowExecutionUrl}" method="post">
 		<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		<input type="hidden" name="_eventId_submit">
 	</form>

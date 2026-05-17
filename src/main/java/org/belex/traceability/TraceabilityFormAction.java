@@ -15,9 +15,10 @@
  */
 package org.belex.traceability;
 
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.ScopeType;
-
+@Component("traceabilityFormAction")
 public class TraceabilityFormAction extends FormAction {
 
 	public TraceabilityFormAction() {

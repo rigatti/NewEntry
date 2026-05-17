@@ -15,9 +15,10 @@
  */
 package org.belex.export;
 
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.ScopeType;
-
+@Component("exportFormAction")
 public class ExportFormAction extends FormAction {
 
 	public ExportFormAction() {

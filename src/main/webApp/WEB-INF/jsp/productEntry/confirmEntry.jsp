@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="org.belex.arrival.Arrival"%>
 <%
@@ -46,7 +47,7 @@ Arrival arrival = (Arrival) request.getAttribute("arrival");
 			</tr>		
 			<tr>
 				<td id="header">
-					Date de validité : <br>
+					Date de validitÃ© : <br>
 				</td>
 				<td id="item">
 					${arrival.entry.product.validityDate}<br>
@@ -54,7 +55,7 @@ Arrival arrival = (Arrival) request.getAttribute("arrival");
 			</tr>
 			<tr>
 				<td id="header">
-					Numéro de lot : <br>
+					NumÃ©ro de lot : <br>
 				</td>
 				<td id="item">
 					${arrival.entry.product.lotNumber}<br>
@@ -64,7 +65,7 @@ Arrival arrival = (Arrival) request.getAttribute("arrival");
 	
 	</div>
 
-	<form name="newEntryFrm" action="flowController.htm" method="get">
+	<form name="newEntryFrm" action="${flowExecutionUrl}" method="post">
 		<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		<input type="hidden" name="_eventId_submit">
 	</form>

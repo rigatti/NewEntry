@@ -29,7 +29,7 @@
 	
 	document.addAuthor("");
 	document.addCreator("Belex");
-	document.addSubject("Rapport de traçabilité");
+	document.addSubject("Rapport de traÃ§abilitÃ©");
 	document.addTitle("");
 	
 	document.open();
@@ -41,7 +41,7 @@
 	document.add(image);
 
 	Paragraph paragraph = new Paragraph(
-	"Chaussée de Haecht 1313\n1130 Belgique", FontFactory.getFont(FontFactory.TIMES, 10,
+	"ChaussÃ©e de Haecht 1313\n1130 Belgique", FontFactory.getFont(FontFactory.TIMES, 10,
 	Font.NORMAL, new Color(0, 0, 0)));
 	document.add(paragraph);
 	

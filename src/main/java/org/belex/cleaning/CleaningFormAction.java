@@ -15,9 +15,10 @@
  */
 package org.belex.cleaning;
 
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.ScopeType;
-
+@Component("cleaningFormAction")
 public class CleaningFormAction extends FormAction {
 
 	public CleaningFormAction() {

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="java.util.Vector"%>
 <%@page import="org.belex.product.Product"%>
@@ -49,19 +50,19 @@ Vector<Entry> entries = arrival.getSavedEntries();
 		} else {
 		%>
 	
-			<form name="modifyEntryFrm" action="flowController.htm">
+			<form name="modifyEntryFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="entryId">
 				<input type="hidden" value="" name="_eventId_modifyEntry">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>
 	
-			<form name="removeEntryFrm" action="flowController.htm">
+			<form name="removeEntryFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="entryId">
 				<input type="hidden" value="" name="_eventId_removeEntry">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>
 
-			<form name="backFrm" action="flowController.htm">
+			<form name="backFrm" action="${flowExecutionUrl}" method="post">
 				<input type="hidden" value="" name="_eventId_entryForm">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			</form>
@@ -89,16 +90,16 @@ Vector<Entry> entries = arrival.getSavedEntries();
 							<table border="0" width="100%" cellspacing="2" cellpadding="2">
 								<tr> 
 									<td id="header">
-										Quantité<br>
+										QuantitÃ©<br>
 									</td>
 						        	<td id="header">
 										Conditionnement<br>
 									</td>
 									<td id="header">
-										Date de validité<br>
+										Date de validitÃ©<br>
 									</td>
 									<td id="header">
-										Numéro de lot<br>
+										NumÃ©ro de lot<br>
 									</td>
 								</tr>
 								<tr>
@@ -119,7 +120,7 @@ Vector<Entry> entries = arrival.getSavedEntries();
 						</td>
 						<td align="center">
 							<input class="button" type="button" value=" Modifier " onclick="sendModifyEntryFrm(<%= i %>)">
-							<input class="button" type="button" value=" Annuler l'entrée " onclick="sendRemoveEntryFrm(<%= i %>)">
+							<input class="button" type="button" value=" Annuler l'entrÃ©e " onclick="sendRemoveEntryFrm(<%= i %>)">
 						</td>
 					</tr>
 	

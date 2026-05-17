@@ -1,5 +1,10 @@
 package db.supplier;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Supplier implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,20 +17,20 @@ public class Supplier implements java.io.Serializable {
 	public Supplier(String supplierCode) {
 		this.supplierCode = supplierCode;
 	}
-	
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getSupplierCode() {
-		return supplierCode;
-	}
-
-	public void setSupplierCode(String supplierCode) {
-		this.supplierCode = supplierCode;
-	}
+//
+//	public String getDescription() {
+//		return description;
+//	}
+//
+//	public void setDescription(String description) {
+//		this.description = description;
+//	}
+//
+//	public String getSupplierCode() {
+//		return supplierCode;
+//	}
+//
+//	public void setSupplierCode(String supplierCode) {
+//		this.supplierCode = supplierCode;
+//	}
 }

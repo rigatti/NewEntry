@@ -4,7 +4,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr valign="top">
 				<td class="tabs-on" width="1%" nowrap id="areaHideAutomatic" height="19" onclick="switchDisplay('spanShortAutomatic');switchDisplay('spanFullAutomatic');">
-					Articles correctement attribués <span id="subTitleAutomatic"></span>
+					Articles correctement attribuÃ©s <span id="subTitleAutomatic"></span>
 				</td>
 				<td class="blank-tab" width="99%" nowrap height="19">
 					<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
@@ -71,7 +71,7 @@
 								<tbody>
 									<tr>
 										<td class="table-text-bold" nowrap>
-											Aucun article n'a su être automatiquement attribué
+											Aucun article n'a su Ãªtre automatiquement attribuÃ©
 										</td>
 									</tr>
 						<% } %>

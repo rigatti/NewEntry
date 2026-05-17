@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="org.belex.arrival.Arrival"%>
 <%
@@ -18,16 +19,16 @@ Arrival arrival = (Arrival) request.getAttribute("arrival");
 
 		<hr>
 
-		<form name="listOfConfirmedFrm" action="flowController.htm">
+		<form name="listOfConfirmedFrm" action="${flowExecutionUrl}" method="post">
 			<input type="hidden" name="_eventId_listOfConfirmedEntry">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 		</form>
 		
-		ATTENTION, un produit similaire a dÈj‡ ÈtÈ introduit lors de cet session d'encodage<br>
+		ATTENTION, un produit similaire a d√©j√† √©t√© introduit lors de cet session d'encodage<br>
 		<i>(Conditionnement identiques)</i><br>
 
 		<p>
-			Produit ‡ confirmer : <br>
+			Produit √† confirmer : <br>
 		</p>
 		<p>
 			
@@ -41,7 +42,7 @@ Arrival arrival = (Arrival) request.getAttribute("arrival");
 		</p>
 		
 		<p>
-			<form action="flowController.htm">
+			<form action="${flowExecutionUrl}" method="post">
 				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 				<input class="button" type="submit" name="_eventId_confirm" value=" Confirmer l'encodage ">
 				<input class="button" type="button" onclick="window.history.back()" value=" Annuler ">

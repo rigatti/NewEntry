@@ -4,7 +4,7 @@
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <html>
 <head>
-	<title>Belex - Attribution des articles r�ceptionn�s</title>
+	<title>Belex - Attribution des articles réceptionnés</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/sort.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
@@ -20,7 +20,7 @@
 
 <body class="content" style="padding-top:37px">
 
-<!-- H1>R�sultat de la recherche d'articles</h1-->
+<!-- H1>Résultat de la recherche d'articles</h1-->
 
 <!-- 
 <p class="instruction-text">Instruction text</p>
@@ -53,7 +53,7 @@
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3>
 					<tr>
 						<td class="column-head-prefs">
-							Veuillez introduire un crit�re de recherche
+							Veuillez introduire un critère de recherche
 						</td>
 					</tr>
 				</table>
@@ -65,7 +65,7 @@
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="column-head-prefs">
-								Aucun article ne correspond � vos crit�res de recherche<br>
+								Aucun article ne correspond à vos critères de recherche<br>
 							</td>
 						</tr>
 					</table>
@@ -76,13 +76,13 @@
 						<thead>
 							<tr>
 								<td class="column-head-name sortable" onclick="sortTable(document.getElementById('productList'), 0, 'String', null, null, null, null)">
-									Libell�
+									Libellé
 								</td>
 								<td class="column-head-name sortable" onclick="sortTable(document.getElementById('productList'), 1, 'String', null, null, null, null)">
 									Code produit
 								</td>
 								<td class="column-head-name">
-									Conditionnement et date de derni�re modification 
+									Conditionnement et date de dernière modification
 								</td>
 							</tr>
 						</thead>

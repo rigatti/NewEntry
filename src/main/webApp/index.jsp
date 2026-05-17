@@ -1,4 +1,4 @@
-<%-- make sure we have a session --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page session="true" %>
 <%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
 <%
@@ -85,7 +85,7 @@ if (StringUtils.isNotEmpty(password)) {
 							</tr>
 							<tr>
 								<td class="table-text-bold" align="left">
-									<input type="checkbox" name="rememberMe" id="rememberMe" value="1"> <label for="rememberMe">Se souvenir de moi pour la journ�e</label>
+									<input type="checkbox" name="rememberMe" id="rememberMe" value="1"> <label for="rememberMe">Se souvenir de moi pour la journée</label>
 								</td>
 							</tr>
 						</table>

@@ -1,11 +1,13 @@
 package org.belex.requestparams;
 
 import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.FormAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.execution.ScopeType;
 
+@Component("requestParamsFormAction")
 public class RequestParamsFormAction extends FormAction {
 
 	public RequestParamsFormAction() {

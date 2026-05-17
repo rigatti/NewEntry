@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <html>
 <head>
@@ -11,7 +12,7 @@
 
 				var inputLabel = window.document.getElementById("supplierDocumentDescription");
 				if (inputLabel.value == "") {
-					alert("Veuillez introduire un libellé");
+					alert("Veuillez introduire un libellÃ©");
 					inputLabel.focus();
 					return false;
 				}
@@ -82,11 +83,11 @@
 		</font>
 	
 		<hr>
-		Introduction du type de document lié au fournisseur
+		Introduction du type de document liÃ© au fournisseur
 		
 		<p>
-		
-		<form name="nextFrm" action="flowController.htm" method="get" onsubmit="return checkValues();">
+
+		<form name="nextFrm" action="${flowExecutionUrl}" method="post" onsubmit="return checkValues();">
 			<input type="hidden" name="_eventId_next" value="">
 			<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 			<input type="hidden" name="newProductSupplierCode" value="${arrival.supplier.supplierCode}">
@@ -133,7 +134,7 @@
 					</tr>
 					<tr>
 						<td>
-							Intégrité des emballages<br>
+							IntÃ©gritÃ© des emballages<br>
 						</td>
 						<td style="padding-left:20px;">
 							<input class="inputText inputCheckbox" type="checkbox" name="inputSupplierEntryPackagingIntegrity" id="inputSupplierEntryPackagingIntegrity">
@@ -149,7 +150,7 @@
 					</tr>
 					<tr>
 						<td>
-							Température correcte à la réception<br>
+							TempÃ©rature correcte Ã  la rÃ©ception<br>
 						</td>
 						<td style="padding-left:20px;">
 							<input class="inputText inputCheckbox" type="checkbox" name="inputSupplierEntryTemperatureValidity" id="inputSupplierEntryTemperatureValidity">

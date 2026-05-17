@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" isELIgnored="false" %>
+<%--@ page contentType="text/html; charset=ISO-8859-1" isELIgnored="false" --%>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">

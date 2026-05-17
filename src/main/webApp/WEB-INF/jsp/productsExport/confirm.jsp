@@ -9,11 +9,11 @@ Object obj = request.getAttribute("export");
 if (obj instanceof Export) {
 	Export export = (Export) obj;
 	if (StringUtils.isNotBlank(export.getErrorMessage())) {
-		%>La mise � jour n'a pas abouti - <%=export.getErrorMessage()%><%
+		%>La mise à jour n'a pas abouti - <%=export.getErrorMessage()%><%
 	} else {
-		%>Mise � jour effectu�e<%
+		%>Mise à jour effectuée<%
 	}
 } else {
-	%>Probl�me d�tect� lors de la mise � jour<%
+	%>Problème détecté lors de la mise à jour<%
 }
 %>

@@ -43,5 +43,4 @@ public interface ArrivalBusiness {
 	Arrival productSelection(Arrival arrival, Vector<Product> products);
 
 	void selectBasket(Arrival arrival);
-
 }
