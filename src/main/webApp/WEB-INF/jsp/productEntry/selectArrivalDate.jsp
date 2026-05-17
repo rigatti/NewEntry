@@ -170,7 +170,7 @@
 
                 <div class="date-controls">
                     <!-- Previous day button -->
-                    <button type="button" value=" ◀ Jour précédent " onclick="changeDateBy(-1); return false;">
+                    <button type="button" value=" ◀ Jour précédent " onclick="changeDateBy(-1); searchSuppliers();">
                         ◀ Jour précédent
                     </button>
 
@@ -181,11 +181,11 @@
                            min="2007-01-01" max="2050-12-31">
 
                     <!-- Next day button -->
-                    <button type="button" value=" Jour suivant ▶ " onclick="changeDateBy(1); return false;">
+                    <button type="button" value=" Jour suivant ▶ " onclick="changeDateBy(1); searchSuppliers();">
                         Jour suivant ▶
                     </button>
                 </div>
-
+                <br>
                 <!-- Display current date in readable format -->
                 <div class="date-display">
                     Date sélectionnée: <span id="dateDisplay"></span>
@@ -198,12 +198,11 @@
             <c:if test="${fn:length(arrival.suppliers) == 0}">
                 <div class="no-suppliers">
                     <strong>Aucun fournisseur n'est planifié pour la date sélectionnée</strong>
-                    <p>Veuillez choisir une autre date</p>
                 </div>
             </c:if>
 
             <c:if test="${fn:length(arrival.suppliers) > 0}">
-                <h3>Fournisseurs prévus pour cette date</h3>
+                <h3>- Fournisseurs prévus pour cette date -</h3>
 
                 <div class="suppliers-list">
                     <strong>Nombre total: <%= (arrival.getSuppliers() != null ? arrival.getSuppliers().size() : 0) %> fournisseur(s)</strong>
@@ -211,17 +210,34 @@
                     <% Vector<Supplier> suppliers = arrival.getSuppliers();
                        if (suppliers != null && suppliers.size() > 0) {
                            for (int i = 0; i < suppliers.size(); i++) { %>
-                        <li><strong><%= suppliers.get(i).getSupplierCode() %></strong> - <%= suppliers.get(i).getSupplierName() %></li>
+                                <li
+                                <% if (suppliers.get(i).isPending()) { %>
+                                    style="background-color:#FF8000"
+                                <% } else if (suppliers.get(i).isClosed()) { %>
+                                    style="background-color:#00D000"
+                                <% } else if (suppliers.get(i).isOpened()) { %>
+                                    style="background-color:#FF0000"
+                                <% } %>
+                                 ><a href="#" onclick="document.getElementById('supplierCode').value='<%= suppliers.get(i).getSupplierCode() %>'; document.getElementById('selectSupplierForm').submit();">
+                                    <strong><%= suppliers.get(i).getSupplierCode() %></strong> - <%= suppliers.get(i).getSupplierName() %>
+                                    </a></li>
                     <%  }
-                       } %>
+                       } else { %>
+                            <p class="no-suppliers">Aucun fournisseur n'est planifié pour cette date sélectionnée.</p>
+                       <% } %>
                     </ul>
                 </div>
 
                 <!-- Form to show suppliers -->
-                <form name="showSuppliersFrm" method="post" action="${flowExecutionUrl}">
+                <!--form name="showSuppliersFrm" method="post" action="${flowExecutionUrl}">
                     <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
                     <input type="submit" name="_eventId_showSuppliers" class="view-suppliers-btn" value="Afficher les fournisseurs" />
+                </form-->
+                <form id="selectSupplierForm" action="${flowExecutionUrl}" method="post">
+                    <input type="hidden" name="supplier.supplierCode" id="supplierCode" value=""/>
+                    <input type="hidden" name="_eventId_supplierSelected" value=""/>
                 </form>
+
             </c:if>
         </div>
     </center>

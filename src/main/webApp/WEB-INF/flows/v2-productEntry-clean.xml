@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
@@ -23,8 +22,8 @@
         <!-- Event: User changes date in calendar -->
         <transition on="searchPlannedSupplier" to="searchPlannedSuppliersAct" />
 
-        <!-- Event: User clicks "Show Suppliers" button to view suppliers for that date -->
-        <transition on="showSuppliers" to="checkPendingArrivalAct" />
+        <!-- Event: User clicks on a supplier row -->
+        <transition on="supplierSelected" to="checkPendingArrivalAct" />
     </view-state>
 
     <!--
@@ -33,18 +32,9 @@
     -->
     <action-state id="checkPendingArrivalAct">
         <evaluate expression="arrivalBusiness.checkPending(flowScope.arrival)" />
-        <transition on="success" to="showSuppliersView" />
+        <transition on="success" to="fillPlannedSupplierAct" />
         <transition on="error" to="fatalErrorView" />
     </action-state>
-
-    <!--
-        STEP 4: Show list of suppliers for final selection
-        User picks which supplier to process
-    -->
-    <view-state id="showSuppliersView" view="productEntry/showSuppliers" model="arrival">
-        <!-- Event: User selects a supplier and clicks Continue -->
-        <transition on="searchEntry" to="fillPlannedSupplierAct" />
-    </view-state>
 
     <!--
         STEP 5: Load selected supplier details
@@ -89,7 +79,7 @@
         Only if no pending entry exists
     -->
     <view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm" model="arrival">
-<!--        <evaluate expression="ArrivalFormAction.bindSupplierDocument(flowRequestContext)"/>-->
+        <!--        <evaluate expression="ArrivalFormAction.bindSupplierDocument(flowRequestContext)"/>-->
         <transition on="next" to="entryFormView" />
     </view-state>
 
@@ -284,6 +274,9 @@
         Remove entry
     -->
     <action-state id="removeEntryAct">
+        <on-entry>
+            <evaluate expression="arrivalFormAction.bindRequestParams(flowRequestContext)" />
+        </on-entry>
         <evaluate expression="arrivalBusiness.removeEntry(flowScope.arrival, flowScope.requestParams)" />
         <transition on="noMoreEntry" to="entryFormView" />
         <transition on="existEntry" to="listOfConfirmedEntryView" />

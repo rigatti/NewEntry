@@ -203,7 +203,7 @@
             </c:if>
 
             <c:if test="${fn:length(arrival.suppliers) > 0}">
-                <h3>Fournisseurs prévus pour cette date</h3>
+                <h3>- Fournisseurs prévus pour cette date -</h3>
 
                 <div class="suppliers-list">
                     <strong>Nombre total: <%= (arrival.getSuppliers() != null ? arrival.getSuppliers().size() : 0) %> fournisseur(s)</strong>
@@ -211,17 +211,26 @@
                     <% Vector<Supplier> suppliers = arrival.getSuppliers();
                        if (suppliers != null && suppliers.size() > 0) {
                            for (int i = 0; i < suppliers.size(); i++) { %>
-                        <li><strong><%= suppliers.get(i).getSupplierCode() %></strong> - <%= suppliers.get(i).getSupplierName() %></li>
+                                <li><a href="#" onclick="document.getElementById('supplierId').value='<%= supplier.getId() %>'; document.getElementById('selectSupplierForm').submit();">
+                                    <strong><%= suppliers.get(i).getSupplierCode() %></strong> - <%= suppliers.get(i).getSupplierName() %>
+                                    </a></li>
                     <%  }
-                       } %>
+                       } else { %>
+                            <p class="no-suppliers">Aucun fournisseur n'est planifié pour cette date sélectionnée.</p>
+                       <% } %>
                     </ul>
                 </div>
 
                 <!-- Form to show suppliers -->
-                <form name="showSuppliersFrm" method="post" action="${flowExecutionUrl}">
+                <!--form name="showSuppliersFrm" method="post" action="${flowExecutionUrl}">
                     <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
                     <input type="submit" name="_eventId_showSuppliers" class="view-suppliers-btn" value="Afficher les fournisseurs" />
+                </form-->
+                <form id="selectSupplierForm" action="${flowExecutionUrl}" method="post">
+                    <input type="hidden" name="supplierId" id="supplierId" value=""/>
+                    <input type="hidden" name="_eventId_supplierSelected" value=""/>
                 </form>
+
             </c:if>
         </div>
     </center>

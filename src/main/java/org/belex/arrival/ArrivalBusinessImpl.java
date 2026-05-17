@@ -995,7 +995,6 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 				}
 
 				supplier = new Supplier(supplierCode, supplierName);
-				supplier.setStatus(Supplier.STATUS_OPENED);
 
 				Order order = supplier. new Order();
 				order.setDate(arrival.getSearchSupplierDate());
@@ -1004,6 +1003,14 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 				order.setCreationNumber(creationNumber);
 				supplier.addOrder(order);
 
+			}
+
+			List<TreatedEntryTemp> treatedEntryTemps = treatedEntryTempDAO.getBySupplierCodeAndDate(supplier.getSupplierCode(), arrival.getSearchSupplierDate());
+
+			if (treatedEntryTemps.size() > 0) {
+				supplier.setStatus(Supplier.STATUS_PENDING);
+			} else {
+				supplier.setStatus(Supplier.STATUS_OPENED);
 			}
 
 			if (supplierIndex >= 0) {
