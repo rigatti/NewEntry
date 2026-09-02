@@ -1,119 +1,176 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/globalHeader.jspf" %>
 <%@page import="org.belex.util.Util"%>
+<%@page import="org.belex.allocation.AllocationEntry"%>
+<%@page import="org.belex.allocation.Allocation"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Comparator"%>
+<%
+    String today = Util.getNowFormated("yyyy-MM-dd");
+    Allocation allocation = (Allocation) request.getAttribute("allocation");
+    List<AllocationEntry> entries = new ArrayList<AllocationEntry>();
+
+    if (allocation != null && allocation.getEntries() != null) {
+        entries = allocation.getEntries();
+        Collections.sort(entries, new Comparator<AllocationEntry>(){
+            public int compare(AllocationEntry ae0, AllocationEntry ae1) {
+                return ae0.getSupplier().getSupplierName().compareToIgnoreCase(ae1.getSupplier().getSupplierName());
+            }
+        });
+    }
+%>
 <html>
 <head>
-	<title>Attribution des articles</title>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/date.js"></script>
+    <meta charset="UTF-8">
+    <title>Attribution - Sélection de la date</title>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        .container { display: flex; height: 100vh; }
 
-	<script type="text/javascript">
-		<!--
-			function submitForm() {
-				var obj = window.document.frmSelectAllocationDate;
-				if (validateSearch(obj)) {
-					obj.submit();
-				}
-			}
-			function validateSearch(obj) {
-				var result = true;
-				if (checkDate(obj.dateInput.value, 2) > 0) {
-					obj.date.value = strResult;
-				} else {
-					result = false;
-					alert("Veuillez introduire une date de recherche");
-				}
+        .left-panel {
+            width: 28%;
+            background-color: #f9f9f9;
+            border-right: 2px solid #ccc;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: inset -2px 0 5px rgba(0,0,0,0.05);
+        }
 
-				//makeRequest(window.document.frmSelectAllocationDate, true);
-				return true;
-			}
+        .right-panel {
+            flex: 1;
+            background-color: white;
+            overflow-y: auto;
+            padding: 20px;
+        }
 
-			function computeAllocationDate(step) {
-				if (checkDate(window.document.frmSelectAllocationDate.dateInput.value, 2) > 0) {
-					computeDate(strResult, 'D', step);
-					window.document.frmSelectAllocationDate.dateInput.value = strResult;
-				}
-			}
-			
-			function sendFrmSelectAllocationDate() {
-				if (validateSearch(window.document.frmSelectAllocationDate)) {
-					window.document.frmSelectAllocationDate.submit();
-				}
-			}
+        .section { margin-bottom: 25px; }
+        .section h3 { background-color: #000066; color: white; padding: 10px 15px; border-radius: 3px; margin-bottom: 15px; font-size: 14px; }
+        .section p { margin: 10px 0; font-size: 13px; color: #666; }
 
-		//-->
-	</script>
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color: #333; }
+        .form-group input[type="date"] { width: 100%; padding: 8px; border: 1px solid #000066; border-radius: 3px; font-size: 13px; }
+        .form-group input[type="date"]:focus { outline: none; background-color: #f0f0ff; }
+
+        .date-nav-buttons { display: flex; gap: 5px; margin-top: 10px; }
+        .date-nav-buttons button { flex: 1; padding: 8px; background-color: #000066; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; }
+        .date-nav-buttons button:hover { background-color: #000099; }
+
+        .button-group { display: flex; gap: 10px; flex-direction: column; }
+        .button { padding: 10px; background-color: #000066; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; text-align: center; }
+        .button:hover { background-color: #000099; }
+        .button-secondary { background-color: #666; }
+        .button-secondary:hover { background-color: #888; }
+
+        .supplier-entry { background-color: #f9f9f9; border-left: 4px solid #000066; padding: 10px; margin: 8px 0; cursor: pointer; border-radius: 3px; }
+        .supplier-entry:hover { background-color: #f0f0ff; }
+        .supplier-link { color: #000066; text-decoration: none; font-weight: bold; display: block; }
+        .supplier-time { font-size: 0.85em; color: #888; }
+        .no-entries { text-align: center; padding: 20px; color: #666; font-style: italic; }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; height: auto; }
+            .left-panel { width: 100%; border-right: none; border-bottom: 2px solid #ccc; }
+        }
+    </style>
+    <script type="text/javascript">
+        function changeDateBy(days) {
+            var dateInput = document.getElementById("allocationDate");
+            var currentDate = new Date(dateInput.value);
+            currentDate.setDate(currentDate.getDate() + days);
+            var year = currentDate.getFullYear();
+            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            var day = String(currentDate.getDate()).padStart(2, '0');
+            dateInput.value = year + '-' + month + '-' + day;
+            formatAndSubmitDate();
+        }
+
+        function formatAndSubmitDate() {
+            // Convert date from yyyy-MM-dd to yyyyMMdd format for requestParams.date
+            var dateInput = document.getElementById("allocationDate");
+            var dateParts = dateInput.value.split('-');
+            var dateFormatted = dateParts[0] + dateParts[1] + dateParts[2];
+
+            // Set the hidden input with the formatted date
+            document.getElementById("dateFormatted").value = dateFormatted;
+
+            // Submit the form
+            document.dateFilterFrm.submit();
+        }
+
+        function selectSupplier(supplierCode) {
+            document.getElementById('supplierCodeInput').value = supplierCode;
+            document.selectSupplierFrm.submit();
+        }
+    </script>
 </head>
+<body>
+    <div class="container">
+        <!-- LEFT PANEL: Date Selection -->
+        <div class="left-panel">
+            <div class="section">
+                <h3>📅 Sélectionner la date</h3>
+                <form name="dateFilterFrm" action="${flowExecutionUrl}" method="post">
+                    <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+                    <input type="hidden" name="_eventId_search" value="">
+                    <!-- Hidden field to pass formatted date to server (yyyyMMdd format) -->
+                    <input type="hidden" name="date" id="dateFormatted" value="">
 
-<body class="content" onload="sendFrmSelectAllocationDate();">
+                    <div class="form-group">
+                        <label for="allocationDate">Date d'allocation :</label>
+                        <input type="date" id="allocationDate"
+                               value="<%= today %>"
+                               onchange="formatAndSubmitDate();">
+                    </div>
 
-	<form name="adminFrm" action="<%= request.getContextPath() %>/admin.jsp" method="post" target="_top">
-		<input type="hidden" name="admin" value="1">
-	</form>
+                    <div class="date-nav-buttons">
+                        <button type="button" onclick="changeDateBy(-1);">◀ Prev</button>
+                        <button type="button" onclick="changeDateBy(1);">Next ▶</button>
+                    </div>
+                </form>
+            </div>
 
-	<h1 onclick="window.document.adminFrm.submit()">
-		Attribution des articles réceptionnés
-	</h1>
+            <div class="section button-group">
+                <form action="${flowExecutionUrl}" method="post" style="margin: 0;">
+                    <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+                    <button type="submit" name="_eventId_back" class="button button-secondary">❌ Retour menu</button>
+                </form>
+            </div>
+        </div>
 
-	<!-- 
-   	<p class="instruction-text">
-		Instruction text
-   	</p>
-	-->
+        <!-- RIGHT PANEL: Suppliers List -->
+        <div class="right-panel">
+            <div class="section">
+                <h3>📦 Fournisseurs à allouer</h3>
+                <% if (entries.isEmpty()) { %>
+                    <div class="no-entries">
+                        ❌ Aucune entrée de marchandise disponible pour cette date
+                    </div>
+                <% } else { %>
+                    <p>Cliquez sur un fournisseur pour voir ses articles (<%=entries.size()%> fournisseur(s))</p>
+                    <% for (int i = 0; i < entries.size(); i++) {
+                        AllocationEntry entry = entries.get(i);
+                    %>
+                        <div class="supplier-entry" onclick="selectSupplier('<%= entry.getSupplier().getSupplierCode() %>');">
+                            <span class="supplier-link">📦 <%= entry.getSupplier().getSupplierCode() %> - <%= Util.getShortDisplayable(entry.getSupplier().getSupplierName(), 35) %></span>
+                            <span class="supplier-time"><%= Util.formatDate(entry.getTime(), "hhmmss", "hh:mm:ss") %></span>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
 
-	<table border="0" cellpadding="0" cellspacing="0"  width="100%" >
-		<tr valign="top"> 
-    		<td class="tabs-on" width="1%" nowrap height="19">
-		       Sélection
-			</td>
-		    <td class="blank-tab" width="99%" nowrap height="19">
-        		<img src="onepix.gif" width="1" height="27" align="absmiddle" alt="">
-		    </td>
-		</tr>
-	</table>
-	
-	<form name="frmSelectAllocationDate" action="flowController.htm" method="get" target="rightFrame" onsubmit="return validateSearch(this)">
-		<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-		<input type="hidden" name="_eventId_search" value="">
-		<input type="hidden" name="date" value="">
-
-		<table border="0" cellpadding="10" cellspacing="0" valign="top" width="100%" summary="Framing Table">
-			<tr> 
-				<td class="layout-manager">
-					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3>
-						<tr>
-							<td class="column-head-prefs">
-								Recherche d'un article
-							</td>
-						</tr>
-						<tr>
-							<td class="table-text-bold" nowrap align="center" style="padding-top:10px">
-								<input type="button" value=" < " onclick="computeAllocationDate(-1);submitForm()"> <input onchange="submitForm()" type="text" size="10" name="dateInput" id="dateInput" value="<%= Util.getNowFormated("dd-MM-yyyy") %>"> <input type="button" value=" > " onclick="computeAllocationDate(1);submitForm()">
-								<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
-								<dlcalendar click_element_id="img_calendar"
-							            input_element_id="dateInput"
-							            tool_tip="Click to choose a date"
-							            start_date="2007-01-01"
-							            end_date="2050-02-15"
-							            date_format="dd-mm-yyyy"
-										navbar_style="background-color: #000066; color:white;font-size:12px; padding-left:10px;padding-right:10px"
-										daybar_style="background-color: black; color:white;font-size:12px"
-										selecteddate_style="font-size:12px"
-										weekenddate_style="font-size:12px"
-										othermonthdate_style="font-size:10px"
-										regulardate_style="font-size:10px"
-										nav_images="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevyear_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextyear_white.gif"
-							            >
-						        </dlcalendar><br>
-								<center style="padding-top:10px;padding-bottom:10px">
-									<input class="button" type="button" value=" Recherche " onclick="submitForm()">
-								</center>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-	</form>
-	<script type="text/javascript" language="javascript" src="<%= request.getContextPath() %>/scripts/dlcalendarSmall.js"></script>
+    <!-- Hidden form for supplier selection -->
+    <form name="selectSupplierFrm" id="selectSupplierFrm" action="${flowExecutionUrl}" method="post" style="display: none;">
+        <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
+        <input type="hidden" name="_eventId_getEntryOrders" value="">
+        <input type="hidden" name="allocation.supplierCode" id="supplierCodeInput" value="">
+    </form>
 </body>
 </html>

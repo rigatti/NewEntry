@@ -12,7 +12,7 @@
 
 	<appender name="FILE_APP"
 		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${catalina.base}/logs/BelexStockLog.log" />
+		<param name="File" value="C:\Users\miche\Downloads\apache-tomcat-9.0.115\logs\BelexStockLog.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="500KB" />
 		<param name="MaxBackupIndex" value="15" />

@@ -1,6 +1,8 @@
 package db.entry;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Strings;
+import org.belex.util.Util;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -38,8 +40,13 @@ public class SupplierEntryDAO implements ISupplierEntryDAO {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<SupplierEntry> getSuppliersByDate(String date) {
-		log.debug("Finding SupplierEntry by date: {}", date);
+	public List<SupplierEntry> getSuppliersByDate(String rawDate) {
+		log.debug("Finding SupplierEntry by date: {}", rawDate);
+		String date = rawDate;
+
+		if ( ! Strings.CI.contains(rawDate, "-")) {
+			date = Util.formatDate(rawDate, "yyyyMMdd", "yyyy-MM-dd");
+		}
 
 		return currentSession()
 				.createQuery(

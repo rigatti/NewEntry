@@ -33,6 +33,7 @@
 						flow-builder-services="flowBuilderServices">
 		<flow:flow-location id="test" path="/WEB-INF/flows/test-flow.xml"/>
 		<flow:flow-location id="arrival" path="/WEB-INF/flows/v2-productEntry-clean.xml"/>
+		<flow:flow-location id="allocation" path="/WEB-INF/flows/v2-productAllocation.xml"/>
 	</flow:flow-registry>
 
 	<flow:flow-builder-services id="flowBuilderServices"

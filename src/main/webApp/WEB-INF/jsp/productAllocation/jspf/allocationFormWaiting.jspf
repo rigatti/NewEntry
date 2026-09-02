@@ -1,5 +1,11 @@
 		<%@page import="org.belex.util.Util"%>
 		<%@page import="org.apache.commons.lang3.StringUtils"%>
+		<%@page import="org.belex.allocation.Allocation"%>
+		<%@page import="org.belex.allocation.AllocationEntry"%>
+		<%@page import="org.belex.product.ProductTraceable"%>
+		<%@page import="org.belex.product.ProductTraceable.Destination"%>
+		<%@page import="org.belex.customer.CustomerOrder"%>
+		<%@page import="java.util.List"%>
 
 		<span id="spanFullWaiting">
 
@@ -36,6 +42,10 @@
 								<tr>
 									<td class="table-text" valign="top">
 											<%
+											//Allocation allocation = (Allocation) request.getAttribute("allocation");
+											List<AllocationEntry> entries = allocation.getEntries();
+											List<CustomerOrder> cotas = allocation.getCustomerOrdersToAllocates();
+
 											boolean first = true;
 											boolean allowAssignement = false;
 											boolean allowAssignementToStock = false;

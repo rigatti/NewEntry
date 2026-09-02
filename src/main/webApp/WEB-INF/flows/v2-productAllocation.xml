@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="mainView">
+
+    <!--
+        STEP 1: Main allocation view
+        User can select date or supplier to start allocation process
+    -->
+    <view-state id="mainView" view="productAllocation/main" model="allocation">
+        <transition on="selectAllocationDateForm" to="selectAllocationDateFormView" />
+        <transition on="selectSupplierForm" to="selectSupplierFormView" />
+    </view-state>
+
+    <!--
+        STEP 2: Select allocation date
+        User picks a date to search supplier entries
+    -->
+    <view-state id="selectAllocationDateFormView" view="productAllocation/selectAllocationDateForm" model="allocation">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <transition on="search" to="searchSupplierEntriesAct" />
+    </view-state>
+
+    <!--
+        STEP 3: Search supplier entries for selected date
+        Loads entries from suppliers for the chosen date
+    -->
+    <action-state id="searchSupplierEntriesAct">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <evaluate expression="allocationBusiness.getSuppliersEntries(flowScope.allocation, flowScope.requestParams)" />
+        <transition on="success" to="selectSupplierFormView" />
+    </action-state>
+
+    <!--
+        STEP 4: Select supplier form
+        User searches and selects a supplier from the list
+    -->
+    <view-state id="selectSupplierFormView" view="productAllocation/selectSupplierForm" model="allocation">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <!-- Event: User goes back to change the date -->
+        <transition on="selectAllocationDateForm" to="selectAllocationDateFormView" />
+        <!-- Event: User refines search -->
+        <transition on="search" to="searchSupplierEntriesAct" />
+        <!-- Event: User selects a supplier to allocate entries from -->
+        <transition on="getEntryOrders" to="getEntriesToAllocateAct" />
+    </view-state>
+
+    <!--
+        STEP 5a: Supplier entries view (AJAX support)
+        Displays entries for selected supplier
+        Allows search refinement or selection
+    -->
+    <view-state id="supplierEntriesView" view="productAllocation/ajaxJsp/supplierEntries" model="allocation">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <!-- Event: User refines search in AJAX view -->
+        <transition on="search" to="searchSupplierEntriesAct" />
+        <!-- Event: User selects entries to allocate -->
+        <transition on="getEntryOrders" to="getEntriesToAllocateAct" />
+    </view-state>
+
+    <!--
+        STEP 5b: Get entries to allocate
+        Loads the selected supplier's entries ready for allocation
+    -->
+    <action-state id="getEntriesToAllocateAct">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <evaluate expression="allocationBusiness.getEntriesToAllocate(flowScope.allocation, flowScope.requestParams)" />
+        <transition on="success" to="allocationFormView" />
+    </action-state>
+
+    <!--
+        STEP 6: Allocation form
+        Main form where user allocates products to customers/orders
+    -->
+    <view-state id="allocationFormView" view="productAllocation/allocationForm" model="allocation">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <!-- Event: User updates allocation quantities/details -->
+        <transition on="updateAllocation" to="updateAllocationAct" />
+        <!-- Event: User confirms and finalizes allocation -->
+        <transition on="confirmAllocation" to="confirmAllocationAct" />
+        <!-- Event: User generates allocation report -->
+        <transition on="generateReport" to="generateReportView" />
+        <!-- Event: User goes back to main menu -->
+        <transition on="back" to="mainView" />
+    </view-state>
+
+    <!--
+        STEP 7a: Generate allocation report
+        Shows report for allocation operations
+    -->
+    <view-state id="generateReportView" view="productAllocation/generateReport" model="allocation">
+        <on-entry>
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+    </view-state>
+
+    <!--
+        STEP 7b: Update allocation action
+        Processes allocation update (quantities, details)
+    -->
+    <action-state id="updateAllocationAct">
+        <on-entry>
+            <evaluate expression="allocationFormAction.bindAndValidate(flowRequestContext)" />
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)" />
+        </on-entry>
+        <evaluate expression="allocationBusiness.updateAllocation(flowScope.allocation, flowScope.requestParams)" />
+        <transition on="success" to="allocationFormView" />
+    </action-state>
+
+    <!--
+        STEP 8: Confirm allocation action
+        Finalizes allocation in database
+    -->
+    <action-state id="confirmAllocationAct">
+        <evaluate expression="allocationBusiness.confirmAllocation(flowScope.allocation)" />
+        <transition on="success" to="allocationFormView" />
+    </action-state>
+
+</flow>
+

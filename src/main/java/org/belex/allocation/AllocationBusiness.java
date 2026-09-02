@@ -28,28 +28,50 @@ import org.belex.supplier.Supplier.Order;
 import org.belex.util.Constants;
 import org.belex.util.Util;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Setter;
 
 import java.util.*;
 
 @Slf4j
+@Service
+@Setter
 public class AllocationBusiness implements IAllocationBusiness{
 
+	@Autowired
 	IProductDAO productDAO;
+	@Autowired
 	ISupplierEntryDAO supplierEntryDAO;
+	@Autowired
 	ISupplierDAO supplierDAO;
+	@Autowired
 	IPackagingDAO packagingDAO;
+	@Autowired
 	IPackagingDetailDAO packagingDetailDAO;
+	@Autowired
 	IPrepareOrderDAO prepareOrderDAO;
+	@Autowired
 	IPrepareOrderDetailDAO prepareOrderDetailDAO;
+	@Autowired
 	ICustomerOrderDetailDAO customerOrderDetailDAO;
+	@Autowired
 	ISupplierOrderDetailDAO supplierOrderDetailDAO;
+	@Autowired
 	ITreatedEntryDAO treatedEntryDAO;
+	@Autowired
 	ITreatedEntryDetailDAO treatedEntryDetailDAO;
+	@Autowired
 	ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
+	@Autowired
 	IStockEntryDAO stockEntryDAO;
+	@Autowired
 	ISupplierReturnsEntryDAO supplierReturnsEntryDAO; 
+	@Autowired
 	ICustomerDAO customerDAO;
+	@Autowired
 	IPlanningDAO planningDAO;
+	@Autowired
 	IConditioningDAO conditioningDAO;
 	private Allocation allocation;
 	
