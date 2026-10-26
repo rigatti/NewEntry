@@ -61,7 +61,10 @@ public class SupplierEntryDAO implements ISupplierEntryDAO {
 	@Transactional(readOnly = true)
 	public SupplierEntry getSupplierByDate(String supplierCode, String date) {
 		log.debug("Finding SupplierEntry: {} {}", supplierCode, date);
-
+		String searchDate = date;
+		if (date != null && ! Strings.CI.contains(date, "-")) {
+			searchDate = Util.formatDate(date, "yyyyMMdd", "yyyy-MM-dd");
+		}
 		return currentSession()
 				.createQuery(
 						"from SupplierEntry " +
@@ -70,8 +73,8 @@ public class SupplierEntryDAO implements ISupplierEntryDAO {
 						SupplierEntry.class
 				)
 				.setParameter("supplierCode", supplierCode)
-				.setParameter("date", date)
-				.uniqueResult();
+				.setParameter("date", searchDate)
+				.stream().findFirst().orElse(null);
 	}
 
 	@Override

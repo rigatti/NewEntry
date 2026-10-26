@@ -18,7 +18,7 @@
 	<!-- Spring context -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/flow-servlet.xml</param-value>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 
 	<!-- Filtre Hibernate Session (Open Session In View) -->

@@ -38,7 +38,9 @@
 		</form>
 
 		<p>
-			<form name="backFrm" action="<%= request.getContextPath() %>/iindex.jsp">
+			<form name="backToSuppliersFrm" action="${flowExecutionUrl}" method="post">
+				<input type="hidden" name="_eventId_showSuppliers" value="">
+				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 				<input class="button" type="submit" value=" << Retour ">
 			</form>
 		</p>
@@ -63,7 +65,9 @@
 			<% } %>
 		</table>
 		<p>
-			<form name="backFrm" action="<%= request.getContextPath() %>/iindex.jsp">
+			<form name="backToSuppliersFrmBottom" action="${flowExecutionUrl}" method="post">
+				<input type="hidden" name="_eventId_showSuppliers" value="">
+				<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 				<input class="button" type="submit" value=" << Retour ">
 			</form>
 		</p>

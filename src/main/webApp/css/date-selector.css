@@ -1,0 +1,65 @@
+.date-selector {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.date-selector.compact {
+    margin: 0;
+    padding: 8px;
+}
+
+.date-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.date-controls button {
+    padding: 8px 16px;
+    background-color: #000066;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.date-selector.compact .date-controls {
+    gap: 8px;
+}
+
+.date-selector.compact .date-controls button {
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.date-controls button:hover {
+    background-color: #000099;
+}
+
+.date-display {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000066;
+    min-width: 150px;
+    text-align: center;
+}
+
+.date-selector.compact .date-display {
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+input[type="date"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #000066;
+    border-radius: 3px;
+    cursor: pointer;
+}

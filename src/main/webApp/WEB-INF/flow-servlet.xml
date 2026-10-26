@@ -14,14 +14,9 @@
         https://www.springframework.org/schema/context/spring-context.xsd">
 
 
-	<!-- Import de la configuration Hibernate -->
-	<import resource="hibernate-config.xml"/>
-
-	<!-- Scan des composants Spring -->
-	<context:component-scan base-package="org.belex, db"/>
-
-	<!-- Activation des annotations -->
-	<context:annotation-config/>
+	<!-- Hibernate, DAOs and business beans live in the root context
+	     (applicationContext.xml) so Open Session in View and @Transactional
+	     share one SessionFactory. This servlet context only launches flows. -->
 
 <!-- Launches new flow executions and resumes existing executions. -->
 	<!-- repository-type="continuation" -->

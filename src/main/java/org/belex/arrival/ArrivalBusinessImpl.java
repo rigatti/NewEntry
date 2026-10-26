@@ -823,7 +823,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 				supplier.setStatus(Supplier.STATUS_PENDING);
 
 			}
-			
+
 			// check if this supplier for the current date has already been treated
 			SupplierEntry supplierEntry = supplierEntryDAO.getSupplierByDate(supplier.getSupplierCode(), arrival.getDate());
 			log.debug("DEBUG checkPending: SupplierEntry for " + supplier.getSupplierCode() + " on " + arrival.getDate() + " = " + (supplierEntry == null ? "NULL" : "FOUND"));

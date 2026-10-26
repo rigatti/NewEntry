@@ -13,7 +13,9 @@ Vector<Entry> entries = arrival.getSavedEntries();
 <head>
 	<%@include file="/WEB-INF/jsp/productEntry/jspf/headHeader.jspf"%>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/date-selector.css" type="text/css">
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
 	<script type="text/javascript">
 		<!--
 			function addItem(nbr) {
@@ -43,7 +45,7 @@ Vector<Entry> entries = arrival.getSavedEntries();
 					window.document.modifyEntryFrm.entryNumberOfProduct.value = dataFrm.newNumberOfProduct.value;
 				}
 
-				window.document.modifyEntryFrm.entryValidityDate.value = dataFrm.newValidityDate.value
+				window.document.modifyEntryFrm.entryValidityDate.value = isoToLegacy(document.getElementById("newValidityDatePicker").value, "-");
 				window.document.modifyEntryFrm.entryLotNumber.value = dataFrm.newLotNumber.value
 
 				window.document.modifyEntryFrm.submit();
@@ -122,22 +124,7 @@ Vector<Entry> entries = arrival.getSavedEntries();
 											Conditionnement<br>
 										</td>
 										<td id="header">
-											Validité &nbsp;<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
-											<dlcalendar click_element_id="img_calendar"
-									            input_element_id="newValidityDate"
-									            tool_tip="Click to choose a validity date"
-									            start_date="<%= Util.getNowFormated("yyyy-MM-dd") %>"
-									            date_format="dd-mm-yyyy"
-												navbar_style="background-color: #000066; color:white;font-size:20px; padding-left:20px;padding-right:20px"
-												daybar_style="background-color: black; color:white;font-size:20px"
-												selecteddate_style="font-size:20px"
-												weekenddate_style="font-size:20px"
-												othermonthdate_style="font-size:20px"
-												regulardate_style="font-size:20px"
-												nav_images="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevyear_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextyear_white.gif"
-									            >
-									        </dlcalendar>
-											<br>
+											Validité<br>
 										</td>
 										<td id="header">
 											Lot<br>
@@ -151,7 +138,16 @@ Vector<Entry> entries = arrival.getSavedEntries();
 											<b><%= Util.displayContitionnement(selectedUnit.getNumber(), selectedUnit.getConditionnement()) %></b>
 										</td>
 										<td id="item">
-											<input name="newValidityDate" type="text" value="<%= currentProduct.getValidityDate() %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
+											<div class="date-selector compact">
+												<div class="date-controls">
+													<button type="button" onclick="shiftDate('newValidityDatePicker', -1, 'newValidityDateDisplay')">◀ Jour précédent</button>
+													<input type="date" id="newValidityDatePicker"
+														   data-legacy="<%= currentProduct.getValidityDate() == null ? "" : currentProduct.getValidityDate() %>"
+														   min="2026-01-01" max="2050-12-31">
+													<button type="button" onclick="shiftDate('newValidityDatePicker', 1, 'newValidityDateDisplay')">Jour suivant ▶</button>
+													<span style="display:none" id="newValidityDateDisplay"></span>
+												</div>
+											</div>
 										</td>
 										<td id="item">
 											<input type="text" name="newLotNumber" value="<%= currentProduct.getLotNumber() %>" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'"><br>
@@ -257,6 +253,13 @@ Vector<Entry> entries = arrival.getSavedEntries();
 			</form>
 		</p>
 	</div>
-	<script type="text/javascript" language="javascript" src="<%= request.getContextPath() %>/scripts/dlcalendar.js"></script>
+	<script type="text/javascript">
+		window.addEventListener("load", function() {
+			var picker = document.getElementById("newValidityDatePicker");
+			if (picker) {
+				initDateSelector("newValidityDatePicker", "newValidityDateDisplay", picker.getAttribute("data-legacy"));
+			}
+		});
+	</script>
 </body>
 </html>

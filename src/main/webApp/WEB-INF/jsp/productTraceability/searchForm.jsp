@@ -3,10 +3,9 @@
 <head>
 	<title>Belex - Tracabilité</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/jquery-ui.1.12.1.min.customForLocalResources.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/date-selector.css">
 
 	<script type="text/javascript">
 	<!--
@@ -28,7 +27,7 @@
 				itemDetected = true;
 			}
 			if (frmProductSearch.validityDateInput.value != "") {
-				frmProductSearch.traceValidityDate.value = frmProductSearch.validityDateInput.value;
+				frmProductSearch.traceValidityDate.value = isoToLegacy(frmProductSearch.validityDateInput.value, "/");
 				itemDetected = true;
 			}
 
@@ -43,10 +42,6 @@
 		function switchBoxStatus(obj) {
 			obj.checked = !obj.checked;
 		}
-		
-		$( function() {
-          $("#validityDateInput").datepicker({ dateFormat: "dd/mm/yy"}).val()
-		} );
 	//-->
 	</script>
 
@@ -116,9 +111,18 @@
 						<tr>
 							<td class="table-text-bold" nowrap>
 								Date de validité : <br>
-								<span style="padding-left:25px">
-									<input type="text" autocomplete="off" name="validityDateInput" id="validityDateInput" value="">
-								</span>
+								<div class="date-selector compact">
+									<div class="date-controls">
+										<button type="button" onclick="shiftDate('validityDateInput', -1, 'validityDateDisplay')">◀ Jour précédent</button>
+										<input type="date" name="validityDateInput" id="validityDateInput"
+											   onchange="refreshDateLabel('validityDateInput', 'validityDateDisplay')"
+											   min="2007-01-01" max="2050-12-31">
+										<button type="button" onclick="shiftDate('validityDateInput', 1, 'validityDateDisplay')">Jour suivant ▶</button>
+									</div>
+									<div class="date-display">
+										Date sélectionnée: <span id="validityDateDisplay"></span>
+									</div>
+								</div>
 							</td>
 						</tr>
 						<tr>

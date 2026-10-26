@@ -22,49 +22,10 @@
     <meta charset="UTF-8">
     <%@include file="/WEB-INF/jsp/productEntry/jspf/headHeader.jspf"%>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/date-selector.css" type="text/css">
     <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
     <style>
-        .date-selector {
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .date-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .date-controls button {
-            padding: 8px 16px;
-            background-color: #000066;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .date-controls button:hover {
-            background-color: #000099;
-        }
-        .date-display {
-            font-size: 18px;
-            font-weight: bold;
-            color: #000066;
-            min-width: 150px;
-            text-align: center;
-        }
-        input[type="date"] {
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #000066;
-            border-radius: 3px;
-            cursor: pointer;
-        }
         .suppliers-section {
             margin-top: 30px;
             padding: 15px;
@@ -109,35 +70,9 @@
         }
     </style>
     <script type="text/javascript">
-        // Calculate date by adding/subtracting days
-        function changeDateBy(days) {
-            var dateInput = document.getElementById("searchSupplierDate");
-            var currentDate = new Date(dateInput.value);
-            currentDate.setDate(currentDate.getDate() + days);
-
-            // Format back to yyyy-MM-dd
-            var year = currentDate.getFullYear();
-            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-            var day = String(currentDate.getDate()).padStart(2, '0');
-            dateInput.value = year + '-' + month + '-' + day;
-
-            // Update display
-            updateDateDisplay();
-        }
-
-        // Update the displayed date
-        function updateDateDisplay() {
-            var dateInput = document.getElementById("searchSupplierDate");
-            if (dateInput.value) {
-                var dateObj = new Date(dateInput.value);
-                var options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-                document.getElementById("dateDisplay").textContent = dateObj.toLocaleDateString('fr-FR', options);
-            }
-        }
-
         // Submit form when date changes or button clicked
         function searchSuppliers() {
-            updateDateDisplay();
+            refreshDateLabel("searchSupplierDate", "dateDisplay");
             // Convert date from yyyy-MM-dd to yyyyMMdd format for searchSupplierDate
             var dateInput = document.getElementById("searchSupplierDate");
             var dateParts = dateInput.value.split('-');
@@ -170,7 +105,7 @@
 
                 <div class="date-controls">
                     <!-- Previous day button -->
-                    <button type="button" value=" ◀ Jour précédent " onclick="changeDateBy(-1); searchSuppliers();">
+                    <button type="button" onclick="shiftDate('searchSupplierDate', -1, 'dateDisplay', searchSuppliers);">
                         ◀ Jour précédent
                     </button>
 
@@ -181,7 +116,7 @@
                            min="2007-01-01" max="2050-12-31">
 
                     <!-- Next day button -->
-                    <button type="button" value=" Jour suivant ▶ " onclick="changeDateBy(1); searchSuppliers();">
+                    <button type="button" onclick="shiftDate('searchSupplierDate', 1, 'dateDisplay', searchSuppliers);">
                         Jour suivant ▶
                     </button>
                 </div>
@@ -245,7 +180,7 @@
     <script type="text/javascript">
         // Initialize date display on page load
         window.addEventListener('load', function() {
-            updateDateDisplay();
+            refreshDateLabel("searchSupplierDate", "dateDisplay");
         });
     </script>
 </body>

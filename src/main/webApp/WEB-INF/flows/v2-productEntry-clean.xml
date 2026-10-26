@@ -4,35 +4,38 @@
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd"
       start-state="searchPlannedSuppliersAct">
 
+    <var name="product" class="org.belex.product.Product"/>
+
     <!--
-        STEP 1: Load planned suppliers for selected date
+        STEP 1: Load planned suppliers, then paint pending/closed/opened
+        before the date page is rendered.
     -->
     <action-state id="searchPlannedSuppliersAct">
         <evaluate expression="arrivalBusiness.getPlannedSuppliers(flowScope.arrival)" result="flowScope.arrival" />
-        <transition to="selectArrivalDateView" />
+        <transition to="checkPendingArrivalAct" />
     </action-state>
 
     <!--
         STEP 2: Display date picker + supplier list
         User can:
         - Change date (searchPlannedSupplier event)
-        - Select supplier (showSuppliers event)
+        - Select supplier (supplierSelected event)
     -->
     <view-state id="selectArrivalDateView" view="productEntry/selectArrivalDate" model="arrival">
         <!-- Event: User changes date in calendar -->
         <transition on="searchPlannedSupplier" to="searchPlannedSuppliersAct" />
 
-        <!-- Event: User clicks on a supplier row -->
-        <transition on="supplierSelected" to="checkPendingArrivalAct" />
+        <!-- Status is already on each supplier in the list -->
+        <transition on="supplierSelected" to="fillPlannedSupplierAct" />
     </view-state>
 
     <!--
-        STEP 3: Check supplier status (closed, pending, etc.)
-        This determines which view to show next
+        Paint pending / closed / opened on every planned supplier.
+        Runs before the date page, not after a supplier click.
     -->
     <action-state id="checkPendingArrivalAct">
         <evaluate expression="arrivalBusiness.checkPending(flowScope.arrival)" />
-        <transition on="success" to="fillPlannedSupplierAct" />
+        <transition on="success" to="selectArrivalDateView" />
         <transition on="error" to="fatalErrorView" />
     </action-state>
 
@@ -79,8 +82,9 @@
         Only if no pending entry exists
     -->
     <view-state id="supplierDocumentFormView" view="productEntry/supplierDocumentForm" model="arrival">
-        <!--        <evaluate expression="ArrivalFormAction.bindSupplierDocument(flowRequestContext)"/>-->
-        <transition on="next" to="entryFormView" />
+        <transition on="next" to="entryFormView">
+            <evaluate expression="arrivalFormAction.bindSupplierDocument(flowRequestContext)" />
+        </transition>
     </view-state>
 
     <!--
@@ -132,7 +136,9 @@
     -->
     <view-state id="completeEntryFormView" view="productEntry/completeEntryForm" model="arrival">
         <transition on="submit" to="confirmEntryAct" />
-        <transition on="back" to="entryFormClearAct" />
+        <transition on="back" to="entryFormClearAct">
+            <evaluate expression="productFormAction.bindAndValidate(flowRequestContext)" />
+        </transition>
         <transition on="newSearch" to="completeProductsAct" />
         <transition on="submitDontSaveUnit" to="fillSelectedUnitAct" />
         <transition on="updateProductUnitAndSubmit" to="updateProductUnitAct" />
@@ -142,6 +148,7 @@
         Clear entry form
     -->
     <action-state id="entryFormClearAct">
+        <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)" />
         <transition to="entryFormView" />
     </action-state>
 
@@ -165,7 +172,9 @@
         Confirm entry with validation
     -->
     <action-state id="confirmEntryAct">
-        <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)" />
+        <evaluate expression="arrivalFormAction.bindAndValidate(flowRequestContext)">
+            <attribute name="validatorMethod" value="validateCompleteEntry" />
+        </evaluate>
         <transition on="success" to="saveTempEntryAct" />
         <transition on="error" to="completeEntryFormView" />
     </action-state>
@@ -287,7 +296,7 @@
     -->
     <view-state id="closedListView" view="productEntry/closed/closedList" model="arrival">
         <transition on="selectProductDisplayed" to="closedCompleteProductsAct" />
-        <transition on="showSuppliers" to="showSuppliersView" />
+        <transition on="showSuppliers" to="searchPlannedSuppliersAct" />
     </view-state>
 
     <!--
@@ -338,8 +347,10 @@
     <!--
         New product form
     -->
-    <view-state id="newProductFormView" view="productEntry/productManagement/newProductForm" model="arrival">
-        <transition on="submit" to="newProductAct" />
+    <view-state id="newProductFormView" view="productEntry/productManagement/newProductForm" model="product">
+        <transition on="submit" to="newProductAct">
+            <evaluate expression="productFormAction.bindAndValidate(flowRequestContext)" />
+        </transition>
     </view-state>
 
     <!--

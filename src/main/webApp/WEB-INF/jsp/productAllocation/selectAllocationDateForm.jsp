@@ -26,7 +26,9 @@
     <meta charset="UTF-8">
     <title>Attribution - Sélection de la date</title>
     <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/date-selector.css" type="text/css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
@@ -53,13 +55,6 @@
         .section p { margin: 10px 0; font-size: 13px; color: #666; }
 
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color: #333; }
-        .form-group input[type="date"] { width: 100%; padding: 8px; border: 1px solid #000066; border-radius: 3px; font-size: 13px; }
-        .form-group input[type="date"]:focus { outline: none; background-color: #f0f0ff; }
-
-        .date-nav-buttons { display: flex; gap: 5px; margin-top: 10px; }
-        .date-nav-buttons button { flex: 1; padding: 8px; background-color: #000066; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; }
-        .date-nav-buttons button:hover { background-color: #000099; }
 
         .button-group { display: flex; gap: 10px; flex-direction: column; }
         .button { padding: 10px; background-color: #000066; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; text-align: center; }
@@ -79,18 +74,8 @@
         }
     </style>
     <script type="text/javascript">
-        function changeDateBy(days) {
-            var dateInput = document.getElementById("allocationDate");
-            var currentDate = new Date(dateInput.value);
-            currentDate.setDate(currentDate.getDate() + days);
-            var year = currentDate.getFullYear();
-            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-            var day = String(currentDate.getDate()).padStart(2, '0');
-            dateInput.value = year + '-' + month + '-' + day;
-            formatAndSubmitDate();
-        }
-
         function formatAndSubmitDate() {
+            refreshDateLabel("allocationDate", "allocationDateDisplay");
             // Convert date from yyyy-MM-dd to yyyyMMdd format for requestParams.date
             var dateInput = document.getElementById("allocationDate");
             var dateParts = dateInput.value.split('-');
@@ -109,7 +94,7 @@
         }
     </script>
 </head>
-<body>
+<body onload="refreshDateLabel('allocationDate', 'allocationDateDisplay')">
     <div class="container">
         <!-- LEFT PANEL: Date Selection -->
         <div class="left-panel">
@@ -121,16 +106,18 @@
                     <!-- Hidden field to pass formatted date to server (yyyyMMdd format) -->
                     <input type="hidden" name="date" id="dateFormatted" value="">
 
-                    <div class="form-group">
-                        <label for="allocationDate">Date d'allocation :</label>
-                        <input type="date" id="allocationDate"
-                               value="<%= today %>"
-                               onchange="formatAndSubmitDate();">
-                    </div>
-
-                    <div class="date-nav-buttons">
-                        <button type="button" onclick="changeDateBy(-1);">◀ Prev</button>
-                        <button type="button" onclick="changeDateBy(1);">Next ▶</button>
+                    <div class="date-selector">
+                        <div class="date-controls">
+                            <button type="button" onclick="shiftDate('allocationDate', -1, 'allocationDateDisplay', formatAndSubmitDate);">◀ Jour précédent</button>
+                            <input type="date" id="allocationDate"
+                                   value="<%= today %>"
+                                   onchange="formatAndSubmitDate();"
+                                   min="2007-01-01" max="2050-12-31">
+                            <button type="button" onclick="shiftDate('allocationDate', 1, 'allocationDateDisplay', formatAndSubmitDate);">Jour suivant ▶</button>
+                        </div>
+                        <div class="date-display">
+                            Date sélectionnée: <span id="allocationDateDisplay"></span>
+                        </div>
                     </div>
                 </form>
             </div>

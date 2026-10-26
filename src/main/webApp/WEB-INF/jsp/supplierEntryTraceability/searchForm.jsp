@@ -3,10 +3,9 @@
 <head>
 	<title>Belex - Tracabilité des fournisseurs</title>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/jquery-ui.1.12.1.min.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/jquery-ui.1.12.1.min.customForLocalResources.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/date-selector.css">
 	
 	<script type="text/javascript">
 	<!--
@@ -24,8 +23,8 @@
 			}
 			
 			if (frmProductSearch.traceEntryStartDateInput.value != "" || frmProductSearch.traceEntryEndDateInput.value != "") {
-				frmProductSearch.traceEntryStartDate.value = frmProductSearch.traceEntryStartDateInput.value;
-				frmProductSearch.traceEntryEndDate.value = frmProductSearch.traceEntryEndDateInput.value;
+				frmProductSearch.traceEntryStartDate.value = isoToLegacy(frmProductSearch.traceEntryStartDateInput.value, "/");
+				frmProductSearch.traceEntryEndDate.value = isoToLegacy(frmProductSearch.traceEntryEndDateInput.value, "/");
 				itemDetected = true;
 			} else {
 				alert("Veuillez introduire au moins une date de recherche");
@@ -39,13 +38,6 @@
 		function switchBoxStatus(obj) {
 			obj.checked = !obj.checked;
 		}
-		
-		
-		
-		  $( function() {
-              $("#traceEntryStartDateInput").datepicker({ dateFormat: "dd/mm/yy" }).val()
-              $("#traceEntryEndDateInput").datepicker({ dateFormat: "dd/mm/yy" }).val()
-		  } );
 	//-->
 	</script>
 
@@ -98,17 +90,35 @@
 						<tr>
 							<td class="table-text-bold" nowrap>
 								Date début : <br>
-								<span style="padding-left:25px">
-									<input type="text" autocomplete="off" name="traceEntryStartDateInput" id="traceEntryStartDateInput" value="">
-								</span>
+								<div class="date-selector compact">
+									<div class="date-controls">
+										<button type="button" onclick="shiftDate('traceEntryStartDateInput', -1, 'traceEntryStartDateDisplay')">◀ Jour précédent</button>
+										<input type="date" name="traceEntryStartDateInput" id="traceEntryStartDateInput"
+											   onchange="refreshDateLabel('traceEntryStartDateInput', 'traceEntryStartDateDisplay')"
+											   min="2007-01-01" max="2050-12-31">
+										<button type="button" onclick="shiftDate('traceEntryStartDateInput', 1, 'traceEntryStartDateDisplay')">Jour suivant ▶</button>
+									</div>
+									<div class="date-display">
+										Date sélectionnée: <span id="traceEntryStartDateDisplay"></span>
+									</div>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<td class="table-text-bold" nowrap>
 								Date de fin : <br>
-								<span style="padding-left:25px">
-									<input type="text" autocomplete="off" name="traceEntryEndDateInput" id="traceEntryEndDateInput" value="">
-								</span>
+								<div class="date-selector compact">
+									<div class="date-controls">
+										<button type="button" onclick="shiftDate('traceEntryEndDateInput', -1, 'traceEntryEndDateDisplay')">◀ Jour précédent</button>
+										<input type="date" name="traceEntryEndDateInput" id="traceEntryEndDateInput"
+											   onchange="refreshDateLabel('traceEntryEndDateInput', 'traceEntryEndDateDisplay')"
+											   min="2007-01-01" max="2050-12-31">
+										<button type="button" onclick="shiftDate('traceEntryEndDateInput', 1, 'traceEntryEndDateDisplay')">Jour suivant ▶</button>
+									</div>
+									<div class="date-display">
+										Date sélectionnée: <span id="traceEntryEndDateDisplay"></span>
+									</div>
+								</div>
 							</td>
 						</tr>
 						<tr>

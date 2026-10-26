@@ -33,8 +33,10 @@ for (int i=0; i < product.getUnits().size(); i++) {
 <head>
 	<%@include file="/WEB-INF/jsp/productEntry/jspf/headHeader.jspf"%>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/general.css" type="text/css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/date-selector.css" type="text/css">
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/date.js"></script>
+	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
 	<script type="text/javascript">
 		<!--
 			function afterBarCodeEvent(data){
@@ -84,7 +86,16 @@ for (int i=0; i < product.getUnits().size(); i++) {
 				
 				return true;
 			}
+			function syncValidityDate() {
+				var picker = document.getElementById("validityDatePicker");
+				var stored = document.getElementById("entry.product.validityDate");
+				if (!picker || !stored) {
+					return;
+				}
+				stored.value = isoToLegacy(picker.value, "/");
+			}
 			function sendNextFrm(id) {
+				syncValidityDate();
 				if (id == "submitDontSaveUnit") {
 
 					var inputField = window.document.getElementById("entry.numberOfProduct");
@@ -347,26 +358,12 @@ for (int i=0; i < product.getUnits().size(); i++) {
 					</td>
 				</tr -->
 				<tr>
-					<td  align="right">
+					<td align="right">
 						Date de validité : <br>
 					</td>
 					<td colspan="2">
-						<input name="entry.product.validityDate" id="entry.product.validityDate" type="text" value="" class="inputText" onfocus="this.className='inputTextFocused'" onblur="this.className='inputText'">
-						<img align="middle" id="img_calendar" src="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_4.gif" alt="calendar" />
-						<dlcalendar click_element_id="img_calendar"
-				            input_element_id="entry.product.validityDate"
-				            tool_tip="Click to choose a validity date"
-				            start_date="<%= Util.getNowFormated("yyyy-MM-dd") %>"
-				            date_format="dd/mm/yyyy"
-							navbar_style="background-color: #000066; color:white;font-size:20px; padding-left:20px;padding-right:20px"
-							daybar_style="background-color: black; color:white;font-size:20px"
-							selecteddate_style="font-size:20px"
-							weekenddate_style="font-size:20px"
-							othermonthdate_style="font-size:20px"
-							regulardate_style="font-size:20px"
-							nav_images="<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevyear_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_prevmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextmonth_white.gif,<%= request.getContextPath() %>/pic/dlcalendar/dlcalendar_nextyear_white.gif"
-				            >
-				        </dlcalendar>
+						<input type="hidden" name="entry.product.validityDate" id="entry.product.validityDate" value="">
+						<input type="date" id="validityDatePicker" onchange="syncValidityDate()" min="2026-01-01" max="2050-12-31">
 					</td>
 				</tr>
 				<tr>
@@ -497,6 +494,5 @@ for (int i=0; i < product.getUnits().size(); i++) {
 	
 	<%@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" %>
 		
-	<script type="text/javascript" language="javascript" src="<%= request.getContextPath() %>/scripts/dlcalendar.js"></script>
 </body>
 </html>

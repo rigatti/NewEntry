@@ -49,7 +49,6 @@ String rememberMe = request.getParameter("rememberMe");
 					}
 				<% } %>
 
-				window.location.href="/belex/flow/arrival";
 			//-->
 		</script>
 </head>
@@ -66,7 +65,7 @@ String rememberMe = request.getParameter("rememberMe");
 					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productEntry">Arrivée de marchandise</a><br>
+								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/arrival">Arrivée de marchandise</a><br>
 							</td>
 						</tr>
 					</table>
