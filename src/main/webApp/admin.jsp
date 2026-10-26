@@ -83,7 +83,7 @@ String rememberMe = request.getParameter("rememberMe");
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productAllocation">Attribution des marchandises reçues</a><br>
+								<a class="ctextunderlined" href="/belex/flow/allocation">Attribution des marchandises reçues</a><br>
 							</td>
 						</tr>
 						<tr>

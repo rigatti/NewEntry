@@ -347,7 +347,7 @@
 				</table>
 			</form>
 			<% if ( allocation.isUpdated() ) { %>
-				<form name="frmConfirmAllocation" action="flowController.htm" method="get">
+				<form name="frmConfirmAllocation" action="${flowExecutionUrl}" method="post">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" name="_eventId_confirmAllocation" value="">
 				</form>
