@@ -31,9 +31,7 @@
 						<tr>
 							<td class="table-text-bold">
 								Suite à un problème technique, votre requète ne peut aboutir normalement.<br> <br>
-								Veuillez nous en excuser.<br> <br>
-								
-								Contact technique : 0477/23.47.93<br>
+								Veuillez nous en excuser.<br>
 							</td>
 						</tr>
 					</table>

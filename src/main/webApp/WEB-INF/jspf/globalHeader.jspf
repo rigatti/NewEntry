@@ -9,7 +9,5 @@
 <jsp:useBean class="org.belex.util.UtilityBean" id="utb"></jsp:useBean>
 <% utb.initialise(request); %>
 
-<% boolean isAdmin = false; %>
-
 
 
