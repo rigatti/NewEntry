@@ -6,10 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Repository
 @Slf4j
@@ -27,19 +24,14 @@ public class PackageDetailDAO implements IPackageDetailDAO{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PackageDetail> get(String productCode, StringTokenizer orderNumbers) {
-		// Conversion du StringTokenizer en liste pour utiliser la clause IN
-		List<String> orders = new ArrayList<>();
-		while (orderNumbers.hasMoreElements()) {
-			orders.add(orderNumbers.nextToken());
-		}
+	public List<PackageDetail> get(String productCode, Collection<Integer> orderNumbers) {
 
-		if (orders.isEmpty()) {
+		if (orderNumbers == null || orderNumbers.isEmpty()) {
 			return Collections.emptyList();
 		}
 
 		try {
-			log.debug("Finding PackageDetail for product: {} and orders: {}", productCode, orders);
+			log.debug("Finding PackageDetail for product: {} and orders: {}", productCode, orderNumbers);
 
 			// Utilisation de la clause IN : beaucoup plus propre que des OR en chaîne
 			String hql = "from PackageDetail where productCode = :productCode " +
@@ -48,7 +40,7 @@ public class PackageDetailDAO implements IPackageDetailDAO{
 			return currentSession()
 					.createQuery(hql, PackageDetail.class)
 					.setParameter("productCode", productCode)
-					.setParameterList("orders", orders) // Méthode spécifique pour les collections
+					.setParameterList("orders", orderNumbers) // Méthode spécifique pour les collections
 					.getResultList();
 
 		} catch (Exception e) {

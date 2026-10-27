@@ -41,25 +41,24 @@ public class CustomerOrderDetailDAO implements ICustomerOrderDetailDAO {
 		}
 	}
 
-
 	@Override
 	@Transactional(readOnly = true)
-	public List<CustomerOrderDetail> getByProductCode(String productCode, StringTokenizer orderNumbers) {
-		List<String> orders = new ArrayList<>();
-		while (orderNumbers.hasMoreElements()) orders.add(orderNumbers.nextToken());
+	public List<CustomerOrderDetail> getByProductCode(String productCode, Collection<Integer> orderNumbers) {
 
-		if (orders.isEmpty()) return Collections.emptyList();
+		if (orderNumbers == null || orderNumbers.isEmpty()) {
+			return Collections.emptyList();
+		}
 
 		log.debug("Finding CustomerOrderDetail for product: {}", productCode);
 		try {
 			String hql = "from CustomerOrderDetail where orderNumber in (:orders) and productCode = :productCode";
 			return currentSession().createQuery(hql, CustomerOrderDetail.class)
-					.setParameterList("orders", orders)
+					.setParameterList("orders", orderNumbers)
 					.setParameter("productCode", productCode)
 					.getResultList();
 		} catch (Exception e) {
 			log.error("Error in getByProductCode", e);
-			return new ArrayList<>();
+			throw e; // see note below
 		}
 	}
 

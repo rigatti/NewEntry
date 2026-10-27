@@ -1261,19 +1261,15 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 		Supplier supplier = arrival.getSupplier();
 		Entry entry = arrival.getEntry();
 
-		String orderNumbers = "";
-		for (int i = 0; i < supplier.getOrders().size(); i++) {
-			if (i != 0) {
-				orderNumbers += ",";
-			}
-			orderNumbers += supplier.getOrders().get(i).getNumber();
-		}
-		
+		Collection<Integer> orderNumbers = supplier.getOrders().stream()
+				.map(Order::getNumber)
+				.toList();
+
 		// get the list of packages declared for the current product 
-		List<PackageDetail> packageDetails = packageDetailDAO.get(entry.getProduct().getProductCode(), new StringTokenizer(orderNumbers, ","));
+		List<PackageDetail> packageDetails = packageDetailDAO.get(entry.getProduct().getProductCode(), orderNumbers);
 		
 		// get client info + fill entry specifications
-		List<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(entry.getProduct().getProductCode(), new StringTokenizer(orderNumbers, ","));
+		List<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(entry.getProduct().getProductCode(), orderNumbers);
 
 		entry.setCustomers(new Vector<Customer>());
 		
