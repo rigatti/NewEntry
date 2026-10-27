@@ -75,7 +75,7 @@
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr valign="top">
-        <td width="28%">
+        <td width="28%" style="padding-right:1%">
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr valign="top">
                     <td class="tabs-on" width="1%" nowrap height="19">Recherche</td>
