@@ -3,9 +3,6 @@ package db.product;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serial;
 
 @Getter
 @Setter
