@@ -32,12 +32,12 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productAdmin">Administration des produits</a><br>
+								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/productAdmin">Administration des produits</a><br>
 							</td>
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=productTraceability">Traçabilité des produits</a><br>
+								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/productTraceability">Traçabilité des produits</a><br>
 							</td>
 						</tr>
 						<tr>

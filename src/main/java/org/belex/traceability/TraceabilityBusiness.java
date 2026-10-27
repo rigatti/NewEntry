@@ -11,17 +11,29 @@ import org.belex.product.Product;
 import org.belex.product.Product.Unit;
 import org.belex.requestparams.RequestParams;
 import org.belex.supplier.Supplier;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+@Service("traceabilityBusiness")
 public class TraceabilityBusiness implements ITraceabilityBusiness {
-	ITreatedEntryDAO treatedEntryDAO;
-	ITreatedEntryDetailDAO treatedEntryDetailDAO;
-	ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
-	ISupplierDAO supplierDAO;
+	private final ITreatedEntryDAO treatedEntryDAO;
+	private final ITreatedEntryDetailDAO treatedEntryDetailDAO;
+	private final ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
+	private final ISupplierDAO supplierDAO;
+
+	public TraceabilityBusiness(ITreatedEntryDAO treatedEntryDAO,
+								ITreatedEntryDetailDAO treatedEntryDetailDAO,
+								ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO,
+								ISupplierDAO supplierDAO) {
+		this.treatedEntryDAO = treatedEntryDAO;
+		this.treatedEntryDetailDAO = treatedEntryDetailDAO;
+		this.treatedEntryDetailDestinationDAO = treatedEntryDetailDestinationDAO;
+		this.supplierDAO = supplierDAO;
+	}
 	
 	public Traceability searchSupplierEntry(Traceability traceability, RequestParams requestParams) {
 		Traceability traceabilityResult = execute(traceability, requestParams, getForSupplierTracability(requestParams));
@@ -149,24 +161,6 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 									 requestParams.getTraceEntrySupplierCode().toUpperCase(),
 									 requestParams.getTraceEntryStartDate(),
 									 requestParams.getTraceEntryEndDate());
-	}
-
-	public void setSupplierDAO(ISupplierDAO supplierDAO) {
-		this.supplierDAO = supplierDAO;
-	}
-
-	public void setTreatedEntryDAO(ITreatedEntryDAO treatedEntryDAO) {
-		this.treatedEntryDAO = treatedEntryDAO;
-	}
-
-	public void setTreatedEntryDetailDAO(
-			ITreatedEntryDetailDAO treatedEntryDetailDAO) {
-		this.treatedEntryDetailDAO = treatedEntryDetailDAO;
-	}
-
-	public void setTreatedEntryDetailDestinationDAO(
-			ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO) {
-		this.treatedEntryDetailDestinationDAO = treatedEntryDetailDestinationDAO;
 	}
 
 }

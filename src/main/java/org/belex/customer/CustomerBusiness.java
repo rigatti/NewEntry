@@ -3,12 +3,18 @@ package org.belex.customer;
 import db.customer.ICustomerDAO;
 import org.belex.entry.Entry;
 import org.belex.traceability.Traceability;
+import org.springframework.stereotype.Service;
 
 import java.util.Vector;
 
+@Service("customerBusiness")
 public class CustomerBusiness implements ICustomerBusiness {
-	
-	ICustomerDAO customerDAO;
+
+	private final ICustomerDAO customerDAO;
+
+	public CustomerBusiness(ICustomerDAO customerDAO) {
+		this.customerDAO = customerDAO;
+	}
 	
 	public Traceability completeCustomer(Traceability traceability) {
 
@@ -31,10 +37,5 @@ public class CustomerBusiness implements ICustomerBusiness {
 		traceability.setEntries(entries);
 
 		return traceability;
-	}
-
-
-	public void setCustomerDAO(ICustomerDAO customerDAO) {
-		this.customerDAO = customerDAO;
 	}
 }

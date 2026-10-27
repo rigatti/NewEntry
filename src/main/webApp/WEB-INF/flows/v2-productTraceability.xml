@@ -1,0 +1,43 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="mainView">
+
+    <var name="traceability" class="org.belex.traceability.Traceability"/>
+    <var name="requestParams" class="org.belex.requestparams.RequestParams"/>
+
+    <on-start>
+        <set name="flowScope.traceView" value="'list'"/>
+    </on-start>
+
+    <view-state id="mainView" view="productTraceability/main">
+        <transition on="submit" to="searchEntryAct">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+            <set name="flowScope.traceView" value="'list'"/>
+            <set name="flowScope.traceSearched" value="true"/>
+        </transition>
+        <transition on="productDet" to="mainView">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+            <set name="flowScope.traceView" value="'detail'"/>
+        </transition>
+        <transition on="export" to="searchEntryExportView">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+        </transition>
+    </view-state>
+
+    <action-state id="searchEntryAct">
+        <evaluate expression="traceabilityBusiness.searchProductEntry(flowScope.traceability, flowScope.requestParams)"
+                  result="flowScope.traceability"/>
+        <transition on="success" to="completeCustomerAct"/>
+    </action-state>
+
+    <action-state id="completeCustomerAct">
+        <evaluate expression="customerBusiness.completeCustomer(flowScope.traceability)"
+                  result="flowScope.traceability"/>
+        <transition on="success" to="mainView"/>
+    </action-state>
+
+    <view-state id="searchEntryExportView" view="productTraceability/searchEntryExport"/>
+
+</flow>

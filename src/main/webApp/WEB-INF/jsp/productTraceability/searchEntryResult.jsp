@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
+<%@page import="org.belex.util.Util"%>
 <%@page import="org.belex.entry.Entry"%>
 <%@page import="org.belex.traceability.Traceability"%>
 <%@page import="java.util.Vector"%>
@@ -12,14 +12,6 @@ if (traceability != null) {
 %>
 
 <%@page import="org.apache.commons.lang3.StringUtils"%>
-<html>
-<head>
-	<title>Belex - Tracabilité</title>
-
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/sort.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
-
 	<script type="text/javascript">
 	<!--
 		function exportRequest(obj) {
@@ -61,11 +53,8 @@ if (traceability != null) {
 		}
 	//-->
 	</script>
-</head>
 
-<body class="content" style="padding-top:37px">
-
-<form name="frmDetail" action="flowController.htm" method="post">
+<form name="frmDetail" action="${flowExecutionUrl}" method="post">
 	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 	<input type="hidden" name="_eventId_productDet" value="">
 	<input type="hidden" name="traceExportIndexList" value="">
@@ -85,7 +74,7 @@ if (traceability != null) {
 <table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
 	<tr>
 		<td class="layout-manager">
-			<% if (traceability == null) { %>
+			<% if (request.getAttribute("traceSearched") == null) { %>
 
 				<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
@@ -107,7 +96,7 @@ if (traceability != null) {
 			
 			<% } else { %>
 			
-				<form name="frmData" action="flowController.htm" method="get" onsubmit="return exportRequest(this)">
+				<form name="frmData" action="${flowExecutionUrl}" method="post" onsubmit="return exportRequest(this)">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" name="traceExportIndexList" value="">
 
@@ -189,6 +178,3 @@ if (traceability != null) {
 		</td>
 	</tr>
 </table>
-
-</body>
-</html>

@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/jspf/globalHeader.jspf"%>
+<%@page import="org.belex.util.Util"%>
 <%@page import="org.belex.entry.Entry"%>
 <%@page import="org.belex.traceability.Traceability"%>
 <%@page import="java.util.Vector"%>
@@ -17,16 +17,6 @@ if (traceability != null) {
 <%@page import="org.belex.customer.Customer"%>
 <%@page import="org.belex.allocation.Allocation"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
-<html>
-<head>
-	<title>Belex - Tracabilité</title>
-
-	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
-</head>
-
-<body class="content" style="padding-top:37px">
-
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr valign="top">
 		<td class="tabs-on" width="1%" nowrap height="19">
@@ -190,7 +180,7 @@ if (traceability != null) {
 				</table>
 				<br>
 				<center>
-					<form name="frmData" action="flowController.htm" method="get">
+					<form name="frmData" action="${flowExecutionUrl}" method="post">
 						<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 						<input type="hidden" name="traceExportIndexList" value=";<%= requestParams.getTraceExportIndexList() %>;">
 						<input type="submit" class="button" value=" Exporter " name="_eventId_export">
@@ -201,6 +191,3 @@ if (traceability != null) {
 	</table>
 
 <% } %>
-
-</body>
-</html>
