@@ -7,8 +7,14 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Comparator"%>
+<%@page import="org.belex.requestparams.RequestParams"%>
 <%
     String today = Util.getNowFormated("yyyy-MM-dd");
+    RequestParams requestParams = (RequestParams) request.getAttribute("requestParams");
+    if (requestParams != null && requestParams.getDate() != null && requestParams.getDate().length() == 8) {
+        String storedDate = requestParams.getDate();
+        today = storedDate.substring(0, 4) + "-" + storedDate.substring(4, 6) + "-" + storedDate.substring(6, 8);
+    }
     Allocation allocation = (Allocation) request.getAttribute("allocation");
     List<AllocationEntry> entries = new ArrayList<AllocationEntry>();
 
@@ -88,8 +94,9 @@
             document.dateFilterFrm.submit();
         }
 
-        function selectSupplier(supplierCode) {
-            document.getElementById('supplierCodeInput').value = supplierCode;
+        function selectSupplier(ordersPayload) {
+            document.getElementById("allocationEntryOrders").value = ordersPayload;
+            document.getElementById("allocationEntrySuppliers").value = ordersPayload;
             document.selectSupplierFrm.submit();
         }
     </script>
@@ -142,8 +149,22 @@
                     <p>Cliquez sur un fournisseur pour voir ses articles (<%=entries.size()%> fournisseur(s))</p>
                     <% for (int i = 0; i < entries.size(); i++) {
                         AllocationEntry entry = entries.get(i);
+                        StringBuilder ordersPayload = new StringBuilder();
+                        if (entry.getSupplier().getOrders() != null) {
+                            for (int j = 0; j < entry.getSupplier().getOrders().size(); j++) {
+                                org.belex.supplier.Supplier.Order order = entry.getSupplier().getOrders().get(j);
+                                if (ordersPayload.length() > 0) {
+                                    ordersPayload.append("#");
+                                }
+                                ordersPayload.append("Supplier=").append(entry.getSupplier().getSupplierCode())
+                                        .append(";Number=").append(order.getNumber())
+                                        .append(";Letter=").append(order.getLetter() == null ? "" : order.getLetter());
+                            }
+                        }
+                        String ordersPayloadEscaped = ordersPayload.toString().replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
                     %>
-                        <div class="supplier-entry" onclick="selectSupplier('<%= entry.getSupplier().getSupplierCode() %>');">
+                        <input type="hidden" id="orders_<%= i %>" value="<%= ordersPayloadEscaped %>">
+                        <div class="supplier-entry" onclick="selectSupplier(document.getElementById('orders_<%= i %>').value);">
                             <span class="supplier-link">📦 <%= entry.getSupplier().getSupplierCode() %> - <%= Util.getShortDisplayable(entry.getSupplier().getSupplierName(), 35) %></span>
                             <span class="supplier-time"><%= Util.formatDate(entry.getTime(), "hhmmss", "hh:mm:ss") %></span>
                         </div>
@@ -157,7 +178,8 @@
     <form name="selectSupplierFrm" id="selectSupplierFrm" action="${flowExecutionUrl}" method="post" style="display: none;">
         <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
         <input type="hidden" name="_eventId_getEntryOrders" value="">
-        <input type="hidden" name="allocation.supplierCode" id="supplierCodeInput" value="">
+        <input type="hidden" name="allocationEntryOrders" id="allocationEntryOrders" value="">
+        <input type="hidden" name="allocationEntrySuppliers" id="allocationEntrySuppliers" value="">
     </form>
 </body>
 </html>

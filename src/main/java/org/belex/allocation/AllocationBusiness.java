@@ -35,7 +35,7 @@ import lombok.Setter;
 import java.util.*;
 
 @Slf4j
-@Service
+@Service("allocationBusiness")
 @Setter
 public class AllocationBusiness implements IAllocationBusiness{
 
@@ -82,7 +82,7 @@ public class AllocationBusiness implements IAllocationBusiness{
 
 		this.allocation = allocation;
 		
-		if (allocation.getSuppliers().size() == 0) {
+		if (allocation.getSuppliers().isEmpty()) {
 			allocation.setSuppliers(supplierDAO.getAll());
 		}
 
@@ -143,9 +143,9 @@ public class AllocationBusiness implements IAllocationBusiness{
 	log.info(c.getProductCode() + "(" + sod.getSupplierCode() + ")" + "sod.getUnitLargeScale() :" + sod.getUnitLargeScale());
 	log.info(c.getProductCode() + "(" + sod.getSupplierCode() + ")" + " - c.getUnitLargeScale() :" + c.getUnitLargeScale());
 									// some cases have an added string like "," "." or " " at the end of the conditioning BUT for the same product.
-									if (sod.getUnitLargeScale().startsWith(c.getUnitLargeScale()) || (c.getUnitLargeScale() != null && c.getUnitLargeScale().startsWith(sod.getUnitLargeScale()))) {
+									if ((c.getUnitLargeScale() != null && c.getUnitLargeScale().startsWith(sod.getUnitLargeScale())) || sod.getUnitLargeScale().startsWith(c.getUnitLargeScale())) {
 	
-										List<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(sod.getProductCode(), new StringTokenizer(String.valueOf(supplierOrderNumber)));
+										List<CustomerOrderDetail> cods = customerOrderDetailDAO.getByProductCode(sod.getProductCode(), List.of(supplierOrderNumber));
 										for (CustomerOrderDetail cod : cods) {
 	
 											if (creationReferences.contains(supplier.getSupplierCode() + "-" + supplierOrderNumber + "-" + cod.getCreationNumber())) {
@@ -197,7 +197,7 @@ public class AllocationBusiness implements IAllocationBusiness{
 
 		this.allocation = allocation;
 		
-		if (allocation.getSuppliers() == null || allocation.getSuppliers().size() == 0) {
+		if (allocation.getSuppliers() == null || allocation.getSuppliers().isEmpty()) {
 			allocation.setSuppliers(supplierDAO.getAll());
 		}
 		

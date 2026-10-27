@@ -76,8 +76,9 @@
         }
     </style>
     <script type="text/javascript">
-        function selectSupplier(supplierCode) {
-            document.getElementById('supplierCodeInput').value = supplierCode;
+        function selectSupplier(ordersPayload) {
+            document.getElementById("allocationEntryOrders").value = ordersPayload;
+            document.getElementById("allocationEntrySuppliers").value = ordersPayload;
             document.selectSupplierFrm.submit();
         }
 
@@ -129,8 +130,22 @@
                     <% for (int i = 0; i < entries.size(); i++) {
                         AllocationEntry entry = entries.get(i);
                         Supplier supplier = entry.getSupplier();
+                        StringBuilder ordersPayload = new StringBuilder();
+                        if (supplier.getOrders() != null) {
+                            for (int j = 0; j < supplier.getOrders().size(); j++) {
+                                Supplier.Order order = supplier.getOrders().get(j);
+                                if (ordersPayload.length() > 0) {
+                                    ordersPayload.append("#");
+                                }
+                                ordersPayload.append("Supplier=").append(supplier.getSupplierCode())
+                                        .append(";Number=").append(order.getNumber())
+                                        .append(";Letter=").append(order.getLetter() == null ? "" : order.getLetter());
+                            }
+                        }
+                        String ordersPayloadEscaped = ordersPayload.toString().replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
                     %>
-                        <div class="supplier-entry" onclick="selectSupplier('<%= supplier.getSupplierCode() %>');">
+                        <input type="hidden" id="orders_<%= i %>" value="<%= ordersPayloadEscaped %>">
+                        <div class="supplier-entry" onclick="selectSupplier(document.getElementById('orders_<%= i %>').value);">
                             <span class="supplier-link">📦 <%= supplier.getSupplierCode() %> - <%= Util.getShortDisplayable(supplier.getSupplierName(), 40) %></span>
                             <span class="supplier-time"><%= Util.formatDate(entry.getTime(), "hhmmss", "hh:mm:ss") %></span>
                         </div>
@@ -144,7 +159,8 @@
     <form name="selectSupplierFrm" id="selectSupplierFrm" action="${flowExecutionUrl}" method="post" style="display: none;">
         <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
         <input type="hidden" name="_eventId_getEntryOrders" value="">
-        <input type="hidden" name="allocation.supplierCode" id="supplierCodeInput" value="">
+        <input type="hidden" name="allocationEntryOrders" id="allocationEntryOrders" value="">
+        <input type="hidden" name="allocationEntrySuppliers" id="allocationEntrySuppliers" value="">
     </form>
 </body>
 </html>

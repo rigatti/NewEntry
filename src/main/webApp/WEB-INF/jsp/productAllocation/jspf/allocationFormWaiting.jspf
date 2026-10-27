@@ -42,10 +42,6 @@
 								<tr>
 									<td class="table-text" valign="top">
 											<%
-											//Allocation allocation = (Allocation) request.getAttribute("allocation");
-											List<AllocationEntry> entries = allocation.getEntries();
-											List<CustomerOrder> cotas = allocation.getCustomerOrdersToAllocates();
-
 											boolean first = true;
 											boolean allowAssignement = false;
 											boolean allowAssignementToStock = false;
@@ -347,7 +343,7 @@
 				</table>
 			</form>
 			<% if ( allocation.isUpdated() ) { %>
-				<form name="frmConfirmAllocation" action="flowController.htm" method="get">
+				<form name="frmConfirmAllocation" action="${flowExecutionUrl}" method="post">
 					<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
 					<input type="hidden" name="_eventId_confirmAllocation" value="">
 				</form>
