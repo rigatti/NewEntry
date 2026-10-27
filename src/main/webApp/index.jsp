@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td class="table-text-bold">
-								<a class="ctextunderlined" href="flowController.htm?_flowId=supplierEntryTraceability">Traçabilité des entrées fournisseurs</a><br>
+								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/supplierEntryTraceability">Traçabilité des entrées fournisseurs</a><br>
 							</td>
 						</tr>
 					</table>
@@ -58,8 +58,7 @@
                     <table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
                         <tr>
                             <td class="table-text-bold">
-                                <form name="frmCleanDb" method="get" action="flowController.htm" target="_BLANK">
-                                    <input type="hidden" name="_flowId" value="productCleaning">
+                                <form name="frmCleanDb" method="get" action="<%= request.getContextPath() %>/flow/productCleaning" target="_blank">
                                 </form>
                                 <script>
                                     <!--
@@ -75,36 +74,28 @@
                         </tr>
                         <tr>
                             <td class="table-text-bold">
-                                <form name="frmExportProduct" method="get" action="flowController.htm" target="_BLANK">
-                                    <input type="hidden" name="_flowId" value="productsExport">
+                                <form name="frmExportProduct" method="get" action="<%= request.getContextPath() %>/flow/productsExport" target="_blank">
                                 </form>
                                 <script>
-                                    <!--
-                                        function sendFrmExportProduct() {
-                                            alert("Request not allowed");
-                                            //if (confirm('Etes-vous sûr?')) {
-                                            //	window.document.frmExportProduct.submit();
-                                            //}
+                                    function sendFrmExportProduct() {
+                                        if (confirm("Etes-vous sûr?")) {
+                                            window.document.frmExportProduct.submit();
                                         }
-                                    //-->
+                                    }
                                 </script>
                                 <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportProduct();">Export Product</a><br>
                             </td>
                         </tr>
                         <tr>
                             <td class="table-text-bold">
-                                <form name="frmExportCustomer" method="get" action="flowController.htm" target="_BLANK">
-                                    <input type="hidden" name="_flowId" value="customersExport">
+                                <form name="frmExportCustomer" method="get" action="<%= request.getContextPath() %>/flow/customersExport" target="_blank">
                                 </form>
                                 <script>
-                                    <!--
-                                        function sendFrmExportCustomer() {
-                                            alert("Request not allowed");
-                                            //if (confirm('Etes-vous sûr?')) {
-                                            //	window.document.frmExportCustomer.submit();
-                                            //}
+                                    function sendFrmExportCustomer() {
+                                        if (confirm("Etes-vous sûr?")) {
+                                            window.document.frmExportCustomer.submit();
                                         }
-                                    //-->
+                                    }
                                 </script>
                                 <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportCustomer();">Export Customer</a><br>
                             </td>

@@ -1,10 +1,21 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-	<title>Belex - Administration des articles</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Nettoyage DB</title>
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
 </head>
-<body>
-	Db nettoyée avec succès
+<body class="content">
+    <h1>Nettoyage DB</h1>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+        <tr>
+            <td class="layout-manager">
+                <table class="framing-table" width="100%" border="0" cellspacing="1" cellpadding="3">
+                    <tr>
+                        <td class="column-head-prefs">Db nettoyée avec succès</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -97,7 +97,7 @@
 											   min="2007-01-01" max="2050-12-31">
 										<button type="button" onclick="shiftDate('traceEntryStartDateInput', 1, 'traceEntryStartDateDisplay')">Jour suivant ▶</button>
 									</div>
-									<div class="date-display">
+									<div  style="display:none" class="date-display">
 										Date sélectionnée: <span id="traceEntryStartDateDisplay"></span>
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 											   min="2007-01-01" max="2050-12-31">
 										<button type="button" onclick="shiftDate('traceEntryEndDateInput', 1, 'traceEntryEndDateDisplay')">Jour suivant ▶</button>
 									</div>
-									<div class="date-display">
+									<div  style="display:none" class="date-display">
 										Date sélectionnée: <span id="traceEntryEndDateDisplay"></span>
 									</div>
 								</div>

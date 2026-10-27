@@ -122,7 +122,7 @@
                                    min="2007-01-01" max="2050-12-31">
                             <button type="button" onclick="shiftDate('allocationDate', 1, 'allocationDateDisplay', formatAndSubmitDate);">Jour suivant ▶</button>
                         </div>
-                        <div class="date-display">
+                        <div  style="display:none" class="date-display">
                             Date sélectionnée: <span id="allocationDateDisplay"></span>
                         </div>
                     </div>

@@ -18,12 +18,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.StringTokenizer;
 import java.math.RoundingMode;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@Service
+@Service("exportBusiness")
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
@@ -33,6 +34,65 @@ public class ExportBusiness implements IExportBusiness {
 	private final IConditioningDAO conditioningDAO;
 	private final ICustomerDAO customerDAO;
 	private final IEditionTypeDAO editionTypeDAO;
+
+	@Override
+	public Export productsExport(Export export) {
+		if (export == null) {
+			export = new Export();
+		}
+		List<?> resultFromDb = productDAO.getProductsToExport();
+		if (resultFromDb != null) {
+			extractData(export, resultFromDb);
+		}
+		log.info("Products export: {}", export.getProducts() == null ? 0 : export.getProducts().size());
+		return export;
+	}
+
+	@Override
+	public Export customersExport(Export export) {
+		if (export == null) {
+			export = new Export();
+		}
+		List<?> resultFromDb = customerDAO.getCustomersToExport();
+		if (resultFromDb != null) {
+			for (Object row : resultFromDb) {
+				if (!(row instanceof db.customer.Customer customerDb)) {
+					continue;
+				}
+				CustomerToExport customer = new CustomerToExport();
+				customer.setName(customerDb.getName());
+				String nameAddPart = customerDb.getNameAdditionalPart();
+				if (StringUtils.isNotBlank(nameAddPart) && !StringUtils.equalsIgnoreCase(nameAddPart, "null")) {
+					customer.setNameAdditionalPart(nameAddPart);
+				} else {
+					customer.setNameAdditionalPart(" ");
+				}
+				customer.setEmail(customerDb.getEmail());
+
+				String buyRate = customerDb.getBuyRate();
+				if (StringUtils.isNotBlank(buyRate)) {
+					customer.setBuyRate(Float.valueOf(buyRate));
+				} else {
+					customer.setBuyRate(-1);
+				}
+
+				String codesTypesOfEditions = customerDb.getCodesTypesOfEditions();
+				if (StringUtils.isNotBlank(codesTypesOfEditions) && !codesTypesOfEditions.equalsIgnoreCase("null")) {
+					customer.setGroupsCodes(codesTypesOfEditions);
+					StringTokenizer types = new StringTokenizer(codesTypesOfEditions, ",");
+					while (types.hasMoreTokens()) {
+						EditionType editionType = editionTypeDAO.get(types.nextToken());
+						if (editionType != null) {
+							customer.addGroup(editionType.getDescription());
+						}
+					}
+				}
+				export.addCustomer(customer);
+			}
+		}
+		log.info("Customers export: {}", export.getCustomers() == null ? 0 : export.getCustomers().size());
+		return export;
+	}
 
 	@Override
 	public Export productExport(Export export, String productReference, String productExportWithImage) {

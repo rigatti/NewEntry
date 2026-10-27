@@ -6,17 +6,27 @@ import db.entry.treated.ITreatedEntryDetailDestinationDAO;
 import db.entry.treated.temp.ITreatedEntryCustomerTempDAO;
 import db.entry.treated.temp.ITreatedEntryTempDAO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
+@Service("cleaningBusiness")
 public class CleaningBusiness implements ICleaningBusiness {
-	
-	ITreatedEntryDAO treatedEntryDAO;
-	ITreatedEntryDetailDAO treatedEntryDetailDAO;
-	ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
-	
-	ITreatedEntryTempDAO treatedEntryTempDAO;
-	ITreatedEntryCustomerTempDAO treatedEntryCustomerTempDAO;
+
+	private final ITreatedEntryDAO treatedEntryDAO;
+	private final ITreatedEntryDetailDAO treatedEntryDetailDAO;
+	private final ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO;
+
+	private ITreatedEntryTempDAO treatedEntryTempDAO;
+	private ITreatedEntryCustomerTempDAO treatedEntryCustomerTempDAO;
+
+	public CleaningBusiness(ITreatedEntryDAO treatedEntryDAO,
+							ITreatedEntryDetailDAO treatedEntryDetailDAO,
+							ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO) {
+		this.treatedEntryDAO = treatedEntryDAO;
+		this.treatedEntryDetailDAO = treatedEntryDetailDAO;
+		this.treatedEntryDetailDestinationDAO = treatedEntryDetailDestinationDAO;
+	}
 
 	@Transactional
 	public Cleaning cleanDb(Cleaning cleaning) {
@@ -51,20 +61,6 @@ public class CleaningBusiness implements ICleaningBusiness {
 		}
 
 		return cleaning;
-	}
-
-	public void setTreatedEntryDAO(ITreatedEntryDAO treatedEntryDAO) {
-		this.treatedEntryDAO = treatedEntryDAO;
-	}
-
-	public void setTreatedEntryDetailDAO(
-			ITreatedEntryDetailDAO treatedEntryDetailDAO) {
-		this.treatedEntryDetailDAO = treatedEntryDetailDAO;
-	}
-
-	public void setTreatedEntryDetailDestinationDAO(
-			ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO) {
-		this.treatedEntryDetailDestinationDAO = treatedEntryDetailDestinationDAO;
 	}
 
 	public ITreatedEntryCustomerTempDAO getTreatedEntryCustomerTempDAO() {

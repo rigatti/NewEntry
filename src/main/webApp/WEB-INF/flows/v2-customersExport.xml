@@ -1,0 +1,16 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="exportAct">
+
+    <var name="export" class="org.belex.export.Export"/>
+
+    <action-state id="exportAct">
+        <evaluate expression="exportBusiness.customersExport(flowScope.export)" result="flowScope.export"/>
+        <transition on="success" to="confirmView"/>
+    </action-state>
+
+    <end-state id="confirmView" view="customersExport/multiple"/>
+
+</flow>

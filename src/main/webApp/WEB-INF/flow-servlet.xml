@@ -31,6 +31,10 @@
 		<flow:flow-location id="allocation" path="/WEB-INF/flows/v2-productAllocation.xml"/>
 		<flow:flow-location id="productAdmin" path="/WEB-INF/flows/v2-productAdmin.xml"/>
 		<flow:flow-location id="productTraceability" path="/WEB-INF/flows/v2-productTraceability.xml"/>
+		<flow:flow-location id="supplierEntryTraceability" path="/WEB-INF/flows/v2-supplierEntryTraceability.xml"/>
+		<flow:flow-location id="productCleaning" path="/WEB-INF/flows/v2-productCleaning.xml"/>
+		<flow:flow-location id="productsExport" path="/WEB-INF/flows/v2-productsExport.xml"/>
+		<flow:flow-location id="customersExport" path="/WEB-INF/flows/v2-customersExport.xml"/>
 	</flow:flow-registry>
 
 	<flow:flow-builder-services id="flowBuilderServices"
