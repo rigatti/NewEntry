@@ -1,0 +1,56 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="getSuppliersAct">
+
+    <var name="requestParams" class="org.belex.requestparams.RequestParams"/>
+
+    <on-start>
+        <set name="flowScope.adminView" value="'list'"/>
+    </on-start>
+
+    <action-state id="getSuppliersAct">
+        <evaluate expression="supplierBusiness.getSuppliers()" result="flowScope.suppliers"/>
+        <transition on="success" to="mainView"/>
+    </action-state>
+
+    <view-state id="mainView" view="productAdmin/main">
+        <transition on="productSearch" to="productSearchAct">
+            <evaluate expression="requestParams.setSearchExactMatch('')"/>
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+            <set name="flowScope.adminView" value="'list'"/>
+        </transition>
+        <transition on="productDet" to="mainView">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+            <set name="flowScope.adminView" value="'detail'"/>
+        </transition>
+        <transition on="updateProductCode" to="updateProductCodeAct">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+        </transition>
+        <transition on="deleteProductCode" to="deleteProductCodeAct">
+            <evaluate expression="requestParamsFormAction.bindAndValidate(flowRequestContext)"/>
+        </transition>
+    </view-state>
+
+    <action-state id="productSearchAct">
+        <evaluate expression="productBusiness.getProducts(requestParams.searchValue, requestParams.searchExactMatch, requestParams.searchType, requestParams.searchOnSupplier)"
+                  result="flowScope.products"/>
+        <transition on="success" to="mainView"/>
+    </action-state>
+
+    <action-state id="updateProductCodeAct">
+        <evaluate expression="productBusiness.updateProductCode(requestParams.adminOldProductCode, requestParams.adminNewProductCode)"/>
+        <transition on="success" to="productSearchAct">
+            <set name="flowScope.adminView" value="'list'"/>
+        </transition>
+    </action-state>
+
+    <action-state id="deleteProductCodeAct">
+        <evaluate expression="productBusiness.deleteProductCode(requestParams.adminOldProductCode)"/>
+        <transition on="success" to="productSearchAct">
+            <set name="flowScope.adminView" value="'list'"/>
+        </transition>
+    </action-state>
+
+</flow>
