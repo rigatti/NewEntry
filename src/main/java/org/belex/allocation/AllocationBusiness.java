@@ -359,6 +359,7 @@ public class AllocationBusiness implements IAllocationBusiness{
 						// some cases have an added string like "," "." or " " at the end of the conditioning BUT for the same product.
 						if (c.getUnitLargeScale().startsWith(sod.getUnitLargeScale()) || sod.getUnitLargeScale().startsWith(c.getUnitLargeScale())/* && sod.getNumberOfProductToOrder() == cod.getTotalNumberOfUnit()*/) {
 							customerOrderConfirmed = true;
+							break;
 						}
 					}
 					
@@ -935,7 +936,7 @@ public class AllocationBusiness implements IAllocationBusiness{
 
 								if ( dest.getCustomerCode().equals(tedd.getCustomerCode()) ) {
 
-									if ( airportCode.equals("") ) {
+									if ( airportCode.isEmpty() ) {
 										airportCode = tedd.getAirportCode();
 										lta = tedd.getLta();
 										flight = tedd.getFlight();

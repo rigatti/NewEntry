@@ -1,7 +1,12 @@
 package org.belex.fly;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class Fly implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -11,30 +16,6 @@ public class Fly implements Serializable {
 	private int fret;
 	
 	public Fly() {
-	}
-	public String getFlyNumber() {
-		return flyNumber;
-	}
-	public void setFlyNumber(String flyNumber) {
-		this.flyNumber = flyNumber;
-	}
-	public int getFret() {
-		return fret;
-	}
-	public void setFret(int fret) {
-		this.fret = fret;
-	}
-	public String getLtaNumber() {
-		return ltaNumber;
-	}
-	public void setLtaNumber(String ltaNumber) {
-		this.ltaNumber = ltaNumber;
-	}
-	public String getAirportCode() {
-		return airportCode;
-	}
-	public void setAirportCode(String airportCode) {
-		this.airportCode = airportCode;
 	}
 
 }

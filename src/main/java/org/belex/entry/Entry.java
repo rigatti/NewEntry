@@ -56,21 +56,19 @@ public class Entry implements Serializable {
 
 	public Vector<Customer> getCustomers() {
 		if (customers == null) {
-			customers = new Vector<Customer>();
+			customers = new Vector<>();
 		}
 		return customers;
 	}
 
 	public boolean addCustomer(Customer customer) {
 		if (customers == null) {
-			customers = new Vector<Customer>();
+			customers = new Vector<>();
 		}
-		boolean newCustomer = true;
-		
-		if (newCustomer){
-			customers.add(customer);
-		}
-		return newCustomer;
+
+		customers.add(customer);
+
+	    return true;
 	}
 
 	public String getOrderNumbers() {
@@ -83,7 +81,7 @@ public class Entry implements Serializable {
 		if (this.orderNumbers != null && this.orderNumbers.trim().length() != 0) {
 
 			String result = Util.containsAll(this.orderNumbers, orderNumbers, ",");
-			if ( ! result.equals("")){
+			if ( ! result.isEmpty()){
 				this.orderNumbers += "," + result;
 			}
 
@@ -102,7 +100,7 @@ public class Entry implements Serializable {
 	public void addOrderLetter(String orderLetter) {
 		if (this.orderLetter != null && this.orderLetter.trim().length() != 0) {
 			String result = Util.containsAll(this.orderLetter, orderLetter, ",");
-			if ( ! result.equals("")){
+			if ( ! result.isEmpty()){
 				this.orderLetter += "," + result;
 			}
 		} else {

@@ -14,7 +14,7 @@ public void init() throws ServletException {
 		for (String filePath : paths) {
 			File f = new File(getServletContext().getRealPath(filePath));
 
-			if (f != null && f.exists()) {
+			if (f.exists()) {
 				f.delete();
 			}
 		}

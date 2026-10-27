@@ -125,7 +125,7 @@ public class Util {
 		if (numberOfUnit == 1) {
 			result = unitConditionnement;
 		}
-		if (result.equals("")) {
+		if (result.isEmpty()) {
 			result = numberOfUnit + " X " + unitConditionnement;
 		}
 		if (addBraquets && numberOfUnit > 1) {
@@ -145,7 +145,7 @@ public class Util {
 	
 				SimpleDateFormat outFormat = new SimpleDateFormat(outPattern);
 	
-				if (originDate == null || originDate.trim().equals("")) {
+				if (originDate == null || originDate.trim().isEmpty()) {
 	
 					result = outFormat.format(Calendar.getInstance(new Locale("fr", "BE")).getTime());
 	

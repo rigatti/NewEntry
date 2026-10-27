@@ -70,7 +70,6 @@ public class DataSender {
 	        	result = true;
 	        }
 	    } catch (IOException e) {
-	    	result = false;
 	    	log.error("DataSender data:" + data, e);
 	    }
 	    return result;

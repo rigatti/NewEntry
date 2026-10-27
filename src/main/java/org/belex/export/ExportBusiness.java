@@ -118,13 +118,13 @@ public class ExportBusiness implements IExportBusiness {
 
 		List<ProductToExport> products = export.getProducts();
 		log.info("Number of products to export: {}", products == null ? 0 : products.size());
+		if (products != null) {
+			String impactedRefs = buildImpactedReferences(products);
 
-		String impactedRefs = buildImpactedReferences(products);
-
-		for (ProductToExport product : products) {
-			sendProduct(product, impactedRefs, imagePath);
+			for (ProductToExport product : products) {
+				sendProduct(product, impactedRefs, imagePath);
+			}
 		}
-
 		return export;
 	}
 

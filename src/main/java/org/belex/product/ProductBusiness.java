@@ -156,12 +156,12 @@ public class ProductBusiness implements IProductBusiness {
 	}
 	public Vector<Product> getProducts(String searchValue, String searchExactMatch, String searchType, String searchOnSupplier) {
 
-		Vector<Product> result = new Vector<Product>();
+		Vector<Product> result = new Vector<>();
 		
 		 String stockFilteredSupplierCode = searchOnSupplier;
 		 									//(StringUtils.equals(searchOnSupplier, Constants.SUPPLIER_STOCK)?"": searchOnSupplier);
 
-		if ( ! searchValue.equals("")) {
+		if ( ! searchValue.isEmpty()) {
 
 			if (searchType.equals(SEARCH_TYPE_CODE)) {
 
@@ -282,10 +282,10 @@ public class ProductBusiness implements IProductBusiness {
 				unit = units.get(i);
 				
 				// can append when multiple unit with same conditionnement for different suppliers
-				if (unit.getSupplierCode().equals("")){
+				if (unit.getSupplierCode().isEmpty()){
 					unit.setSupplierCode(arrival.getSupplier().getSupplierCode());
 				}
-				if (unit.getConditionnement().equals("")) {
+				if (unit.getConditionnement().isEmpty()) {
 					unit.setConditionnement(arrival.getEntry().getProduct().getNewProductUnitConditionnement());
 				}
 				if (unit.getNumber() == 0) {
@@ -359,19 +359,17 @@ public class ProductBusiness implements IProductBusiness {
 
 			// force true fo avoid update conditioning management. 
 			// => Will be managed in a futur development phase
-			boolean sameUnitExist = true;
+//			boolean sameUnitExist = true;
 
-			boolean success = false;
-
-			success = productDAO.delete(oldDbProduct);
+			boolean success = productDAO.delete(oldDbProduct);
 
 			if (success) {
 				
-				if (sameUnitExist) {
+//				if (sameUnitExist) {
 					success = conditioningDAO.deleteProductCode(oldProductCode);
-				} else {
-					success = conditioningDAO.updateProductCode(oldProductCode, newProductCode);
-				}
+//				} else {
+//					success = conditioningDAO.updateProductCode(oldProductCode, newProductCode);
+//				}
 
 				if (success) {
 					success = descriptionDAO.deleteProductCode(oldProductCode);

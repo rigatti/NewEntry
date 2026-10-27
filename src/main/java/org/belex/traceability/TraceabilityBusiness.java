@@ -116,8 +116,8 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 			for (TreatedEntryDetailDestination tedd : tedds) {
 				
 				Customer customer = new Customer(tedd.getCustomerCode());
-				customer.setStockCustomer(tedd.getStockFlag() == 0?false:true);
-				customer.setSupplierReturnsCustomer(tedd.getSupplierReturnsFlag() == 0?false:true);
+				customer.setStockCustomer(tedd.getStockFlag() != 0);
+				customer.setSupplierReturnsCustomer(tedd.getSupplierReturnsFlag() != 0);
 				customer.setAllocationDate(tedd.getAllocationDate());
 				
 				CustomerEntry customerEntry = new CustomerEntry();

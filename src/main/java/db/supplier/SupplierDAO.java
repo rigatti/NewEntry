@@ -24,7 +24,6 @@ public class SupplierDAO implements ISupplierDAO {
 
 	@Transactional(readOnly = true)
 	public List<Supplier> getAll() {
-		List<Supplier> suppliers = null;
 		try {
 
 			log.debug("Finding all suppliers");
@@ -37,13 +36,12 @@ public class SupplierDAO implements ISupplierDAO {
 			log.error("Error while finding suppliers", e);
 		}
 
-		return suppliers;
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public Supplier getByCode(String supplierCode) {
-		Supplier supplier = new Supplier(supplierCode);
-		
+
 		try {
 			log.debug("Finding Suppliers from " + supplierCode);
 
@@ -61,7 +59,7 @@ public class SupplierDAO implements ISupplierDAO {
 			log.error("Error while finding suppliers", e);
 		}
 		
-		return supplier;
+		return new Supplier(supplierCode);
 	}
 
 }

@@ -55,7 +55,6 @@ public class CustomerDAO implements ICustomerDAO {
 
 	@Transactional(readOnly = true)
 	public List<?> getCustomersToExport() {
-		List<?> result = null;
 		try {
 			log.debug("Finding CUSTOMER to export");
 
@@ -67,12 +66,11 @@ public class CustomerDAO implements ICustomerDAO {
 			log.error("Error while getting customers with email not null", e);
 		}
 		
-		return result;
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<?> getCustomerToExport(String email) {
-		List<?> result = null;
 		try {
 			log.debug("Finding CUSTOMER to export with email : " + email);
 
@@ -85,6 +83,6 @@ public class CustomerDAO implements ICustomerDAO {
 			log.error("Error while getting customers with email :" + email, e);
 		}
 		
-		return result;
+		return null;
 	}
 }

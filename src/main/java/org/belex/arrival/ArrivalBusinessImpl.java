@@ -415,7 +415,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 			// temp 
 			
 			String containsAllResult = Util.containsAll(allSupplierOrdersNumbersTreated, supplierOrderNumbers, ",");
-			if ( ! containsAllResult.equals("")) {
+			if ( ! containsAllResult.isEmpty()) {
 				if (allSupplierOrdersNumbersTreated.length() > 0) {
 					allSupplierOrdersNumbersTreated += ",";
 				}
@@ -745,7 +745,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 
 						}
 
-						if (cods != null && cods.size() > 0) {
+						if (cods.size() > 0) {
 							
 							for (CustomerOrderDetail cod : cods) {
 
@@ -756,7 +756,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 									// WARNING the field TotalNumberOfUnit is not always correctly filled by ouistiti
 									// re-compute it to be sure.
 									// DONT USE : int totalUnitRequestedForCurrentClient = sod.getTotalNumberOfUnit();
-									int totalUnitRequestedForCurrentClient = (cod.getNumberOfProduct() * cod.getNumberOfUnit()) - new Float(cod.getNumberGets()).intValue();
+									int totalUnitRequestedForCurrentClient = (cod.getNumberOfProduct() * cod.getNumberOfUnit()) - Float.valueOf(cod.getNumberGets()).intValue();
 		
 									// if the current sod has not previously been treated
 									if (totalUnitRequestedForCurrentClient > 0) {
@@ -984,7 +984,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 			
 			if (supplier == null) {
 
-				if (supplierCode.equals("")) {
+				if (supplierCode.isEmpty()) {
 
 					supplierName = "Inconnu";
 
@@ -1113,101 +1113,104 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 							if ( cs == null || cs.size() == 0 ) {
 								// search for priority 1 of this product code and add the conditionnement for the unit scale
 								Conditioning c = conditioningDAO.getUnitScaleForTopPriority(productCode);
-								if (c != null) {
+								if (c != null && cs != null) {
 									cs.add(c);
 								}
 							}
 						}
 
-						for (Conditioning c : cs) {
-							boolean treatItem = false;
-							boolean simpleUnit = false;
+						if (cs != null) {
+							for (Conditioning c : cs) {
+								boolean treatItem = false;
+								boolean simpleUnit = false;
 
-							if (c.getUnitLargeScale().startsWith(sod.getUnitLargeScale()) || sod.getUnitLargeScale().startsWith(c.getUnitLargeScale())) {
-								treatItem = true;
-							} else {
-								if (isSupplierStock && c.getUnit().equals(sod.getUnitLargeScale())) {
-									simpleUnit = true;
+								if (c.getUnitLargeScale().startsWith(sod.getUnitLargeScale()) || sod.getUnitLargeScale().startsWith(c.getUnitLargeScale())) {
 									treatItem = true;
-								}
-							}
-
-							if ( treatItem ) {
-	
-								int numberOfProduct = sod.getNumberOfProductOrdered();
-								String unitConditionnement = c.getUnit();
-								int numberOfUnit = c.getNumberOfUnit();
-
-								if ( simpleUnit ) {
-									numberOfUnit = 1;
-								}
-	
-								Product product = new Product(productCode);
-								product.setDescription(productDAO.getDescription(productCode));
-
-								Unit unit = product. new Unit();
-								unit.setNumber(numberOfUnit);
-								unit.setConditionnement(unitConditionnement);
-								unit.setDateLastMofication(c.getDateLastModification());
-								
-								// get the EAN (will be used in order status view for direct links to completeEntryView or not)
-								List<Conditioning> conditionnings = conditioningDAO.getProductsByCode(productCode, true, supplier.getSupplierCode());
-								if (conditionnings.size() == 1) {
-									String ean = conditionnings.get(0).getEan();
-									if (StringUtils.isNumeric(ean) && ean.length() > 8) {
-										unit.setEan(ean);
-									}
-								}
-					
-								product.addUnit(unit);
-					
-								Entry entry = new Entry();
-								entry.setOrderNumbers(String.valueOf(currentOrderNumber));
-								entry.setOrderLetter(currentOrderLetter);
-								entry.setProduct(product);
-								entry.setNumberOfProduct(numberOfProduct);
-					
-								// check if entry not already insert in the entries
-								// if yes, add the current number of product to the one found in entries
-								// if no, just add entry in entries
-								/*
-								if (entry.getProduct().getProductCode().equals("ROLSAUM")) {
-									String debugBreakPoint = "";
-								}
-								*/
-					
-								int itemFoundIndex = -1;
-								for (int i = 0; (i < entries.size()) && (itemFoundIndex < 0); i++) {
-									Entry tempEntry = entries.get(i);
-									if ( tempEntry.getProduct().getProductCode().equals(product.getProductCode()) ) {
-										Vector<Unit> tempUnits = tempEntry.getProduct().getUnits();
-										Unit currentUnit = product.getUnits().get(0);
-										for (int j = 0; j < tempUnits.size(); j++) {
-											if (
-													tempUnits.get(j).getConditionnement().equals(currentUnit.getConditionnement()) &&
-													tempUnits.get(j).getNumber() == currentUnit.getNumber()
-												) {
-												numberOfProduct = tempEntry.getNumberOfProduct() + entry.getNumberOfProduct();
-												itemFoundIndex = i;
-											}
-										}
-					
-										entry.setOrderNumbers(tempEntry.getOrderNumbers());
-										entry.setOrderLetter(tempEntry.getOrderLetter());
-					
-										entry.addOrderNumbers(String.valueOf(currentOrderNumber));
-										entry.addOrderLetter(currentOrderLetter);
-					
-										break;
-									}
-								}
-								if (itemFoundIndex < 0) {
-									entries.add(entry);
 								} else {
-									entry.setNumberOfProduct(numberOfProduct);
-									entries.setElementAt(entry, itemFoundIndex);
+									if (isSupplierStock && c.getUnit().equals(sod.getUnitLargeScale())) {
+										simpleUnit = true;
+										treatItem = true;
+									}
 								}
-	
+
+								if (treatItem) {
+
+									int numberOfProduct = sod.getNumberOfProductOrdered();
+									String unitConditionnement = c.getUnit();
+									int numberOfUnit = c.getNumberOfUnit();
+
+									if (simpleUnit) {
+										numberOfUnit = 1;
+									}
+
+									Product product = new Product(productCode);
+									product.setDescription(productDAO.getDescription(productCode));
+
+									Unit unit = product.new Unit();
+									unit.setNumber(numberOfUnit);
+									unit.setConditionnement(unitConditionnement);
+									unit.setDateLastMofication(c.getDateLastModification());
+
+									// get the EAN (will be used in order status view for direct links to completeEntryView or not)
+									List<Conditioning> conditionnings = conditioningDAO.getProductsByCode(productCode, true, supplier.getSupplierCode());
+									if (conditionnings.size() == 1) {
+										String ean = conditionnings.get(0).getEan();
+										if (StringUtils.isNumeric(ean) && ean.length() > 8) {
+											unit.setEan(ean);
+										}
+									}
+
+									product.addUnit(unit);
+
+									Entry entry = new Entry();
+									entry.setOrderNumbers(String.valueOf(currentOrderNumber));
+									entry.setOrderLetter(currentOrderLetter);
+									entry.setProduct(product);
+									entry.setNumberOfProduct(numberOfProduct);
+
+									// check if entry not already insert in the entries
+									// if yes, add the current number of product to the one found in entries
+									// if no, just add entry in entries
+									/*
+									if (entry.getProduct().getProductCode().equals("ROLSAUM")) {
+										String debugBreakPoint = "";
+									}
+									*/
+
+									int itemFoundIndex = -1;
+									for (int i = 0; (i < entries.size()) && (itemFoundIndex < 0); i++) {
+										Entry tempEntry = entries.get(i);
+										if (tempEntry.getProduct().getProductCode().equals(product.getProductCode())) {
+											Vector<Unit> tempUnits = tempEntry.getProduct().getUnits();
+											Unit currentUnit = product.getUnits().get(0);
+											for (int j = 0; j < tempUnits.size(); j++) {
+												if (
+														tempUnits.get(j).getConditionnement().equals(currentUnit.getConditionnement()) &&
+																tempUnits.get(j).getNumber() == currentUnit.getNumber()
+												) {
+													numberOfProduct = tempEntry.getNumberOfProduct() + entry.getNumberOfProduct();
+													itemFoundIndex = i;
+													break;
+												}
+											}
+
+											entry.setOrderNumbers(tempEntry.getOrderNumbers());
+											entry.setOrderLetter(tempEntry.getOrderLetter());
+
+											entry.addOrderNumbers(String.valueOf(currentOrderNumber));
+											entry.addOrderLetter(currentOrderLetter);
+
+											break;
+										}
+									}
+									if (itemFoundIndex < 0) {
+										entries.add(entry);
+									} else {
+										entry.setNumberOfProduct(numberOfProduct);
+										entries.setElementAt(entry, itemFoundIndex);
+									}
+
+								}
 							}
 						}
 					}
@@ -1223,8 +1226,8 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 	private boolean checkCreationNumber(Hashtable<Integer, List<Integer>> orderReferences, int key, int value) {
 		if (orderReferences.containsKey(key)) {
 			List<Integer> list = orderReferences.get(key);
-			for (Integer integer : list) {
-				if (integer == Integer.valueOf(value)) {
+			for (Integer aCreationNumber : list) {
+				if (aCreationNumber == Integer.valueOf(value)) {
 					return true;
 				}
 			}
@@ -1360,7 +1363,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 
 					if (packaging != null && StringUtils.isNotEmpty(packaging.getCustomerCode()) ) {
 						customer.setCode(packaging.getCustomerCode());
-						if ( ! customer.getCode().equals("") ) {
+						if ( ! customer.getCode().isEmpty() ) {
 							customer.setAddressFurniture(customerDAO.getAddressFurniture(customer.getCode()));
 						}
 					} else {
@@ -1393,7 +1396,7 @@ public class ArrivalBusinessImpl implements ArrivalBusiness {
 
 				if (packaging != null && StringUtils.isNotEmpty(packaging.getCustomerCode()) ) {
 					customer.setCode(packaging.getCustomerCode());
-					if ( ! customer.getCode().equals("") ) {
+					if ( ! customer.getCode().isEmpty() ) {
 						customer.setAddressFurniture(customerDAO.getAddressFurniture(customer.getCode()));
 					}
 				} else {

@@ -1,5 +1,10 @@
 package db.entry.treated;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TreatedEntry  implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,77 +19,7 @@ public class TreatedEntry  implements java.io.Serializable {
 	private String arrivalDate;
 	private String arrivalTime;
 	
-	public String getArrivalDate() {
-		return arrivalDate;
-	}
-
-	public void setArrivalDate(String arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-
-	public String getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
 
 	public TreatedEntry() {}
 
-	public String getEan() {
-		return ean;
-	}
-
-	public void setEan(String ean) {
-		this.ean = ean;
-	}
-
-	public int getTreatedEntryId() {
-		return treatedEntryId;
-	}
-
-	public void setTreatedEntryId(int id) {
-		this.treatedEntryId = id;
-	}
-
-	public String getLotNumber() {
-		return lotNumber;
-	}
-
-	public void setLotNumber(String lotNumber) {
-		this.lotNumber = lotNumber;
-	}
-
-	public String getProductCode() {
-		return productCode;
-	}
-
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-
-	public String getSupplierCode() {
-		return supplierCode;
-	}
-
-	public void setSupplierCode(String supplierCode) {
-		this.supplierCode = supplierCode;
-	}
-
-	public String getSupplierProductCode() {
-		return supplierProductCode;
-	}
-
-	public void setSupplierProductCode(String supplierProductCode) {
-		this.supplierProductCode = supplierProductCode;
-	}
-
-	public String getValidityDate() {
-		return validityDate;
-	}
-
-	public void setValidityDate(String validityDate) {
-		this.validityDate = validityDate;
-	}
 }

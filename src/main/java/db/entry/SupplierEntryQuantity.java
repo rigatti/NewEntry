@@ -1,5 +1,10 @@
 package db.entry;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SupplierEntryQuantity implements java.io.Serializable {
 	private int supplierEntryId;
 	private String productCode;
@@ -15,34 +20,4 @@ public class SupplierEntryQuantity implements java.io.Serializable {
 		this.productCode = productCode;
 	}
 
-	public int getSupplierEntryId() {
-		return supplierEntryId;
-	}
-	public void setSupplierEntryId(int supplierEntryId) {
-		this.supplierEntryId = supplierEntryId;
-	}
-	public int getNumberGets() {
-		return numberGets;
-	}
-	public void setNumberGets(int numberGets) {
-		this.numberGets = numberGets;
-	}
-	public int getNumberTransferedToCustomer() {
-		return numberTransferedToCustomer;
-	}
-	public void setNumberTransferedToCustomer(int numberTransferedToCustomer) {
-		this.numberTransferedToCustomer = numberTransferedToCustomer;
-	}
-	public int getNumberTransferedToStock() {
-		return numberTransferedToStock;
-	}
-	public void setNumberTransferedToStock(int numberTransferedToStock) {
-		this.numberTransferedToStock = numberTransferedToStock;
-	}
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
 }

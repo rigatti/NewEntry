@@ -29,7 +29,7 @@ public class FileSender {
 		try {
 			String localhostname = java.net.InetAddress.getLocalHost().getHostName();
 			boolean isLocal = false;
-	    	if ( ! StringUtils.containsIgnoreCase(localhostname, "CARGO") ) {
+	    	if ( ! (StringUtils.containsIgnoreCase(localhostname, "CARGO") || StringUtils.containsIgnoreCase(localhostname, "atelier") ) ) {
 	    		isLocal = true;
 	    	}
 	    	
@@ -67,27 +67,27 @@ public class FileSender {
             	filename = result;
             	// files are all already on the ftp server in local, no need to send it again
             	// Due to corrupted img transfer, do it manually to the ftp server belexcargo.com
-            	if (false) {
+//            	if (false) {
             	//if ( ! isLocal ) {
-	            	client = new FTPClient();
-	                client.connect(Constants.FTPHOST);
-	                client.login(Constants.FTPUSERNAME, Constants.FTPPWD);
-	     
-	                fis = new FileInputStream(path + filename);
-	                client.storeFile(targetPath + filename, fis);
-	
-		            if (client.getReplyCode() != 226 && client.getReplyCode() != 200) {
-		            	log.error("FileSender, path: " + path + " and reference: " + reference +" and resp: " + client.getReplyString());
-		            	result = null;
-		            } else {
-		            	log.info("FileSender: " + client.getReplyString());
-		            	result = httpPath + filename;
-		            }
-		            client.logout();
-            	} else {
+//	            	client = new FTPClient();
+//	                client.connect(Constants.FTPHOST);
+//	                client.login(Constants.FTPUSERNAME, Constants.FTPPWD);
+//
+//	                fis = new FileInputStream(path + filename);
+//	                client.storeFile(targetPath + filename, fis);
+//
+//		            if (client.getReplyCode() != 226 && client.getReplyCode() != 200) {
+//		            	log.error("FileSender, path: " + path + " and reference: " + reference +" and resp: " + client.getReplyString());
+//		            	result = null;
+//		            } else {
+//		            	log.info("FileSender: " + client.getReplyString());
+//		            	result = httpPath + filename;
+//		            }
+//		            client.logout();
+//            	} else {
             		// local : file should already be in place 
             		result = httpPath + filename;
-            	}
+//            	}
             } else {
                 result = null;
             }
