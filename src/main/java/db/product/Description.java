@@ -1,15 +1,19 @@
 package db.product;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Description  implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@EqualsAndHashCode.Include
 	private String productCode = "";
+	@EqualsAndHashCode.Include
 	private String language = "";
 	private String description = "";
 

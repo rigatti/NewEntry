@@ -1,12 +1,16 @@
 package db.entry;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class SupplierEntryQuantity implements java.io.Serializable {
+	@EqualsAndHashCode.Include
 	private int supplierEntryId;
+	@EqualsAndHashCode.Include
 	private String productCode;
 	private int numberGets;
 	private int numberTransferedToCustomer;

@@ -1,11 +1,17 @@
 package db.entry;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Planning  implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@EqualsAndHashCode.Include
 	private int orderNumber;
+	@EqualsAndHashCode.Include
 	private int creationNumber;
+	@EqualsAndHashCode.Include
 	private String supplierCode;
 	private String plannedDate;
 	private String plannedMode;

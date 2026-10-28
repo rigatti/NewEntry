@@ -1,18 +1,25 @@
 package db.prepare;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PrepareOrderDetail  implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@EqualsAndHashCode.Include
 	private int orderNumber;
+	@EqualsAndHashCode.Include
 	private String orderLetter;	
+	@EqualsAndHashCode.Include
 	private String customerOrderCode;
+	@EqualsAndHashCode.Include
 	private int customerOrderCodeNumber;
+	@EqualsAndHashCode.Include
 	private int feesType;
 	private String customerCode;
 
