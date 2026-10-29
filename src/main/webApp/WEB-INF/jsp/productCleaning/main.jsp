@@ -5,7 +5,9 @@
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
 </head>
 <body class="content">
-    <h1>Nettoyage DB</h1>
+    <form name="adminFrm" action="<%= request.getContextPath() %>/index.jsp" method="post">
+    </form>
+    <h1 onclick="window.document.adminFrm.submit()">Nettoyage DB</h1>
     <table border="0" cellpadding="10" cellspacing="0" width="100%">
         <tr>
             <td class="layout-manager">

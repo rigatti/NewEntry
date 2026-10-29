@@ -142,7 +142,6 @@
 <p class="instruction-text">Instruction text</p>
 -->
 	<form name="adminFrm" action="<%= request.getContextPath() %>/index.jsp" method="post" target="_top">
-		<input type="hidden" name="admin" value="1">
 	</form>
 	<%
 	Allocation allocation = (Allocation) request.getAttribute("allocation"); 

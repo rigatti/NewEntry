@@ -68,7 +68,6 @@
 <body class="content">
 
 <form name="adminFrm" action="<%= request.getContextPath() %>/index.jsp" method="post">
-    <input type="hidden" name="admin" value="1">
 </form>
 
 <h1 onclick="window.document.adminFrm.submit()">Gestion des articles</h1>
