@@ -148,7 +148,7 @@ public class ProductDAO implements IProductDAO {
                 FROM Conditioning c, Product p, EditionType t, FamilyLevel1 fl1, FamilyLevel3 fl3
                 WHERE p.productCode NOT LIKE '~%'
                   AND p.productCode NOT LIKE '%TBD'
-                  AND c.dateLastModification > CURRENT_DATE - 185
+                  AND cast(c.dateLastModification as date) > current_date - 185 day
                   AND p.productCode = c.productCode
                   AND p.followedProduct = '0'
                   AND t.id = c.editionTypeId
@@ -184,7 +184,7 @@ public class ProductDAO implements IProductDAO {
                             FROM Conditioning c, Product p, EditionType t, FamilyLevel1 fl1, FamilyLevel3 fl3
                             WHERE p.productCode NOT LIKE '~%'
                               AND p.productCode NOT LIKE '%TBD'
-                              AND c.dateLastModification > CURRENT_DATE - 185
+                              AND cast(c.dateLastModification as date) > current_date - 185 day
                               AND p.productCode = c.productCode
                               AND p.productCode = :ref
                               AND p.followedProduct = '0'
@@ -212,7 +212,7 @@ public class ProductDAO implements IProductDAO {
                             FROM Conditioning c, Product p, EditionType t, FamilyLevel1 fl1, FamilyLevel3 fl3
                             WHERE p.productCode NOT LIKE '~%'
                               AND p.productCode NOT LIKE '%TBD'
-                              AND c.dateLastModification > CURRENT_DATE - 185
+                              AND cast(c.dateLastModification as date) > current_date - 185 day
                               AND p.productCode = c.productCode
                               AND p.followedProduct = '0'
                               AND t.id = c.editionTypeId
