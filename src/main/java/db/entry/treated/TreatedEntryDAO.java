@@ -7,7 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,10 +19,15 @@ import java.util.List;
 @Slf4j
 public class TreatedEntryDAO implements ITreatedEntryDAO {
 
-	private final SessionFactory sessionFactory;
+	private static final int CLEAN_BATCH_SIZE = 100;
 
-	public TreatedEntryDAO(SessionFactory sessionFactory) {
+	private final SessionFactory sessionFactory;
+	private final TransactionTemplate cleanBatch;
+
+	public TreatedEntryDAO(SessionFactory sessionFactory, PlatformTransactionManager transactionManager) {
 		this.sessionFactory = sessionFactory;
+		this.cleanBatch = new TransactionTemplate(transactionManager);
+		this.cleanBatch.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 	}
 
 	protected Session currentSession() {
@@ -164,25 +172,44 @@ public class TreatedEntryDAO implements ITreatedEntryDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean cleanDb(String maxDate, ITreatedEntryDetailDAO treatedEntryDetailDAO, ITreatedEntryDetailDestinationDAO treatedEntryDetailDestinationDAO) {
+		List<Integer> ids;
 		try {
-			String hql = "from TreatedEntry where arrivalDate < :maxDate";
-			List<TreatedEntry> entries = currentSession().createQuery(hql, TreatedEntry.class)
+			ids = cleanBatch.execute(status -> currentSession()
+					.createQuery("select e.treatedEntryId from TreatedEntry e where e.arrivalDate < :maxDate", Integer.class)
 					.setParameter("maxDate", maxDate)
-					.getResultList();
-
-			for (TreatedEntry entry : entries) {
-				// Suppression cascade manuelle
-				treatedEntryDetailDestinationDAO.getAll(entry.getTreatedEntryId()).forEach(currentSession()::delete);
-				TreatedEntryDetail detail = treatedEntryDetailDAO.get(entry.getTreatedEntryId());
-				if (detail != null) currentSession().delete(detail);
-				currentSession().delete(entry);
-			}
-			return true;
+					.getResultList());
 		} catch (Exception e) {
-			log.error("Error during cleanDb", e);
+			log.error("Error while listing entries to clean before {}", maxDate, e);
 			return false;
 		}
+		if (ids == null || ids.isEmpty()) {
+			return true;
+		}
+
+		for (int from = 0; from < ids.size(); from += CLEAN_BATCH_SIZE) {
+			List<Integer> batch = ids.subList(from, Math.min(from + CLEAN_BATCH_SIZE, ids.size()));
+			try {
+				cleanBatch.executeWithoutResult(status -> {
+					for (Integer id : batch) {
+						TreatedEntry entry = currentSession().get(TreatedEntry.class, id);
+						if (entry == null) {
+							continue;
+						}
+						treatedEntryDetailDestinationDAO.getAll(entry.getTreatedEntryId()).forEach(currentSession()::delete);
+						TreatedEntryDetail detail = treatedEntryDetailDAO.get(entry.getTreatedEntryId());
+						if (detail != null) {
+							currentSession().delete(detail);
+						}
+						currentSession().delete(entry);
+					}
+				});
+				log.info("Cleaned entries {} to {} of {} before {}", from + 1, from + batch.size(), ids.size(), maxDate);
+			} catch (Exception e) {
+				log.error("Error during cleanDb batch starting at {} before {}", from, maxDate, e);
+				return false;
+			}
+		}
+		return true;
 	}
 }

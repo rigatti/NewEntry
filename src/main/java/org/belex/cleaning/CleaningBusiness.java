@@ -7,7 +7,6 @@ import db.entry.treated.temp.ITreatedEntryCustomerTempDAO;
 import db.entry.treated.temp.ITreatedEntryTempDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service("cleaningBusiness")
@@ -28,7 +27,6 @@ public class CleaningBusiness implements ICleaningBusiness {
 		this.treatedEntryDetailDestinationDAO = treatedEntryDetailDestinationDAO;
 	}
 
-	@Transactional
 	public Cleaning cleanDb(Cleaning cleaning) {
 
 		/*
@@ -51,14 +49,14 @@ public class CleaningBusiness implements ICleaningBusiness {
 		treatedEntryDAO.cleanDb(currentMaxDate, treatedEntryDetailDAO, treatedEntryDetailDestinationDAO);
 		log.info("tables cleaning < " + currentMaxDate + " - DONE");
 
-		// for now - 3 years, clean 6 x 3 months. The cleaning will be done until now - 1,5 years
-		for (int i = 0 ; i < 6 ; i++) {
-			cal.add(java.util.Calendar.MONTH, 3);
-			currentMaxDate = sdtf.format(cal.getTime());
-			log.info("tables cleaning < " + currentMaxDate + " - START");
-			treatedEntryDAO.cleanDb(currentMaxDate, treatedEntryDetailDAO, treatedEntryDetailDestinationDAO);
-			log.info("tables cleaning < " + currentMaxDate + " - DONE");
-		}
+//		// for now - 3 years, clean 6 x 3 months. The cleaning will be done until now - 1,5 years
+//		for (int i = 0 ; i < 6 ; i++) {
+//			cal.add(java.util.Calendar.MONTH, 3);
+//			currentMaxDate = sdtf.format(cal.getTime());
+//			log.info("tables cleaning < " + currentMaxDate + " - START");
+//			treatedEntryDAO.cleanDb(currentMaxDate, treatedEntryDetailDAO, treatedEntryDetailDestinationDAO);
+//			log.info("tables cleaning < " + currentMaxDate + " - DONE");
+//		}
 
 		return cleaning;
 	}
