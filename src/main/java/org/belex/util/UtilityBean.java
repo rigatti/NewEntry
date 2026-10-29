@@ -4,7 +4,7 @@ import org.belex.product.Product;
 import org.belex.product.Product.Unit;
 import org.belex.supplier.Supplier;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;

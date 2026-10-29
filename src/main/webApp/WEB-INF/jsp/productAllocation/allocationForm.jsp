@@ -141,7 +141,7 @@
 <!-- 
 <p class="instruction-text">Instruction text</p>
 -->
-	<form name="adminFrm" action="<%= request.getContextPath() %>/admin.jsp" method="post" target="_top">
+	<form name="adminFrm" action="<%= request.getContextPath() %>/index.jsp" method="post" target="_top">
 		<input type="hidden" name="admin" value="1">
 	</form>
 	<%
@@ -373,31 +373,31 @@ if (allocation == null) { %>
 							</tr>
 							<tr>
 								<td class="table-text" witdh="50%" nowrap>
-									<input type="checkBox" name="allocReportSubstitution">
+									<input type="checkBox" name="allocReportSubstitution" id="allocReportSubstitution">
 									<span onclick="changeCheckBox('allocReportSubstitution')">Substitution</span>
 								</td>
 								<td class="table-text" witdh="50%"¨nowrap>
-									<input type="checkBox" name="allocReportStock">
+									<input type="checkBox" name="allocReportStock" id="allocReportStock">
 									<span onclick="changeCheckBox('allocReportStock')">Stock</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="table-text" nowrap>
-									<input type="checkBox" name="allocReportSupplier">
+									<input type="checkBox" name="allocReportSupplier" id="allocReportSupplier">
 									<span onclick="changeCheckBox('allocReportSupplier')">Fournisseur</span>
 								</td>
 								<td class="table-text" nowrap>
-									<input type="checkBox" name="allocReportStandard">
+									<input type="checkBox" name="allocReportStandard" id="allocReportStandard">
 									<span onclick="changeCheckBox('allocReportStandard')">Traitement standard</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="table-text" witdh="50%" nowrap>
-									<input type="checkBox" name="allocReportRenewedOrder">
+									<input type="checkBox" name="allocReportRenewedOrder" id="allocReportRenewedOrder">
 									<span onclick="changeCheckBox('allocReportRenewedOrder')">Recommande</span>
 								</td>
 								<td class="table-text" witdh="50%"¨nowrap>
-									<input type="checkBox" name="allocReportDeletedOrder">
+									<input type="checkBox" name="allocReportDeletedOrder" id="allocReportDeletedOrder">
 									<span onclick="changeCheckBox('allocReportDeletedOrder')">Suppression</span>
 								</td>
 							</tr>

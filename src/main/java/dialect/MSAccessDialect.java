@@ -3,31 +3,11 @@ package dialect;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.Dialect;
 
-import java.sql.Types;
-
 public class MSAccessDialect extends Dialect {
 
 	public MSAccessDialect() {
                 super();
-                registerHibernateType(Types.BIT, "BIT" ); 
-                registerHibernateType( Types.BIGINT, "INTEGER" );
-                registerHibernateType( Types.SMALLINT, "SMALLINT" );
-                registerHibernateType( Types.TINYINT, "TINYINT" );
-                registerHibernateType( Types.INTEGER, "INTEGER" );
-                registerHibernateType( Types.CHAR, "CHARACTER(1)" );
-                registerHibernateType( Types.VARCHAR, "VARCHAR($l)" );
-                registerHibernateType( Types.FLOAT, "FLOAT" );
-                registerHibernateType( Types.DOUBLE, "DOUBLE PRECISION" );
-                registerHibernateType( Types.DATE, "DATETIME" );
-                registerHibernateType( Types.TIME, "DATETIME" );
-                registerHibernateType( Types.TIMESTAMP, "DATETIME" );
-                registerHibernateType( Types.VARBINARY, "VARBINARY($l)" );
-                registerHibernateType( Types.NUMERIC, "DECIMAL(19,$l)" );
-                
-                
-
-                //getDefaultProperties().setProperty(Environment.OUTER_JOIN, "false");
-                getDefaultProperties().setProperty(Environment.STATEMENT_BATCH_SIZE, NO_BATCH);
+                getDefaultProperties().setProperty(Environment.STATEMENT_BATCH_SIZE, "0");
         }
 
         public String getAddColumnString() {

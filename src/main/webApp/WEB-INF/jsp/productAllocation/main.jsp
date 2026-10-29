@@ -90,10 +90,6 @@
                 }
             }
         }
-        function changeCheckBox(id) {
-            var checkbox = window.document.getElementById(id);
-            checkbox.checked = !checkbox.checked;
-        }
     </script>
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/admin.css">
 </head>
@@ -182,7 +178,7 @@
                                                     <td width="45%" class="table-text">
                                                         <a class="ctext" href="javascript:switchDisplay('div_<%= i %>')"><b><i><%= Util.getShortDisplayable(supplier.getSupplierName(), 20) %></i></b> <font size="0.5"><%= Util.formatDate(entry.getTime(), "hhmmss", "hh:mm:ss") %></font></a>
                                                         <input type="checkbox" id="checkbox_<%= i %>" onclick="changeAllChexBox('checkbox_<%= i %>', 'Supplier=<%= supplier.getSupplierCode() %>;')"><br>
-                                                        <span id="div_<%= i %>" style="display:none;">
+                                                        <span id="div_<%= i %>">
                                                             <%
                                                             int cnt = 0;
                                                             for (int j = 0; j < orders.size(); j++) {

@@ -28,7 +28,7 @@ public class SupplierDAO implements ISupplierDAO {
 
 			log.debug("Finding all suppliers");
 			return currentSession().createQuery(
-					"from Supplier ORDER BY DescriptionFournisseur ASC",
+					"from Supplier order by description",
 					Supplier.class
 			).list();
 

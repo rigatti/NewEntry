@@ -1,7 +1,7 @@
 package org.belex.application;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
 import java.io.File;
 import java.util.HashSet;
 

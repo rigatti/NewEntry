@@ -158,7 +158,7 @@ public class ProductDAO implements IProductDAO {
             """);
 
 			if (mandatoryPlane) {
-				hql.append(" AND p.AvionObligatoire != 1 ");
+				hql.append(" AND p.planeMandatory = false ");
 			}
 
 			hql.append(" ORDER BY p.productCode ASC ");

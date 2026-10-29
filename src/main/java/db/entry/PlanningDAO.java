@@ -44,17 +44,16 @@ public class PlanningDAO implements IPlanningDAO {
 		log.debug("Finding Planning by date: {} and supplier {}", date, supplierCode);
 
 		try {
-			StringBuilder hql = new StringBuilder("from Planning " +
-					"group by orderNumber, supplierCode, plannedDate, creationNumber, plannedMode " +
-					"having plannedDate=CONVERT(smalldatetime, :date, 113) ");
-
+			StringBuilder sql = new StringBuilder(
+					"select distinct * from [PlanningRéceptions] " +
+					"where [DateRéception] = CONVERT(smalldatetime, :date, 113) ");
 
 			if (StringUtils.isNotBlank(supplierCode)) {
-				hql.append(" and supplierCode= :supplierCode  ");
+				sql.append(" and [CodeFournisseur] = :supplierCode ");
 			}
-			hql.append("order by supplierCode");
+			sql.append("order by [CodeFournisseur]");
 
-			var query = currentSession().createQuery(hql.toString(), Planning.class);
+			var query = currentSession().createNativeQuery(sql.toString(), Planning.class);
 
 			query.setParameter("date", date);
 
