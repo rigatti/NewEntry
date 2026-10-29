@@ -15,8 +15,8 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=OUISTITI-TEST;encrypt=false"/>
-        <property name="username" value="sa"/>
-        <property name="password" value="1Oreiller-"/>
+        <property name="username" value="ouistiti"/>
+        <property name="password" value="ouistiti"/>
     </bean>
 
     <!-- SessionFactory Hibernate 5 -->
