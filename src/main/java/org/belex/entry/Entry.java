@@ -35,6 +35,7 @@ public class Entry implements Serializable {
 	private String orderLetter = "";
 	
 	private Vector<Customer> customers;
+	private Vector<Entry> groupedEntries = new Vector<>();
 
 	public Entry() {
 		setDate("");
@@ -216,5 +217,16 @@ public class Entry implements Serializable {
 
 	public void setSupplierEntryNumberOfProducts(int supplierEntryNumberOfProducts) {
 		this.supplierEntryNumberOfProducts = supplierEntryNumberOfProducts;
+	}
+
+	public Vector<Entry> getGroupedEntries() {
+		if (groupedEntries == null) {
+			groupedEntries = new Vector<>();
+		}
+		return groupedEntries;
+	}
+
+	public void setGroupedEntries(Vector<Entry> groupedEntries) {
+		this.groupedEntries = groupedEntries;
 	}
 }

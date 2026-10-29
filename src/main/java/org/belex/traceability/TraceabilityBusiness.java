@@ -13,7 +13,7 @@ import org.belex.requestparams.RequestParams;
 import org.belex.supplier.Supplier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -39,27 +39,21 @@ public class TraceabilityBusiness implements ITraceabilityBusiness {
 		Traceability traceabilityResult = execute(traceability, requestParams, getForSupplierTracability(requestParams));
 		
 		Vector<Entry> entries = traceabilityResult.getEntries();
-		Map<String, Entry> entriesByDate = new HashMap();
-		Map<String, Integer> numberOfEntriesByDate = new HashMap();
+		Map<String, Vector<Entry>> groups = new LinkedHashMap<>();
 		for (Entry entry : entries) {
-			String currentDate = entry.getArrivalDate();
-			entriesByDate.put(currentDate, entry);
-			numberOfEntriesByDate.put(currentDate, numberOfEntriesByDate.containsKey(currentDate)?numberOfEntriesByDate.get(currentDate) + 1 : 1);
+			String supplierCode = entry.getSupplier() == null ? "" : entry.getSupplier().getSupplierCode();
+			String key = supplierCode + "|" + entry.getArrivalDate();
+			groups.computeIfAbsent(key, ignored -> new Vector<>()).add(entry);
 		}
-		
-		// overwrite the entries with new results
-		entries = new Vector<>();
-		for (String arrivalDate : entriesByDate.keySet()) {
-			Entry entry = entriesByDate.get(arrivalDate);
-			entry.setSupplierEntryNumberOfProducts(numberOfEntriesByDate.get(arrivalDate));			
-			entry.setCustomers(new Vector<>());
-			entry.setNumberOfProduct(0);
-			entry.setOrderLetter("");
-			entry.setOrderNumbers("");
-			entry.setProduct(null);
-			entries.add(entry);
+
+		Vector<Entry> summaries = new Vector<>();
+		for (Vector<Entry> group : groups.values()) {
+			Entry summary = group.get(0);
+			summary.setSupplierEntryNumberOfProducts(group.size());
+			summary.setGroupedEntries(group);
+			summaries.add(summary);
 		}
-		traceabilityResult.setEntries(entries);
+		traceabilityResult.setEntries(summaries);
 		return traceabilityResult;
 	}
 	

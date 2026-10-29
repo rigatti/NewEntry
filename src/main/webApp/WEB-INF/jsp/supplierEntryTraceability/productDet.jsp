@@ -46,11 +46,39 @@ if (traceability != null) {
 
 <% } else { 
 
-	Entry entry = entries.get(Integer.valueOf(requestParams.getTraceExportIndexList())); %>
+	Entry summary = entries.get(Integer.valueOf(requestParams.getTraceExportIndexList()));
+	Vector<Entry> products = summary.getGroupedEntries();
+	if (products.isEmpty()) {
+		products = new Vector<Entry>();
+		products.add(summary);
+	} %>
 
 	<table border="0" cellpadding="10" cellspacing="0" valign="top"	width="100%" summary="Framing Table">
 		<tr>
 			<td class="layout-manager">
+				<table class="framing-table" width=95% border=0 cellspacing=1 cellpadding=3 width=100%>
+					<tr>
+						<td width="20%" class="table-text-bold">Fournisseur<br></td>
+						<td width="80%" class="table-text">
+							<%= summary.getSupplier().getSupplierName() %> (<%= summary.getSupplier().getSupplierCode() %>)<br>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%" class="table-text-bold">Date d'entrée<br></td>
+						<td width="80%" class="table-text">
+							<%= Util.formatDate(summary.getArrivalDate(), "yyyyMMdd", "dd/MM/yyyy") %><br>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%" class="table-text-bold">Nombre d'articles<br></td>
+						<td width="80%" class="table-text"><%= products.size() %><br></td>
+					</tr>
+				</table>
+				<br>
+<% for (Entry entry : products) {
+	if (entry.getProduct() == null) {
+		continue;
+	} %>
 				<table class="framing-table" width=95% border=0 cellspacing=1 cellpadding=3 width=100%>
 					<tr>
 						<td width="20%" class="table-text-bold">
@@ -152,11 +180,22 @@ if (traceability != null) {
 									%><%= "<br>" %><%
 								}
 								first = false;
-								if ( StringUtils.isNotEmpty(customer.getCode()) ) { %>
-									<%= customer.getName() %><br> 
-									<%= StringUtils.remove(customer.getAddressFurniture(), "\r\n" + customer.getName()) %><br>
-									<% if (StringUtils.isNotEmpty(customer.getCustomerOrder().getFly().getAirportCode())) { %>
-										<%= customer.getCustomerOrder().getFly().getAirportCode() + "/" + customer.getCustomerOrder().getFly().getFlyNumber() + "/" + customer.getCustomerOrder().getFly().getLtaNumber() %><br>
+								if ( StringUtils.isNotEmpty(customer.getCode()) ) {
+									if (StringUtils.isNotEmpty(customer.getName())) { %>
+									<%= customer.getName() %><br>
+									<% }
+									String address = customer.getAddressFurniture();
+									if (StringUtils.isNotEmpty(customer.getName())) {
+										address = StringUtils.remove(address, "\r\n" + customer.getName());
+									}
+									if (StringUtils.isNotEmpty(address)) { %>
+									<%= address %><br>
+									<% }
+									if (customer.getCustomerOrder() != null && customer.getCustomerOrder().getFly() != null
+											&& StringUtils.isNotEmpty(customer.getCustomerOrder().getFly().getAirportCode())) {
+										String flyNumber = customer.getCustomerOrder().getFly().getFlyNumber();
+										String ltaNumber = customer.getCustomerOrder().getFly().getLtaNumber(); %>
+										<%= customer.getCustomerOrder().getFly().getAirportCode() + "/" + (flyNumber == null ? "" : flyNumber) + "/" + (ltaNumber == null ? "" : ltaNumber) %><br>
 									<% } %>
 								<% } else if (customer.isStockCustomer()){ %>
 									En stock<br>
@@ -177,6 +216,7 @@ if (traceability != null) {
 					</tr>
 				</table>
 				<br>
+<% } %>
 				<center>
 					<form name="frmData" action="${flowExecutionUrl}" method="post">
 						<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
