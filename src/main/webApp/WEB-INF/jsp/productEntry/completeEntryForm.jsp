@@ -39,9 +39,9 @@ for (int i=0; i < product.getUnits().size(); i++) {
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/dateSelector.js"></script>
 	<script type="text/javascript">
 		<!--
-			function afterBarCodeEvent(data){
-				window.document.getElementById("entry.product.newProductEan").value = data;
-			}
+			//function afterBarCodeEvent(data){
+			//	window.document.getElementById("entry.product.newProductEan").value = data;
+			//}
 
 			function addItem(nbr) {
 				var inputField = window.document.getElementById("entry.numberOfProduct");
@@ -492,7 +492,7 @@ for (int i=0; i < product.getUnits().size(); i++) {
 		//-->
 	</script>
 	
-	<%@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" %>
+	<%--@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" --%>
 		
 </body>
 </html>

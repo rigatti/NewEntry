@@ -15,7 +15,6 @@
 
 	<center>
 		<H1>Menu</h1>
-		
 		<table border="0" cellpadding="10" cellspacing="0" valign="top" width="30%" summary="Framing Table">
 			<tr>
 				<td class="layout-manager-notabs">
@@ -25,6 +24,17 @@
 								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/arrival">Arrivée de marchandise</a><br>
 							</td>
 						</tr>
+					</table>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+
+		<table border="0" cellpadding="10" cellspacing="0" valign="top" width="30%" summary="Framing Table">
+			<tr>
+				<td class="layout-manager-notabs">
+					<table class="framing-table" width=100% border=0 cellspacing=1 cellpadding=3 width=100%>
 						<tr>
 							<td class="table-text-bold">
 								<a class="ctextunderlined" href="<%= request.getContextPath() %>/flow/allocation">Attribution des marchandises reçues</a><br>
@@ -69,7 +79,7 @@
                                         }
                                     //-->
                                 </script>
-                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrm();">Nettoyage DB</a><br>
+                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrm();">Nettoyage DB</a> (4 ans)<br>
                             </td>
                         </tr>
                         <tr>
@@ -83,7 +93,7 @@
                                         }
                                     }
                                 </script>
-                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportProduct();">Export Product</a><br>
+                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportProduct();">Export Product</a> (6 mois)<br>
                             </td>
                         </tr>
                         <tr>
@@ -97,7 +107,7 @@
                                         }
                                     }
                                 </script>
-                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportCustomer();">Export Customer</a><br>
+                                <a class="ctextunderlined" href="javascript:void(0)" onclick="sendFrmExportCustomer();">Export Customer</a> (6 mois)<br>
                             </td>
                         </tr>
                     </table>

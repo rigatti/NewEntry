@@ -13,12 +13,12 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 	<script type="text/javascript" src="<%= request.getContextPath() %>/scripts/general.js"></script>
 	<script type="text/javascript">
 		<!--
-			function afterBarCodeEvent(data){
-				window.document.getElementById('searchCodeInput').value = data;
-				if (checkFrm(window.document.nextFrm)) {
-					window.document.nextFrm.submit();
-				}
-			}
+			//function afterBarCodeEvent(data){
+			//	window.document.getElementById('searchCodeInput').value = data;
+			//	if (checkFrm(window.document.nextFrm)) {
+			//		window.document.nextFrm.submit();
+			//	}
+			//}
 
 			function sendListOfConfirmed(){
 				window.document.listOfConfirmedFrm.submit();
@@ -192,7 +192,7 @@ Arrival arrival = (Arrival)request.getAttribute("arrival");
 		</table>
 	</div>
 
-	<%@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" %>
+	<%--@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" --%>
 
 </body>
 </html>

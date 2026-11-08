@@ -145,7 +145,7 @@
                     <% Vector<Supplier> suppliers = arrival.getSuppliers();
                        if (suppliers != null && suppliers.size() > 0) {
                            for (int i = 0; i < suppliers.size(); i++) { %>
-                                <li
+                                <li onclick="document.getElementById('supplierCode').value='<%= suppliers.get(i).getSupplierCode() %>'; document.getElementById('selectSupplierForm').submit();"
                                 <% if (suppliers.get(i).isPending()) { %>
                                     style="background-color:#FF8000"
                                 <% } else if (suppliers.get(i).isClosed()) { %>
@@ -153,9 +153,20 @@
                                 <% } else if (suppliers.get(i).isOpened()) { %>
                                     style="background-color:#FF0000"
                                 <% } %>
-                                 ><a href="#" onclick="document.getElementById('supplierCode').value='<%= suppliers.get(i).getSupplierCode() %>'; document.getElementById('selectSupplierForm').submit();">
+                                 ><a href="#">
                                     <strong><%= suppliers.get(i).getSupplierCode() %></strong> - <%= suppliers.get(i).getSupplierName() %>
-                                    </a></li>
+                                    <% if (suppliers.get(i).getOrders() != null && suppliers.get(i).getOrders().size() > 0) {
+
+                                        java.util.Map<Integer, String> orderNumbers = new java.util.HashMap<Integer, String>();
+                                        for (int j = 0; j < suppliers.get(i).getOrders().size(); j++) {
+                                            orderNumbers.put(suppliers.get(i).getOrders().get(j).getNumber(), "");
+                                        } %>
+
+                                        <nobr>
+                                            <%= orderNumbers.keySet() %>
+                                        </nobr>
+                                    <% } %>
+                                  </a></li>
                     <%  }
                        } else { %>
                             <p class="no-suppliers">Aucun fournisseur n'est planifié pour cette date sélectionnée.</p>

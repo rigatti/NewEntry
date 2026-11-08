@@ -8,9 +8,9 @@
 
 	<script type="text/javascript">
 		<!--
-			function afterBarCodeEvent(data){
-				window.document.getElementById('newProductEan').value = data;
-			}
+			//function afterBarCodeEvent(data){
+			//	window.document.getElementById('newProductEan').value = data;
+			//}
 
 			function checkValues(obj) {
 
@@ -92,6 +92,6 @@
 		</form>
 	</div>
 
-	<%@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" %>
+	<%--@ include file="/WEB-INF/jsp/productEntry/jspf/barCode/simulator.jspf" --%>
 </body>
 </html>
